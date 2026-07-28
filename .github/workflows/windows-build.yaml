@@ -48,8 +48,8 @@ jobs:
 
       # THIS STEP ONLY RUNS IF TRIGGERED BY A PUBLISHED RELEASE
     - name: Sign Binary (Release Only)
-        if: github.event_name == 'release'
-        run: echo "Run your signing command or action here"
+      if: github.event_name == 'release'
+      run: echo "Run your signing command or action here"
 
     - name: Upload Installer Artifact (Push only)
       if: github.event_name == 'push'
