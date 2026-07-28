@@ -1,0 +1,12 @@
+bs4
+certifi
+lxml
+markdown
+mkdocs
+mkdocs-glightbox
+mkdocs-material
+pyinstaller
+reportlab
+requests
+ttkbootstrap
+ 

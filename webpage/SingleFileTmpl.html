@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB" lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title id="title"></title>
+	<script id="resultdata">
+	// Sample JSON data (output by the utility)
+let eventInfo = {"clubname": "The Bridge Club Aberdeen", "eventname": "Mackenzie - Monday 01 Jul 2024"};
+let rankings = [{"pos": "1", "pairnum": 4, "pair": "Marie Mitchell & Steven Pomeroy", "score": "313.9", "max": "486", "percent": "64.59", "mps": 40, "ss": 0, "gs": 0}, {"pos": "2", "pairnum": 7, "pair": "Anne Brown & Doris Campbell", "score": "289.2", "max": "486", "percent": "59.51", "mps": 30, "ss": 0, "gs": 0}, {"pos": "3", "pairnum": 2, "pair": "Margaret Dow & Kendall Knight", "score": "260.5", "max": "486", "percent": "53.60", "mps": 20, "ss": 0, "gs": 0}, {"pos": "4", "pairnum": 6, "pair": "Joe McCann & Beatrice McCann", "score": "257.2", "max": "486", "percent": "52.92", "mps": 10, "ss": 0, "gs": 0}, {"pos": "5", "pairnum": 8, "pair": "Brian Hamilton & John Gillespie", "score": "238.9", "max": "486", "percent": "49.16", "mps": 0, "ss": 0, "gs": 0}, {"pos": "6", "pairnum": 9, "pair": "Sandra Skilling & Russell McNicol", "score": "236.9", "max": "486", "percent": "48.74", "mps": 0, "ss": 0, "gs": 0}, {"pos": "7", "pairnum": 1, "pair": "Steve Findlay & Donald Campbell", "score": "235.1", "max": "486", "percent": "48.37", "mps": 0, "ss": 0, "gs": 0}, {"pos": "8", "pairnum": 10, "pair": "Colin Boag & Sandra McIntosh", "score": "203.1", "max": "486", "percent": "41.79", "mps": 0, "ss": 0, "gs": 0}, {"pos": "9", "pairnum": 3, "pair": "Carole Lovie & Linda Juroszek", "score": "200.4", "max": "486", "percent": "41.23", "mps": 0, "ss": 0, "gs": 0}, {"pos": "10", "pairnum": 5, "pair": "John Johnston & Vivien Johnston", "score": "194.0", "max": "486", "percent": "39.92", "mps": 0, "ss": 0, "gs": 0}];
+let rankingsew = [{"pos": "1", "pairnum": 19, "pair": "Emily Garden & Scott Dundas", "score": "305.4", "max": "486", "percent": "62.84", "mps": 40, "ss": 1, "gs": 0}, {"pos": "2", "pairnum": 12, "pair": "Graham Johnson & Mike Hodder", "score": "305.4", "max": "486", "percent": "62.84", "mps": 30, "ss": 1, "gs": 0}, {"pos": "3", "pairnum": 16, "pair": "Quentin Stephens & Neil Scott", "score": "260.1", "max": "486", "percent": "53.52", "mps": 20, "ss": 1, "gs": 0}, {"pos": "4", "pairnum": 15, "pair": "Susan Buchan & Anne McLellan", "score": "250.2", "max": "486", "percent": "51.48", "mps": 10, "ss": 0, "gs": 0}, {"pos": "5", "pairnum": 11, "pair": "Margaret Hodder & Neil Lovie", "score": "245.5", "max": "486", "percent": "50.51", "mps": 0, "ss": 0, "gs": 0}, {"pos": "6", "pairnum": 18, "pair": "Brian Willox & Teresa Dearden", "score": "244.7", "max": "486", "percent": "50.35", "mps": 0, "ss": 0, "gs": 0}, {"pos": "7", "pairnum": 17, "pair": "Mary Motherwell & Wendy Jones", "score": "227.4", "max": "486", "percent": "46.79", "mps": 0, "ss": 1, "gs": 0}, {"pos": "8", "pairnum": 20, "pair": "Neil Cable & Alan Cable", "score": "218.3", "max": "486", "percent": "44.92", "mps": 0, "ss": 1, "gs": 0}, {"pos": "9", "pairnum": 14, "pair": "Allison Clayton & Lesley Cochrane", "score": "194.4", "max": "486", "percent": "40.00", "mps": 0, "ss": 0, "gs": 0}, {"pos": "10", "pairnum": 13, "pair": "Albert Watson & Maureen Mowat", "score": "179.4", "max": "486", "percent": "36.91", "mps": 0, "ss": 0, "gs": 0}];
+let scorecards = [{"pairnum": 4, "pair": "", "board": [{"boardNum": 1, "isNS": true, "versus": 17, "contract": "1NT", "by": "S", "lead": "5S", "tricks": 7, "plus": 90, "minus": "", "pts": 9.0, "percent": "50.00"}, {"boardNum": 2, "isNS": true, "versus": 17, "contract": "3NT", "by": "E", "lead": "2C", "tricks": 9, "plus": "", "minus": -400, "pts": 14.6, "percent": "81.11"}, {"boardNum": 3, "isNS": true, "versus": 17, "contract": "2H", "by": "N", "lead": "KD", "tricks": 10, "plus": 170, "minus": "", "pts": 10.1, "percent": "56.11"}, {"boardNum": 4, "isNS": true, "versus": 16, "contract": "4H", "by": "W", "lead": "4H", "tricks": 9, "plus": 100, "minus": "", "pts": 16.8, "percent": "93.33"}, {"boardNum": 5, "isNS": true, "versus": 16, "contract": "4S", "by": "N", "lead": "2C", "tricks": 10, "plus": 620, "minus": "", "pts": 11.2, "percent": "62.22"}, {"boardNum": 6, "isNS": true, "versus": 16, "contract": "3S", "by": "N", "lead": "AC", "tricks": 7, "plus": "", "minus": -100, "pts": 13.4, "percent": "74.44"}, {"boardNum": 10, "isNS": true, "versus": 14, "contract": "2S", "by": "N", "lead": "QH", "tricks": 9, "plus": 140, "minus": "", "pts": 7.9, "percent": "43.89"}, {"boardNum": 11, "isNS": true, "versus": 14, "contract": "4S", "by": "S", "lead": "6H", "tricks": 13, "plus": 510, "minus": "", "pts": 11.2, "percent": "62.22"}, {"boardNum": 12, "isNS": true, "versus": 14, "contract": "3S", "by": "W", "lead": "4C", "tricks": 8, "plus": 50, "minus": "", "pts": 15.7, "percent": "87.22"}, {"boardNum": 13, "isNS": true, "versus": 13, "contract": "5D", "by": "W", "lead": "7S", "tricks": 13, "plus": "", "minus": -640, "pts": 13.0, "percent": "72.22"}, {"boardNum": 14, "isNS": true, "versus": 13, "contract": "5C", "by": "E", "lead": "8S", "tricks": 12, "plus": "", "minus": -420, "pts": 14.0, "percent": "77.78"}, {"boardNum": 15, "isNS": true, "versus": 13, "contract": "3NT", "by": "S", "lead": "4H", "tricks": 10, "plus": 630, "minus": "", "pts": 12.0, "percent": "66.67"}, {"boardNum": 16, "isNS": true, "versus": 12, "contract": "2S", "by": "N", "lead": "KH", "tricks": 10, "plus": 170, "minus": "", "pts": 7.9, "percent": "43.89"}, {"boardNum": 17, "isNS": true, "versus": 12, "contract": "3D", "by": "S", "lead": "QH", "tricks": 8, "plus": "", "minus": -50, "pts": 13.4, "percent": "74.44"}, {"boardNum": 18, "isNS": true, "versus": 12, "contract": "4S", "by": "E", "lead": "8H", "tricks": 11, "plus": "", "minus": -450, "pts": 11.2, "percent": "62.22"}, {"boardNum": 19, "isNS": true, "versus": 11, "contract": "4H", "by": "N", "lead": "5C", "tricks": 10, "plus": 420, "minus": "", "pts": 9.0, "percent": "50.00"}, {"boardNum": 20, "isNS": true, "versus": 11, "contract": "4SX", "by": "W", "lead": "KC", "tricks": 8, "plus": 500, "minus": "", "pts": 17.9, "percent": "99.44"}, {"boardNum": 21, "isNS": true, "versus": 11, "contract": "2S", "by": "N", "lead": "6D", "tricks": 9, "plus": 140, "minus": "", "pts": 13.4, "percent": "74.44"}, {"boardNum": 22, "isNS": true, "versus": 20, "contract": "3NT", "by": "S", "lead": "10C", "tricks": 11, "plus": 460, "minus": "", "pts": 15.7, "percent": "87.22"}, {"boardNum": 23, "isNS": true, "versus": 20, "contract": "5D", "by": "S", "lead": "10H", "tricks": 9, "plus": "", "minus": -200, "pts": 0.1, "percent": "0.56"}, {"boardNum": 24, "isNS": true, "versus": 20, "contract": "3D", "by": "S", "lead": "2S", "tricks": 10, "plus": 130, "minus": "", "pts": 13.4, "percent": "74.44"}, {"boardNum": 25, "isNS": true, "versus": 19, "contract": "3CX", "by": "S", "lead": "KD", "tricks": 9, "plus": 470, "minus": "", "pts": 17.9, "percent": "99.44"}, {"boardNum": 26, "isNS": true, "versus": 19, "contract": "3H", "by": "N", "lead": "JD", "tricks": 11, "plus": 200, "minus": "", "pts": 15.7, "percent": "87.22"}, {"boardNum": 27, "isNS": true, "versus": 19, "contract": "3C", "by": "E", "lead": "2S", "tricks": 12, "plus": "", "minus": -170, "pts": 12.3, "percent": "68.33"}, {"boardNum": 28, "isNS": true, "versus": 18, "contract": "4D", "by": "E", "lead": "AH", "tricks": 10, "plus": "", "minus": -130, "pts": 9.0, "percent": "50.00"}, {"boardNum": 29, "isNS": true, "versus": 18, "contract": "2H", "by": "N", "lead": "KS", "tricks": 6, "plus": "", "minus": -200, "pts": 5.3, "percent": "29.44"}, {"boardNum": 30, "isNS": true, "versus": 18, "contract": "4S", "by": "E", "lead": "8D", "tricks": 13, "plus": "", "minus": -510, "pts": 2.8, "percent": "15.56"}]}, {"pairnum": 7, "pair": "", "board": [{"boardNum": 1, "isNS": true, "versus": 14, "contract": "2D", "by": "S", "lead": "10S", "tricks": 11, "plus": 150, "minus": "", "pts": 11.2, "percent": "62.22"}, {"boardNum": 2, "isNS": true, "versus": 14, "contract": "2S", "by": "E", "lead": "2C", "tricks": 10, "plus": "", "minus": -170, "pts": 17.9, "percent": "99.44"}, {"boardNum": 3, "isNS": true, "versus": 14, "contract": "4H", "by": "N", "lead": "KD", "tricks": 10, "plus": 420, "minus": "", "pts": 16.8, "percent": "93.33"}, {"boardNum": 4, "isNS": true, "versus": 13, "contract": "2H", "by": "W", "lead": "4H", "tricks": 10, "plus": "", "minus": -170, "pts": 13.4, "percent": "74.44"}, {"boardNum": 5, "isNS": true, "versus": 13, "contract": "5S", "by": "N", "lead": "QH", "tricks": 11, "plus": 650, "minus": "", "pts": 15.7, "percent": "87.22"}, {"boardNum": 6, "isNS": true, "versus": 13, "contract": "1NT", "by": "E", "lead": "10D", "tricks": 8, "plus": "", "minus": -120, "pts": 9.0, "percent": "50.00"}, {"boardNum": 7, "isNS": true, "versus": 12, "contract": "4S", "by": "W", "lead": "JC", "tricks": 11, "plus": "", "minus": -650, "pts": 12.3, "percent": "68.33"}, {"boardNum": 8, "isNS": true, "versus": 12, "contract": "5D", "by": "W", "lead": "AH", "tricks": 11, "plus": "", "minus": -400, "pts": 9.0, "percent": "50.00"}, {"boardNum": 9, "isNS": true, "versus": 12, "contract": "2H", "by": "S", "lead": "9S", "tricks": 10, "plus": 170, "minus": "", "pts": 3.4, "percent": "18.89"}, {"boardNum": 10, "isNS": true, "versus": 11, "contract": "3C", "by": "E", "lead": "AS", "tricks": 9, "plus": "", "minus": -110, "pts": 1.2, "percent": "6.67"}, {"boardNum": 11, "isNS": true, "versus": 11, "contract": "4S", "by": "S", "lead": "3H", "tricks": 13, "plus": 510, "minus": "", "pts": 11.2, "percent": "62.22"}, {"boardNum": 12, "isNS": true, "versus": 11, "contract": "1S", "by": "E", "lead": "QD", "tricks": 9, "plus": "", "minus": -140, "pts": 7.9, "percent": "43.89"}, {"boardNum": 13, "isNS": true, "versus": 20, "contract": "3NT", "by": "W", "lead": "7S", "tricks": 11, "plus": "", "minus": -660, "pts": 9.0, "percent": "50.00"}, {"boardNum": 14, "isNS": true, "versus": 20, "contract": "5C", "by": "E", "lead": "AH", "tricks": 12, "plus": "", "minus": -420, "pts": 14.0, "percent": "77.78"}, {"boardNum": 15, "isNS": true, "versus": 20, "contract": "3NT", "by": "S", "lead": "5S", "tricks": 11, "plus": 660, "minus": "", "pts": 18.0, "percent": "100.00"}, {"boardNum": 16, "isNS": true, "versus": 19, "contract": "4H", "by": "W", "lead": "KS", "tricks": 8, "plus": 200, "minus": "", "pts": 12.3, "percent": "68.33"}, {"boardNum": 17, "isNS": true, "versus": 19, "contract": "4DX", "by": "S", "lead": "QH", "tricks": 7, "plus": "", "minus": -500, "pts": 0.1, "percent": "0.56"}, {"boardNum": 18, "isNS": true, "versus": 19, "contract": "4S", "by": "E", "lead": "9H", "tricks": 11, "plus": "", "minus": -450, "pts": 11.2, "percent": "62.22"}, {"boardNum": 22, "isNS": true, "versus": 17, "contract": "4H", "by": "N", "lead": "AD", "tricks": 11, "plus": 450, "minus": "", "pts": 11.2, "percent": "62.22"}, {"boardNum": 23, "isNS": true, "versus": 17, "contract": "4D", "by": "N", "lead": "AS", "tricks": 9, "plus": "", "minus": -100, "pts": 10.1, "percent": "56.11"}, {"boardNum": 24, "isNS": true, "versus": 17, "contract": "2NT", "by": "S", "lead": "2C", "tricks": 9, "plus": 150, "minus": "", "pts": 15.7, "percent": "87.22"}, {"boardNum": 25, "isNS": true, "versus": 16, "contract": "2H", "by": "N", "lead": "9C", "tricks": 7, "plus": "", "minus": -50, "pts": 10.1, "percent": "56.11"}, {"boardNum": 26, "isNS": true, "versus": 16, "contract": "5C", "by": "S", "lead": "AD", "tricks": 12, "plus": 620, "minus": "", "pts": 17.9, "percent": "99.44"}, {"boardNum": 27, "isNS": true, "versus": 16, "contract": "4C", "by": "E", "lead": "3C", "tricks": 12, "plus": "", "minus": -170, "pts": 12.3, "percent": "68.33"}, {"boardNum": 28, "isNS": true, "versus": 15, "contract": "3C", "by": "W", "lead": "AS", "tricks": 12, "plus": "", "minus": -170, "pts": 0.3, "percent": "1.67"}, {"boardNum": 29, "isNS": true, "versus": 15, "contract": "3NT", "by": "W", "lead": "5H", "tricks": 9, "plus": "", "minus": -600, "pts": 2.8, "percent": "15.56"}, {"boardNum": 30, "isNS": true, "versus": 15, "contract": "2H", "by": "W", "lead": "KD", "tricks": 13, "plus": "", "minus": -260, "pts": 15.2, "percent": "84.44"}]}, {"pairnum": 2, "pair": "", "board": [{"boardNum": 4, "isNS": true, "versus": 12, "contract": "4H", "by": "W", "lead": "6S", "tricks": 10, "plus": "", "minus": -620, "pts": 6.8, "percent": "37.78"}, {"boardNum": 5, "isNS": true, "versus": 12, "contract": "5S", "by": "S", "lead": "KD", "tricks": 9, "plus": "", "minus": -200, "pts": 0.1, "percent": "0.56"}, {"boardNum": 6, "isNS": true, "versus": 12, "contract": "2S", "by": "N", "lead": "AC", "tricks": 6, "plus": "", "minus": -100, "pts": 13.4, "percent": "74.44"}, {"boardNum": 7, "isNS": true, "versus": 11, "contract": "5C", "by": "E", "lead": "10S", "tricks": 13, "plus": "", "minus": -640, "pts": 15.7, "percent": "87.22"}, {"boardNum": 8, "isNS": true, "versus": 11, "contract": "5D", "by": "W", "lead": "AH", "tricks": 11, "plus": "", "minus": -400, "pts": 9.0, "percent": "50.00"}, {"boardNum": 9, "isNS": true, "versus": 11, "contract": "4H", "by": "S", "lead": "5S", "tricks": 10, "plus": 420, "minus": "", "pts": 9.0, "percent": "50.00"}, {"boardNum": 10, "isNS": true, "versus": 20, "contract": "3S", "by": "N", "lead": "AC", "tricks": 10, "plus": 170, "minus": "", "pts": 13.4, "percent": "74.44"}, {"boardNum": 11, "isNS": true, "versus": 20, "contract": "4S", "by": "S", "lead": "QD", "tricks": 13, "plus": 510, "minus": "", "pts": 11.2, "percent": "62.22"}, {"boardNum": 12, "isNS": true, "versus": 20, "contract": "3D", "by": "S", "lead": "KS", "tricks": 8, "plus": "", "minus": -100, "pts": 13.4, "percent": "74.44"}, {"boardNum": 13, "isNS": true, "versus": 19, "contract": "3NT", "by": "W", "lead": "7S", "tricks": 13, "plus": "", "minus": -720, "pts": 4.0, "percent": "22.22"}, {"boardNum": 14, "isNS": true, "versus": 19, "contract": "3NT", "by": "W", "lead": "QS", "tricks": 13, "plus": "", "minus": -520, "pts": 3.0, "percent": "16.67"}, {"boardNum": 15, "isNS": true, "versus": 19, "contract": "3NT", "by": "S", "lead": "5S", "tricks": 9, "plus": 600, "minus": "", "pts": 5.0, "percent": "27.78"}, {"boardNum": 16, "isNS": true, "versus": 18, "contract": "5H", "by": "W", "lead": "AD", "tricks": 8, "plus": 300, "minus": "", "pts": 15.7, "percent": "87.22"}, {"boardNum": 17, "isNS": true, "versus": 18, "contract": "3D", "by": "S", "lead": "6S", "tricks": 7, "plus": "", "minus": -100, "pts": 10.1, "percent": "56.11"}, {"boardNum": 18, "isNS": true, "versus": 18, "contract": "4S", "by": "E", "lead": "9H", "tricks": 11, "plus": "", "minus": -450, "pts": 11.2, "percent": "62.22"}, {"boardNum": 19, "isNS": true, "versus": 17, "contract": "3NT", "by": "S", "lead": "JD", "tricks": 11, "plus": 460, "minus": "", "pts": 17.9, "percent": "99.44"}, {"boardNum": 20, "isNS": true, "versus": 17, "contract": "3S", "by": "W", "lead": "KC", "tricks": 9, "plus": "", "minus": -140, "pts": 4.6, "percent": "25.56"}, {"boardNum": 21, "isNS": true, "versus": 17, "contract": "2S", "by": "N", "lead": "JD", "tricks": 9, "plus": 140, "minus": "", "pts": 13.4, "percent": "74.44"}, {"boardNum": 22, "isNS": true, "versus": 16, "contract": "3NT", "by": "S", "lead": "10C", "tricks": 11, "plus": 460, "minus": "", "pts": 15.7, "percent": "87.22"}, {"boardNum": 23, "isNS": true, "versus": 16, "contract": "4S", "by": "E", "lead": "KC", "tricks": 9, "plus": 100, "minus": "", "pts": 13.4, "percent": "74.44"}, {"boardNum": 24, "isNS": true, "versus": 16, "contract": "2S", "by": "N", "lead": "AH", "tricks": 8, "plus": 110, "minus": "", "pts": 9.0, "percent": "50.00"}, {"boardNum": 25, "isNS": true, "versus": 15, "contract": "3D", "by": "E", "lead": "9H", "tricks": 9, "plus": "", "minus": -110, "pts": 4.6, "percent": "25.56"}, {"boardNum": 26, "isNS": true, "versus": 15, "contract": "3H", "by": "N", "lead": "AS", "tricks": 7, "plus": "", "minus": -200, "pts": 2.3, "percent": "12.78"}, {"boardNum": 27, "isNS": true, "versus": 15, "contract": "3H", "by": "E", "lead": "3C", "tricks": 12, "plus": "", "minus": -230, "pts": 7.9, "percent": "43.89"}, {"boardNum": 28, "isNS": true, "versus": 14, "contract": "2D", "by": "E", "lead": "4C", "tricks": 11, "plus": "", "minus": -150, "pts": 2.8, "percent": "15.56"}, {"boardNum": 29, "isNS": true, "versus": 14, "contract": "3H", "by": "W", "lead": "9D", "tricks": 8, "plus": 100, "minus": "", "pts": 17.7, "percent": "98.33"}, {"boardNum": 30, "isNS": true, "versus": 14, "contract": "4S", "by": "E", "lead": "7S", "tricks": 11, "plus": "", "minus": -450, "pts": 10.2, "percent": "56.67"}]}, {"pairnum": 6, "pair": "", "board": [{"boardNum": 1, "isNS": true, "versus": 12, "contract": "3NT", "by": "S", "lead": "5S", "tricks": 10, "plus": 430, "minus": "", "pts": 17.9, "percent": "99.44"}, {"boardNum": 2, "isNS": true, "versus": 12, "contract": "3NT", "by": "W", "lead": "6H", "tricks": 11, "plus": "", "minus": -460, "pts": 1.2, "percent": "6.67"}, {"boardNum": 3, "isNS": true, "versus": 12, "contract": "3H", "by": "N", "lead": "KD", "tricks": 9, "plus": 140, "minus": "", "pts": 5.7, "percent": "31.67"}, {"boardNum": 4, "isNS": true, "versus": 11, "contract": "4H", "by": "W", "lead": "6D", "tricks": 9, "plus": 100, "minus": "", "pts": 16.8, "percent": "93.33"}, {"boardNum": 5, "isNS": true, "versus": 11, "contract": "5HX", "by": "W", "lead": "KC", "tricks": 7, "plus": 800, "minus": "", "pts": 17.9, "percent": "99.44"}, {"boardNum": 6, "isNS": true, "versus": 11, "contract": "3C", "by": "E", "lead": "7S", "tricks": 8, "plus": 100, "minus": "", "pts": 17.9, "percent": "99.44"}, {"boardNum": 7, "isNS": true, "versus": 20, "contract": "6H", "by": "W", "lead": "JC", "tricks": 13, "plus": "", "minus": -1460, "pts": 1.2, "percent": "6.67"}, {"boardNum": 8, "isNS": true, "versus": 20, "contract": "5D", "by": "W", "lead": "AS", "tricks": 11, "plus": "", "minus": -400, "pts": 9.0, "percent": "50.00"}, {"boardNum": 9, "isNS": true, "versus": 20, "contract": "4H", "by": "S", "lead": "JC", "tricks": 12, "plus": 480, "minus": "", "pts": 17.9, "percent": "99.44"}, {"boardNum": 10, "isNS": true, "versus": 19, "contract": "3S", "by": "N", "lead": "KC", "tricks": 8, "plus": "", "minus": -100, "pts": 4.6, "percent": "25.56"}, {"boardNum": 11, "isNS": true, "versus": 19, "contract": "4S", "by": "S", "lead": "7D", "tricks": 13, "plus": 510, "minus": "", "pts": 11.2, "percent": "62.22"}, {"boardNum": 12, "isNS": true, "versus": 19, "contract": "3S", "by": "W", "lead": "QD", "tricks": 11, "plus": "", "minus": -200, "pts": 1.2, "percent": "6.67"}, {"boardNum": 13, "isNS": true, "versus": 18, "contract": "3NT", "by": "W", "lead": "4S", "tricks": 12, "plus": "", "minus": -690, "pts": 6.0, "percent": "33.33"}, {"boardNum": 14, "isNS": true, "versus": 18, "contract": "5SX", "by": "N", "lead": "AC", "tricks": 8, "plus": "", "minus": -500, "pts": 6.0, "percent": "33.33"}, {"boardNum": 15, "isNS": true, "versus": 18, "contract": "3NT", "by": "S", "lead": "4H", "tricks": 10, "plus": 630, "minus": "", "pts": 12.0, "percent": "66.67"}, {"boardNum": 19, "isNS": true, "versus": 16, "contract": "4H", "by": "N", "lead": "AD", "tricks": 10, "plus": 420, "minus": "", "pts": 9.0, "percent": "50.00"}, {"boardNum": 20, "isNS": true, "versus": 16, "contract": "2S", "by": "W", "lead": "KC", "tricks": 9, "plus": "", "minus": -140, "pts": 4.6, "percent": "25.56"}, {"boardNum": 21, "isNS": true, "versus": 16, "contract": "4S", "by": "N", "lead": "2D", "tricks": 9, "plus": "", "minus": -100, "pts": 3.4, "percent": "18.89"}, {"boardNum": 22, "isNS": true, "versus": 15, "contract": "1NT", "by": "N", "lead": "10C", "tricks": 10, "plus": 180, "minus": "", "pts": 4.6, "percent": "25.56"}, {"boardNum": 23, "isNS": true, "versus": 15, "contract": "2NT", "by": "S", "lead": "5H", "tricks": 9, "plus": 150, "minus": "", "pts": 15.7, "percent": "87.22"}, {"boardNum": 24, "isNS": true, "versus": 15, "contract": "2S", "by": "N", "lead": "AH", "tricks": 7, "plus": "", "minus": -50, "pts": 2.3, "percent": "12.78"}, {"boardNum": 25, "isNS": true, "versus": 14, "contract": "3NT", "by": "N", "lead": "10S", "tricks": 6, "plus": "", "minus": -150, "pts": 2.3, "percent": "12.78"}, {"boardNum": 26, "isNS": true, "versus": 14, "contract": "3C", "by": "S", "lead": "AD", "tricks": 12, "plus": 170, "minus": "", "pts": 11.2, "percent": "62.22"}, {"boardNum": 27, "isNS": true, "versus": 14, "contract": "3C", "by": "E", "lead": "JS", "tricks": 10, "plus": "", "minus": -130, "pts": 15.7, "percent": "87.22"}, {"boardNum": 28, "isNS": true, "versus": 13, "contract": "5C", "by": "W", "lead": "AS", "tricks": 10, "plus": 50, "minus": "", "pts": 17.7, "percent": "98.33"}, {"boardNum": 29, "isNS": true, "versus": 13, "contract": "2D", "by": "E", "lead": "6H", "tricks": 9, "plus": "", "minus": -110, "pts": 14.0, "percent": "77.78"}, {"boardNum": 30, "isNS": true, "versus": 13, "contract": "4S", "by": "E", "lead": "JD", "tricks": 11, "plus": "", "minus": -450, "pts": 10.2, "percent": "56.67"}]}, {"pairnum": 8, "pair": "", "board": [{"boardNum": 1, "isNS": true, "versus": 16, "contract": "3NT", "by": "S", "lead": "5S", "tricks": 9, "plus": 400, "minus": "", "pts": 14.6, "percent": "81.11"}, {"boardNum": 2, "isNS": true, "versus": 16, "contract": "3NT", "by": "W", "lead": "8H", "tricks": 10, "plus": "", "minus": -430, "pts": 6.8, "percent": "37.78"}, {"boardNum": 3, "isNS": true, "versus": 16, "contract": "2S", "by": "N", "lead": "KD", "tricks": 9, "plus": 140, "minus": "", "pts": 5.7, "percent": "31.67"}, {"boardNum": 4, "isNS": true, "versus": 15, "contract": "4H", "by": "W", "lead": "4H", "tricks": 10, "plus": "", "minus": -620, "pts": 6.8, "percent": "37.78"}, {"boardNum": 5, "isNS": true, "versus": 15, "contract": "4S", "by": "N", "lead": "8D", "tricks": 9, "plus": "", "minus": -100, "pts": 4.6, "percent": "25.56"}, {"boardNum": 6, "isNS": true, "versus": 15, "contract": "2S", "by": "N", "lead": "AC", "tricks": 6, "plus": "", "minus": -100, "pts": 13.4, "percent": "74.44"}, {"boardNum": 7, "isNS": true, "versus": 14, "contract": "5NT", "by": "W", "lead": "10H", "tricks": 12, "plus": "", "minus": -690, "pts": 9.0, "percent": "50.00"}, {"boardNum": 8, "isNS": true, "versus": 14, "contract": "5D", "by": "W", "lead": "AS", "tricks": 10, "plus": 50, "minus": "", "pts": 17.9, "percent": "99.44"}, {"boardNum": 9, "isNS": true, "versus": 14, "contract": "4H", "by": "S", "lead": "9C", "tricks": 11, "plus": 450, "minus": "", "pts": 14.6, "percent": "81.11"}, {"boardNum": 10, "isNS": true, "versus": 13, "contract": "2S", "by": "N", "lead": "QH", "tricks": 10, "plus": 170, "minus": "", "pts": 13.4, "percent": "74.44"}, {"boardNum": 11, "isNS": true, "versus": 13, "contract": "4S", "by": "S", "lead": "QD", "tricks": 13, "plus": 510, "minus": "", "pts": 11.2, "percent": "62.22"}, {"boardNum": 12, "isNS": true, "versus": 13, "contract": "1S", "by": "W", "lead": "4D", "tricks": 8, "plus": "", "minus": -110, "pts": 11.2, "percent": "62.22"}, {"boardNum": 13, "isNS": true, "versus": 12, "contract": "6D", "by": "W", "lead": "7S", "tricks": 13, "plus": "", "minus": -1390, "pts": 1.0, "percent": "5.56"}, {"boardNum": 14, "isNS": true, "versus": 12, "contract": "3NT", "by": "W", "lead": "QS", "tricks": 13, "plus": "", "minus": -520, "pts": 3.0, "percent": "16.67"}, {"boardNum": 15, "isNS": true, "versus": 12, "contract": "3D", "by": "S", "lead": "4H", "tricks": 10, "plus": 130, "minus": "", "pts": 2.0, "percent": "11.11"}, {"boardNum": 16, "isNS": true, "versus": 11, "contract": "4H", "by": "W", "lead": "AD", "tricks": 8, "plus": 200, "minus": "", "pts": 12.3, "percent": "68.33"}, {"boardNum": 17, "isNS": true, "versus": 11, "contract": "3NT", "by": "N", "lead": "4S", "tricks": 9, "plus": 400, "minus": "", "pts": 16.8, "percent": "93.33"}, {"boardNum": 18, "isNS": true, "versus": 11, "contract": "4NT", "by": "E", "lead": "5D", "tricks": 12, "plus": "", "minus": -490, "pts": 0.1, "percent": "0.56"}, {"boardNum": 19, "isNS": true, "versus": 20, "contract": "3NT", "by": "S", "lead": "6C", "tricks": 7, "plus": "", "minus": -100, "pts": 1.2, "percent": "6.67"}, {"boardNum": 20, "isNS": true, "versus": 20, "contract": "3S", "by": "W", "lead": "KH", "tricks": 9, "plus": "", "minus": -140, "pts": 4.6, "percent": "25.56"}, {"boardNum": 21, "isNS": true, "versus": 20, "contract": "2S", "by": "S", "lead": "10D", "tricks": 9, "plus": 140, "minus": "", "pts": 13.4, "percent": "74.44"}, {"boardNum": 25, "isNS": true, "versus": 18, "contract": "2H", "by": "N", "lead": "5S", "tricks": 7, "plus": "", "minus": -50, "pts": 10.1, "percent": "56.11"}, {"boardNum": 26, "isNS": true, "versus": 18, "contract": "4C", "by": "S", "lead": "AD", "tricks": 12, "plus": 170, "minus": "", "pts": 11.2, "percent": "62.22"}, {"boardNum": 27, "isNS": true, "versus": 18, "contract": "4H", "by": "E", "lead": "3C", "tricks": 11, "plus": "", "minus": -450, "pts": 4.6, "percent": "25.56"}, {"boardNum": 28, "isNS": true, "versus": 17, "contract": "2D", "by": "E", "lead": "3S", "tricks": 10, "plus": "", "minus": -130, "pts": 9.0, "percent": "50.00"}, {"boardNum": 29, "isNS": true, "versus": 17, "contract": "3D", "by": "E", "lead": "6H", "tricks": 10, "plus": "", "minus": -130, "pts": 10.2, "percent": "56.67"}, {"boardNum": 30, "isNS": true, "versus": 17, "contract": "5S", "by": "E", "lead": "6C", "tricks": 11, "plus": "", "minus": -450, "pts": 10.2, "percent": "56.67"}]}, {"pairnum": 9, "pair": "", "board": [{"boardNum": 1, "isNS": true, "versus": 18, "contract": "1NT", "by": "S", "lead": "3S", "tricks": 6, "plus": "", "minus": -50, "pts": 5.7, "percent": "31.67"}, {"boardNum": 2, "isNS": true, "versus": 18, "contract": "3NT", "by": "W", "lead": "6H", "tricks": 10, "plus": "", "minus": -430, "pts": 6.8, "percent": "37.78"}, {"boardNum": 3, "isNS": true, "versus": 18, "contract": "4H", "by": "N", "lead": "KD", "tricks": 10, "plus": 420, "minus": "", "pts": 16.8, "percent": "93.33"}, {"boardNum": 4, "isNS": true, "versus": 17, "contract": "4H", "by": "W", "lead": "6C", "tricks": 11, "plus": "", "minus": -650, "pts": 1.2, "percent": "6.67"}, {"boardNum": 5, "isNS": true, "versus": 17, "contract": "4S", "by": "S", "lead": "AH", "tricks": 10, "plus": 620, "minus": "", "pts": 11.2, "percent": "62.22"}, {"boardNum": 6, "isNS": true, "versus": 17, "contract": "1NT", "by": "E", "lead": "AD", "tricks": 9, "plus": "", "minus": -150, "pts": 3.4, "percent": "18.89"}, {"boardNum": 7, "isNS": true, "versus": 16, "contract": "5S", "by": "W", "lead": "JC", "tricks": 11, "plus": "", "minus": -650, "pts": 12.3, "percent": "68.33"}, {"boardNum": 8, "isNS": true, "versus": 16, "contract": "5D", "by": "W", "lead": "AH", "tricks": 12, "plus": "", "minus": -420, "pts": 1.2, "percent": "6.67"}, {"boardNum": 9, "isNS": true, "versus": 16, "contract": "3H", "by": "S", "lead": "9S", "tricks": 10, "plus": 170, "minus": "", "pts": 3.4, "percent": "18.89"}, {"boardNum": 10, "isNS": true, "versus": 15, "contract": "2S", "by": "N", "lead": "AC", "tricks": 10, "plus": 170, "minus": "", "pts": 13.4, "percent": "74.44"}, {"boardNum": 11, "isNS": true, "versus": 15, "contract": "4S", "by": "S", "lead": "3H", "tricks": 12, "plus": 480, "minus": "", "pts": 1.2, "percent": "6.67"}, {"boardNum": 12, "isNS": true, "versus": 15, "contract": "2D", "by": "S", "lead": "AS", "tricks": 8, "plus": 90, "minus": "", "pts": 17.9, "percent": "99.44"}, {"boardNum": 13, "isNS": true, "versus": 14, "contract": "3NT", "by": "W", "lead": "4S", "tricks": 10, "plus": "", "minus": -630, "pts": 16.0, "percent": "88.89"}, {"boardNum": 14, "isNS": true, "versus": 14, "contract": "5C", "by": "E", "lead": "AH", "tricks": 12, "plus": "", "minus": -420, "pts": 14.0, "percent": "77.78"}, {"boardNum": 15, "isNS": true, "versus": 14, "contract": "3NT", "by": "S", "lead": "5S", "tricks": 10, "plus": 630, "minus": "", "pts": 12.0, "percent": "66.67"}, {"boardNum": 16, "isNS": true, "versus": 13, "contract": "4S", "by": "N", "lead": "KH", "tricks": 10, "plus": 420, "minus": "", "pts": 17.9, "percent": "99.44"}, {"boardNum": 17, "isNS": true, "versus": 13, "contract": "3NT", "by": "N", "lead": "JH", "tricks": 7, "plus": "", "minus": -100, "pts": 10.1, "percent": "56.11"}, {"boardNum": 18, "isNS": true, "versus": 13, "contract": "4S", "by": "W", "lead": "AH", "tricks": 11, "plus": "", "minus": -450, "pts": 11.2, "percent": "62.22"}, {"boardNum": 19, "isNS": true, "versus": 12, "contract": "4H", "by": "N", "lead": "AD", "tricks": 10, "plus": 420, "minus": "", "pts": 9.0, "percent": "50.00"}, {"boardNum": 20, "isNS": true, "versus": 12, "contract": "4S", "by": "W", "lead": "KC", "tricks": 9, "plus": 100, "minus": "", "pts": 12.3, "percent": "68.33"}, {"boardNum": 21, "isNS": true, "versus": 12, "contract": "2S", "by": "N", "lead": "5D", "tricks": 9, "plus": 140, "minus": "", "pts": 13.4, "percent": "74.44"}, {"boardNum": 22, "isNS": true, "versus": 11, "contract": "5D", "by": "S", "lead": "4C", "tricks": 10, "plus": "", "minus": -50, "pts": 1.2, "percent": "6.67"}, {"boardNum": 23, "isNS": true, "versus": 11, "contract": "3S", "by": "E", "lead": "AC", "tricks": 10, "plus": "", "minus": -170, "pts": 3.4, "percent": "18.89"}, {"boardNum": 24, "isNS": true, "versus": 11, "contract": "3NT", "by": "S", "lead": "4H", "tricks": 8, "plus": "", "minus": -50, "pts": 2.3, "percent": "12.78"}, {"boardNum": 28, "isNS": true, "versus": 19, "contract": "3D", "by": "E", "lead": "AH", "tricks": 10, "plus": "", "minus": -130, "pts": 9.0, "percent": "50.00"}, {"boardNum": 29, "isNS": true, "versus": 19, "contract": "1NT", "by": "E", "lead": "6H", "tricks": 10, "plus": "", "minus": -180, "pts": 7.8, "percent": "43.33"}, {"boardNum": 30, "isNS": true, "versus": 19, "contract": "4S", "by": "E", "lead": "6C", "tricks": 13, "plus": "", "minus": -510, "pts": 2.8, "percent": "15.56"}]}, {"pairnum": 1, "pair": "", "board": [{"boardNum": 1, "isNS": true, "versus": 11, "contract": "2NT", "by": "S", "lead": "3S", "tricks": 6, "plus": "", "minus": -100, "pts": 2.3, "percent": "12.78"}, {"boardNum": 2, "isNS": true, "versus": 11, "contract": "3NT", "by": "E", "lead": "2C", "tricks": 10, "plus": "", "minus": -430, "pts": 6.8, "percent": "37.78"}, {"boardNum": 3, "isNS": true, "versus": 11, "contract": "4H", "by": "S", "lead": "5C", "tricks": 9, "plus": "", "minus": -50, "pts": 1.2, "percent": "6.67"}, {"boardNum": 4, "isNS": true, "versus": 20, "contract": "3H", "by": "W", "lead": "6C", "tricks": 11, "plus": "", "minus": -200, "pts": 11.2, "percent": "62.22"}, {"boardNum": 5, "isNS": true, "versus": 20, "contract": "4S", "by": "S", "lead": "AH", "tricks": 10, "plus": 620, "minus": "", "pts": 11.2, "percent": "62.22"}, {"boardNum": 6, "isNS": true, "versus": 20, "contract": "3S", "by": "N", "lead": "AC", "tricks": 6, "plus": "", "minus": -150, "pts": 3.4, "percent": "18.89"}, {"boardNum": 7, "isNS": true, "versus": 19, "contract": "6C", "by": "E", "lead": "10S", "tricks": 13, "plus": "", "minus": -1390, "pts": 4.6, "percent": "25.56"}, {"boardNum": 8, "isNS": true, "versus": 19, "contract": "5D", "by": "W", "lead": "10C", "tricks": 12, "plus": "", "minus": -420, "pts": 1.2, "percent": "6.67"}, {"boardNum": 9, "isNS": true, "versus": 19, "contract": "4H", "by": "S", "lead": "9S", "tricks": 11, "plus": 450, "minus": "", "pts": 14.6, "percent": "81.11"}, {"boardNum": 10, "isNS": true, "versus": 18, "contract": "4S", "by": "N", "lead": "AC", "tricks": 10, "plus": 620, "minus": "", "pts": 17.9, "percent": "99.44"}, {"boardNum": 11, "isNS": true, "versus": 18, "contract": "5S", "by": "S", "lead": "5S", "tricks": 13, "plus": 510, "minus": "", "pts": 11.2, "percent": "62.22"}, {"boardNum": 12, "isNS": true, "versus": 18, "contract": "3S", "by": "W", "lead": "QD", "tricks": 9, "plus": "", "minus": -140, "pts": 7.9, "percent": "43.89"}, {"boardNum": 13, "isNS": true, "versus": 17, "contract": "5D", "by": "W", "lead": "5S", "tricks": 12, "plus": "", "minus": -620, "pts": 18.0, "percent": "100.00"}, {"boardNum": 14, "isNS": true, "versus": 17, "contract": "5C", "by": "E", "lead": "9S", "tricks": 13, "plus": "", "minus": -440, "pts": 8.0, "percent": "44.44"}, {"boardNum": 15, "isNS": true, "versus": 17, "contract": "3NT", "by": "N", "lead": "4H", "tricks": 10, "plus": 630, "minus": "", "pts": 12.0, "percent": "66.67"}, {"boardNum": 16, "isNS": true, "versus": 16, "contract": "PASS", "by": "N", "lead": "", "tricks": 0, "plus": 0, "minus": "", "pts": 3.4, "percent": "18.89"}, {"boardNum": 17, "isNS": true, "versus": 16, "contract": "3S", "by": "S", "lead": "QH", "tricks": 5, "plus": "", "minus": -200, "pts": 3.4, "percent": "18.89"}, {"boardNum": 18, "isNS": true, "versus": 16, "contract": "4S", "by": "W", "lead": "7C", "tricks": 11, "plus": "", "minus": -450, "pts": 11.2, "percent": "62.22"}, {"boardNum": 19, "isNS": true, "versus": 15, "contract": "4H", "by": "S", "lead": "10S", "tricks": 11, "plus": 450, "minus": "", "pts": 15.7, "percent": "87.22"}, {"boardNum": 20, "isNS": true, "versus": 15, "contract": "4S", "by": "W", "lead": "KC", "tricks": 8, "plus": 200, "minus": "", "pts": 15.7, "percent": "87.22"}, {"boardNum": 21, "isNS": true, "versus": 15, "contract": "3D", "by": "E", "lead": "2S", "tricks": 9, "plus": "", "minus": -110, "pts": 0.1, "percent": "0.56"}, {"boardNum": 22, "isNS": true, "versus": 14, "contract": "3NT", "by": "S", "lead": "2C", "tricks": 11, "plus": 460, "minus": "", "pts": 15.7, "percent": "87.22"}, {"boardNum": 23, "isNS": true, "versus": 14, "contract": "3S", "by": "E", "lead": "AC", "tricks": 9, "plus": "", "minus": -140, "pts": 6.8, "percent": "37.78"}, {"boardNum": 24, "isNS": true, "versus": 14, "contract": "2S", "by": "N", "lead": "2D", "tricks": 8, "plus": 110, "minus": "", "pts": 9.0, "percent": "50.00"}, {"boardNum": 25, "isNS": true, "versus": 13, "contract": "2S", "by": "W", "lead": "AH", "tricks": 7, "plus": 100, "minus": "", "pts": 14.6, "percent": "81.11"}, {"boardNum": 26, "isNS": true, "versus": 13, "contract": "3NT", "by": "S", "lead": "AD", "tricks": 6, "plus": "", "minus": -300, "pts": 0.1, "percent": "0.56"}, {"boardNum": 27, "isNS": true, "versus": 13, "contract": "3H", "by": "E", "lead": "3C", "tricks": 12, "plus": "", "minus": -230, "pts": 7.9, "percent": "43.89"}]}, {"pairnum": 10, "pair": "", "board": [{"boardNum": 1, "isNS": true, "versus": 20, "contract": "2NT", "by": "S", "lead": "5S", "tricks": 5, "plus": "", "minus": -150, "pts": 0.1, "percent": "0.56"}, {"boardNum": 2, "isNS": true, "versus": 20, "contract": "4S", "by": "E", "lead": "2C", "tricks": 10, "plus": "", "minus": -420, "pts": 11.2, "percent": "62.22"}, {"boardNum": 3, "isNS": true, "versus": 20, "contract": "3H", "by": "N", "lead": "3D", "tricks": 10, "plus": 170, "minus": "", "pts": 10.1, "percent": "56.11"}, {"boardNum": 4, "isNS": true, "versus": 19, "contract": "4H", "by": "W", "lead": "6C", "tricks": 11, "plus": "", "minus": -650, "pts": 1.2, "percent": "6.67"}, {"boardNum": 5, "isNS": true, "versus": 19, "contract": "4S", "by": "N", "lead": "3H", "tricks": 9, "plus": "", "minus": -100, "pts": 4.6, "percent": "25.56"}, {"boardNum": 6, "isNS": true, "versus": 19, "contract": "1NT", "by": "W", "lead": "8S", "tricks": 9, "plus": "", "minus": -150, "pts": 3.4, "percent": "18.89"}, {"boardNum": 7, "isNS": true, "versus": 18, "contract": "7NT", "by": "E", "lead": "AD", "tricks": 12, "plus": 100, "minus": "", "pts": 17.9, "percent": "99.44"}, {"boardNum": 8, "isNS": true, "versus": 18, "contract": "5D", "by": "W", "lead": "AH", "tricks": 11, "plus": "", "minus": -400, "pts": 9.0, "percent": "50.00"}, {"boardNum": 9, "isNS": true, "versus": 18, "contract": "4H", "by": "S", "lead": "9S", "tricks": 10, "plus": 420, "minus": "", "pts": 9.0, "percent": "50.00"}, {"boardNum": 10, "isNS": true, "versus": 17, "contract": "1S", "by": "N", "lead": "AC", "tricks": 9, "plus": 140, "minus": "", "pts": 7.9, "percent": "43.89"}, {"boardNum": 11, "isNS": true, "versus": 17, "contract": "4S", "by": "S", "lead": "3H", "tricks": 12, "plus": 480, "minus": "", "pts": 1.2, "percent": "6.67"}, {"boardNum": 12, "isNS": true, "versus": 17, "contract": "3S", "by": "W", "lead": "4D", "tricks": 11, "plus": "", "minus": -200, "pts": 1.2, "percent": "6.67"}, {"boardNum": 13, "isNS": true, "versus": 16, "contract": "6D", "by": "W", "lead": "5C", "tricks": 13, "plus": "", "minus": -1390, "pts": 1.0, "percent": "5.56"}, {"boardNum": 14, "isNS": true, "versus": 16, "contract": "5C", "by": "E", "lead": "AH", "tricks": 12, "plus": "", "minus": -420, "pts": 14.0, "percent": "77.78"}, {"boardNum": 15, "isNS": true, "versus": 16, "contract": "3NT", "by": "S", "lead": "4H", "tricks": 8, "plus": "", "minus": -100, "pts": 0.0, "percent": "0.00"}, {"boardNum": 16, "isNS": true, "versus": 15, "contract": "2S", "by": "N", "lead": "KH", "tricks": 10, "plus": 170, "minus": "", "pts": 7.9, "percent": "43.89"}, {"boardNum": 17, "isNS": true, "versus": 15, "contract": "3NT", "by": "N", "lead": "JH", "tricks": 9, "plus": 400, "minus": "", "pts": 16.8, "percent": "93.33"}, {"boardNum": 18, "isNS": true, "versus": 15, "contract": "5S", "by": "W", "lead": "AH", "tricks": 11, "plus": "", "minus": -450, "pts": 11.2, "percent": "62.22"}, {"boardNum": 19, "isNS": true, "versus": 14, "contract": "3NT", "by": "S", "lead": "2D", "tricks": 7, "plus": "", "minus": -100, "pts": 1.2, "percent": "6.67"}, {"boardNum": 20, "isNS": true, "versus": 14, "contract": "4S", "by": "W", "lead": "3H", "tricks": 9, "plus": 100, "minus": "", "pts": 12.3, "percent": "68.33"}, {"boardNum": 21, "isNS": true, "versus": 14, "contract": "3S", "by": "N", "lead": "AC", "tricks": 9, "plus": 140, "minus": "", "pts": 13.4, "percent": "74.44"}, {"boardNum": 22, "isNS": true, "versus": 13, "contract": "3NT", "by": "S", "lead": "10C", "tricks": 9, "plus": 400, "minus": "", "pts": 6.8, "percent": "37.78"}, {"boardNum": 23, "isNS": true, "versus": 13, "contract": "2NT", "by": "S", "lead": "4H", "tricks": 10, "plus": 180, "minus": "", "pts": 17.9, "percent": "99.44"}, {"boardNum": 24, "isNS": true, "versus": 13, "contract": "3NT", "by": "S", "lead": "3H", "tricks": 10, "plus": 430, "minus": "", "pts": 17.9, "percent": "99.44"}, {"boardNum": 25, "isNS": true, "versus": 12, "contract": "2HX", "by": "N", "lead": "9C", "tricks": 6, "plus": "", "minus": -300, "pts": 0.1, "percent": "0.56"}, {"boardNum": 26, "isNS": true, "versus": 12, "contract": "5C", "by": "S", "lead": "AD", "tricks": 10, "plus": "", "minus": -100, "pts": 4.6, "percent": "25.56"}, {"boardNum": 27, "isNS": true, "versus": 12, "contract": "4H", "by": "E", "lead": "3C", "tricks": 12, "plus": "", "minus": -480, "pts": 1.2, "percent": "6.67"}]}, {"pairnum": 3, "pair": "", "board": [{"boardNum": 1, "isNS": true, "versus": 15, "contract": "3NT", "by": "S", "lead": "5S", "tricks": 9, "plus": 400, "minus": "", "pts": 14.6, "percent": "81.11"}, {"boardNum": 2, "isNS": true, "versus": 15, "contract": "3NT", "by": "E", "lead": "4D", "tricks": 9, "plus": "", "minus": -400, "pts": 14.6, "percent": "81.11"}, {"boardNum": 3, "isNS": true, "versus": 15, "contract": "4H", "by": "N", "lead": "KD", "tricks": 9, "plus": "", "minus": -50, "pts": 1.2, "percent": "6.67"}, {"boardNum": 7, "isNS": true, "versus": 13, "contract": "4H", "by": "W", "lead": "JC", "tricks": 13, "plus": "", "minus": -710, "pts": 6.8, "percent": "37.78"}, {"boardNum": 8, "isNS": true, "versus": 13, "contract": "4D", "by": "W", "lead": "10C", "tricks": 12, "plus": "", "minus": -170, "pts": 15.7, "percent": "87.22"}, {"boardNum": 9, "isNS": true, "versus": 13, "contract": "4H", "by": "S", "lead": "9S", "tricks": 9, "plus": "", "minus": -50, "pts": 0.1, "percent": "0.56"}, {"boardNum": 10, "isNS": true, "versus": 12, "contract": "3C", "by": "E", "lead": "5S", "tricks": 9, "plus": "", "minus": -110, "pts": 1.2, "percent": "6.67"}, {"boardNum": 11, "isNS": true, "versus": 12, "contract": "4S", "by": "S", "lead": "7D", "tricks": 13, "plus": 510, "minus": "", "pts": 11.2, "percent": "62.22"}, {"boardNum": 12, "isNS": true, "versus": 12, "contract": "2S", "by": "W", "lead": "3H", "tricks": 10, "plus": "", "minus": -170, "pts": 4.6, "percent": "25.56"}, {"boardNum": 13, "isNS": true, "versus": 11, "contract": "3NT", "by": "W", "lead": "7S", "tricks": 11, "plus": "", "minus": -660, "pts": 9.0, "percent": "50.00"}, {"boardNum": 14, "isNS": true, "versus": 11, "contract": "5C", "by": "E", "lead": "AH", "tricks": 12, "plus": "", "minus": -420, "pts": 14.0, "percent": "77.78"}, {"boardNum": 15, "isNS": true, "versus": 11, "contract": "3NT", "by": "S", "lead": "5S", "tricks": 9, "plus": 600, "minus": "", "pts": 5.0, "percent": "27.78"}, {"boardNum": 16, "isNS": true, "versus": 20, "contract": "4S", "by": "N", "lead": "KH", "tricks": 9, "plus": "", "minus": -50, "pts": 0.1, "percent": "0.56"}, {"boardNum": 17, "isNS": true, "versus": 20, "contract": "2NT", "by": "N", "lead": "6H", "tricks": 5, "plus": "", "minus": -150, "pts": 6.8, "percent": "37.78"}, {"boardNum": 18, "isNS": true, "versus": 20, "contract": "4S", "by": "W", "lead": "9C", "tricks": 11, "plus": "", "minus": -450, "pts": 11.2, "percent": "62.22"}, {"boardNum": 19, "isNS": true, "versus": 19, "contract": "3NT", "by": "S", "lead": "4H", "tricks": 9, "plus": 400, "minus": "", "pts": 4.6, "percent": "25.56"}, {"boardNum": 20, "isNS": true, "versus": 19, "contract": "3S", "by": "W", "lead": "KH", "tricks": 9, "plus": "", "minus": -140, "pts": 4.6, "percent": "25.56"}, {"boardNum": 21, "isNS": true, "versus": 19, "contract": "4S", "by": "N", "lead": "3D", "tricks": 9, "plus": "", "minus": -100, "pts": 3.4, "percent": "18.89"}, {"boardNum": 22, "isNS": true, "versus": 18, "contract": "5D", "by": "S", "lead": "3H", "tricks": 10, "plus": "", "minus": -50, "pts": 1.2, "percent": "6.67"}, {"boardNum": 23, "isNS": true, "versus": 18, "contract": "4D", "by": "N", "lead": "AS", "tricks": 9, "plus": "", "minus": -100, "pts": 10.1, "percent": "56.11"}, {"boardNum": 24, "isNS": true, "versus": 18, "contract": "2S", "by": "N", "lead": "AH", "tricks": 8, "plus": 110, "minus": "", "pts": 9.0, "percent": "50.00"}, {"boardNum": 25, "isNS": true, "versus": 17, "contract": "3S", "by": "W", "lead": "AH", "tricks": 8, "plus": 100, "minus": "", "pts": 14.6, "percent": "81.11"}, {"boardNum": 26, "isNS": true, "versus": 17, "contract": "4C", "by": "S", "lead": "AD", "tricks": 10, "plus": 130, "minus": "", "pts": 6.8, "percent": "37.78"}, {"boardNum": 27, "isNS": true, "versus": 17, "contract": "3S", "by": "W", "lead": "10D", "tricks": 8, "plus": 50, "minus": "", "pts": 17.9, "percent": "99.44"}, {"boardNum": 28, "isNS": true, "versus": 16, "contract": "4C", "by": "W", "lead": "AS", "tricks": 10, "plus": "", "minus": -130, "pts": 9.0, "percent": "50.00"}, {"boardNum": 29, "isNS": true, "versus": 16, "contract": "1NTX", "by": "N", "lead": "7D", "tricks": 4, "plus": "", "minus": -800, "pts": 0.3, "percent": "1.67"}, {"boardNum": 30, "isNS": true, "versus": 16, "contract": "4S", "by": "E", "lead": "4D", "tricks": 13, "plus": "", "minus": -510, "pts": 2.8, "percent": "15.56"}]}, {"pairnum": 5, "pair": "", "board": [{"boardNum": 1, "isNS": true, "versus": 19, "contract": "1NT", "by": "N", "lead": "10H", "tricks": 6, "plus": "", "minus": -50, "pts": 5.7, "percent": "31.67"}, {"boardNum": 2, "isNS": true, "versus": 19, "contract": "3NT", "by": "E", "lead": "2C", "tricks": 11, "plus": "", "minus": -460, "pts": 1.2, "percent": "6.67"}, {"boardNum": 3, "isNS": true, "versus": 19, "contract": "4D", "by": "W", "lead": "AC", "tricks": 8, "plus": 200, "minus": "", "pts": 13.4, "percent": "74.44"}, {"boardNum": 4, "isNS": true, "versus": 18, "contract": "4H", "by": "W", "lead": "6D", "tricks": 10, "plus": "", "minus": -620, "pts": 6.8, "percent": "37.78"}, {"boardNum": 5, "isNS": true, "versus": 18, "contract": "4S", "by": "N", "lead": "8D", "tricks": 9, "plus": "", "minus": -100, "pts": 4.6, "percent": "25.56"}, {"boardNum": 6, "isNS": true, "versus": 18, "contract": "1NT", "by": "E", "lead": "8D", "tricks": 9, "plus": "", "minus": -150, "pts": 3.4, "percent": "18.89"}, {"boardNum": 7, "isNS": true, "versus": 17, "contract": "6H", "by": "W", "lead": "JC", "tricks": 13, "plus": "", "minus": -1460, "pts": 1.2, "percent": "6.67"}, {"boardNum": 8, "isNS": true, "versus": 17, "contract": "5D", "by": "W", "lead": "AS", "tricks": 11, "plus": "", "minus": -400, "pts": 9.0, "percent": "50.00"}, {"boardNum": 9, "isNS": true, "versus": 17, "contract": "4H", "by": "S", "lead": "8H", "tricks": 10, "plus": 420, "minus": "", "pts": 9.0, "percent": "50.00"}, {"boardNum": 13, "isNS": true, "versus": 15, "contract": "5D", "by": "W", "lead": "JC", "tricks": 13, "plus": "", "minus": -640, "pts": 13.0, "percent": "72.22"}, {"boardNum": 14, "isNS": true, "versus": 15, "contract": "5SX", "by": "N", "lead": "5D", "tricks": 7, "plus": "", "minus": -800, "pts": 0.0, "percent": "0.00"}, {"boardNum": 15, "isNS": true, "versus": 15, "contract": "3NT", "by": "S", "lead": "4H", "tricks": 10, "plus": 630, "minus": "", "pts": 12.0, "percent": "66.67"}, {"boardNum": 16, "isNS": true, "versus": 14, "contract": "PASS", "by": "N", "lead": "", "tricks": 0, "plus": 0, "minus": "", "pts": 3.4, "percent": "18.89"}, {"boardNum": 17, "isNS": true, "versus": 14, "contract": "5D", "by": "S", "lead": "QH", "tricks": 7, "plus": "", "minus": -200, "pts": 3.4, "percent": "18.89"}, {"boardNum": 18, "isNS": true, "versus": 14, "contract": "3NT", "by": "E", "lead": "5D", "tricks": 11, "plus": "", "minus": -460, "pts": 2.3, "percent": "12.78"}, {"boardNum": 19, "isNS": true, "versus": 13, "contract": "3NT", "by": "S", "lead": "6C", "tricks": 10, "plus": 430, "minus": "", "pts": 13.4, "percent": "74.44"}, {"boardNum": 20, "isNS": true, "versus": 13, "contract": "2S", "by": "W", "lead": "KC", "tricks": 9, "plus": "", "minus": -140, "pts": 4.6, "percent": "25.56"}, {"boardNum": 21, "isNS": true, "versus": 13, "contract": "5D", "by": "E", "lead": "10S", "tricks": 9, "plus": 100, "minus": "", "pts": 6.8, "percent": "37.78"}, {"boardNum": 22, "isNS": true, "versus": 12, "contract": "3NT", "by": "S", "lead": "2C", "tricks": 10, "plus": 430, "minus": "", "pts": 9.0, "percent": "50.00"}, {"boardNum": 23, "isNS": true, "versus": 12, "contract": "3S", "by": "E", "lead": "KD", "tricks": 10, "plus": "", "minus": -170, "pts": 3.4, "percent": "18.89"}, {"boardNum": 24, "isNS": true, "versus": 12, "contract": "2S", "by": "N", "lead": "KH", "tricks": 7, "plus": "", "minus": -50, "pts": 2.3, "percent": "12.78"}, {"boardNum": 25, "isNS": true, "versus": 11, "contract": "3H", "by": "N", "lead": "9S", "tricks": 7, "plus": "", "minus": -100, "pts": 6.8, "percent": "37.78"}, {"boardNum": 26, "isNS": true, "versus": 11, "contract": "3C", "by": "S", "lead": "AD", "tricks": 12, "plus": 170, "minus": "", "pts": 11.2, "percent": "62.22"}, {"boardNum": 27, "isNS": true, "versus": 11, "contract": "4H", "by": "E", "lead": "3C", "tricks": 12, "plus": "", "minus": -480, "pts": 1.2, "percent": "6.67"}, {"boardNum": 28, "isNS": true, "versus": 20, "contract": "3D", "by": "E", "lead": "7H", "tricks": 9, "plus": "", "minus": -110, "pts": 15.2, "percent": "84.44"}, {"boardNum": 29, "isNS": true, "versus": 20, "contract": "2D", "by": "E", "lead": "6H", "tricks": 9, "plus": "", "minus": -110, "pts": 14.0, "percent": "77.78"}, {"boardNum": 30, "isNS": true, "versus": 20, "contract": "4S", "by": "E", "lead": "4D", "tricks": 9, "plus": 50, "minus": "", "pts": 17.7, "percent": "98.33"}]}, {"pairnum": 12, "pair": "", "board": [{"boardNum": 1, "isNS": false, "versus": 6, "contract": "3NT", "by": "S", "lead": "5S", "tricks": 10, "plus": 430, "minus": "", "pts": 0.1, "percent": "0.56"}, {"boardNum": 2, "isNS": false, "versus": 6, "contract": "3NT", "by": "W", "lead": "6H", "tricks": 11, "plus": "", "minus": -460, "pts": 16.8, "percent": "93.33"}, {"boardNum": 3, "isNS": false, "versus": 6, "contract": "3H", "by": "N", "lead": "KD", "tricks": 9, "plus": 140, "minus": "", "pts": 12.3, "percent": "68.33"}, {"boardNum": 4, "isNS": false, "versus": 2, "contract": "4H", "by": "W", "lead": "6S", "tricks": 10, "plus": "", "minus": -620, "pts": 11.2, "percent": "62.22"}, {"boardNum": 5, "isNS": false, "versus": 2, "contract": "5S", "by": "S", "lead": "KD", "tricks": 9, "plus": "", "minus": -200, "pts": 17.9, "percent": "99.44"}, {"boardNum": 6, "isNS": false, "versus": 2, "contract": "2S", "by": "N", "lead": "AC", "tricks": 6, "plus": "", "minus": -100, "pts": 4.6, "percent": "25.56"}, {"boardNum": 7, "isNS": false, "versus": 7, "contract": "4S", "by": "W", "lead": "JC", "tricks": 11, "plus": "", "minus": -650, "pts": 5.7, "percent": "31.67"}, {"boardNum": 8, "isNS": false, "versus": 7, "contract": "5D", "by": "W", "lead": "AH", "tricks": 11, "plus": "", "minus": -400, "pts": 9.0, "percent": "50.00"}, {"boardNum": 9, "isNS": false, "versus": 7, "contract": "2H", "by": "S", "lead": "9S", "tricks": 10, "plus": 170, "minus": "", "pts": 14.6, "percent": "81.11"}, {"boardNum": 10, "isNS": false, "versus": 3, "contract": "3C", "by": "E", "lead": "5S", "tricks": 9, "plus": "", "minus": -110, "pts": 16.8, "percent": "93.33"}, {"boardNum": 11, "isNS": false, "versus": 3, "contract": "4S", "by": "S", "lead": "7D", "tricks": 13, "plus": 510, "minus": "", "pts": 6.8, "percent": "37.78"}, {"boardNum": 12, "isNS": false, "versus": 3, "contract": "2S", "by": "W", "lead": "3H", "tricks": 10, "plus": "", "minus": -170, "pts": 13.4, "percent": "74.44"}, {"boardNum": 13, "isNS": false, "versus": 8, "contract": "6D", "by": "W", "lead": "7S", "tricks": 13, "plus": "", "minus": -1390, "pts": 17.0, "percent": "94.44"}, {"boardNum": 14, "isNS": false, "versus": 8, "contract": "3NT", "by": "W", "lead": "QS", "tricks": 13, "plus": "", "minus": -520, "pts": 15.0, "percent": "83.33"}, {"boardNum": 15, "isNS": false, "versus": 8, "contract": "3D", "by": "S", "lead": "4H", "tricks": 10, "plus": 130, "minus": "", "pts": 16.0, "percent": "88.89"}, {"boardNum": 16, "isNS": false, "versus": 4, "contract": "2S", "by": "N", "lead": "KH", "tricks": 10, "plus": 170, "minus": "", "pts": 10.1, "percent": "56.11"}, {"boardNum": 17, "isNS": false, "versus": 4, "contract": "3D", "by": "S", "lead": "QH", "tricks": 8, "plus": "", "minus": -50, "pts": 4.6, "percent": "25.56"}, {"boardNum": 18, "isNS": false, "versus": 4, "contract": "4S", "by": "E", "lead": "8H", "tricks": 11, "plus": "", "minus": -450, "pts": 6.8, "percent": "37.78"}, {"boardNum": 19, "isNS": false, "versus": 9, "contract": "4H", "by": "N", "lead": "AD", "tricks": 10, "plus": 420, "minus": "", "pts": 9.0, "percent": "50.00"}, {"boardNum": 20, "isNS": false, "versus": 9, "contract": "4S", "by": "W", "lead": "KC", "tricks": 9, "plus": 100, "minus": "", "pts": 5.7, "percent": "31.67"}, {"boardNum": 21, "isNS": false, "versus": 9, "contract": "2S", "by": "N", "lead": "5D", "tricks": 9, "plus": 140, "minus": "", "pts": 4.6, "percent": "25.56"}, {"boardNum": 22, "isNS": false, "versus": 5, "contract": "3NT", "by": "S", "lead": "2C", "tricks": 10, "plus": 430, "minus": "", "pts": 9.0, "percent": "50.00"}, {"boardNum": 23, "isNS": false, "versus": 5, "contract": "3S", "by": "E", "lead": "KD", "tricks": 10, "plus": "", "minus": -170, "pts": 14.6, "percent": "81.11"}, {"boardNum": 24, "isNS": false, "versus": 5, "contract": "2S", "by": "N", "lead": "KH", "tricks": 7, "plus": "", "minus": -50, "pts": 15.7, "percent": "87.22"}, {"boardNum": 25, "isNS": false, "versus": 10, "contract": "2HX", "by": "N", "lead": "9C", "tricks": 6, "plus": "", "minus": -300, "pts": 17.9, "percent": "99.44"}, {"boardNum": 26, "isNS": false, "versus": 10, "contract": "5C", "by": "S", "lead": "AD", "tricks": 10, "plus": "", "minus": -100, "pts": 13.4, "percent": "74.44"}, {"boardNum": 27, "isNS": false, "versus": 10, "contract": "4H", "by": "E", "lead": "3C", "tricks": 12, "plus": "", "minus": -480, "pts": 16.8, "percent": "93.33"}]}, {"pairnum": 19, "pair": "", "board": [{"boardNum": 1, "isNS": false, "versus": 5, "contract": "1NT", "by": "N", "lead": "10H", "tricks": 6, "plus": "", "minus": -50, "pts": 12.3, "percent": "68.33"}, {"boardNum": 2, "isNS": false, "versus": 5, "contract": "3NT", "by": "E", "lead": "2C", "tricks": 11, "plus": "", "minus": -460, "pts": 16.8, "percent": "93.33"}, {"boardNum": 3, "isNS": false, "versus": 5, "contract": "4D", "by": "W", "lead": "AC", "tricks": 8, "plus": 200, "minus": "", "pts": 4.6, "percent": "25.56"}, {"boardNum": 4, "isNS": false, "versus": 10, "contract": "4H", "by": "W", "lead": "6C", "tricks": 11, "plus": "", "minus": -650, "pts": 16.8, "percent": "93.33"}, {"boardNum": 5, "isNS": false, "versus": 10, "contract": "4S", "by": "N", "lead": "3H", "tricks": 9, "plus": "", "minus": -100, "pts": 13.4, "percent": "74.44"}, {"boardNum": 6, "isNS": false, "versus": 10, "contract": "1NT", "by": "W", "lead": "8S", "tricks": 9, "plus": "", "minus": -150, "pts": 14.6, "percent": "81.11"}, {"boardNum": 7, "isNS": false, "versus": 1, "contract": "6C", "by": "E", "lead": "10S", "tricks": 13, "plus": "", "minus": -1390, "pts": 13.4, "percent": "74.44"}, {"boardNum": 8, "isNS": false, "versus": 1, "contract": "5D", "by": "W", "lead": "10C", "tricks": 12, "plus": "", "minus": -420, "pts": 16.8, "percent": "93.33"}, {"boardNum": 9, "isNS": false, "versus": 1, "contract": "4H", "by": "S", "lead": "9S", "tricks": 11, "plus": 450, "minus": "", "pts": 3.4, "percent": "18.89"}, {"boardNum": 10, "isNS": false, "versus": 6, "contract": "3S", "by": "N", "lead": "KC", "tricks": 8, "plus": "", "minus": -100, "pts": 13.4, "percent": "74.44"}, {"boardNum": 11, "isNS": false, "versus": 6, "contract": "4S", "by": "S", "lead": "7D", "tricks": 13, "plus": 510, "minus": "", "pts": 6.8, "percent": "37.78"}, {"boardNum": 12, "isNS": false, "versus": 6, "contract": "3S", "by": "W", "lead": "QD", "tricks": 11, "plus": "", "minus": -200, "pts": 16.8, "percent": "93.33"}, {"boardNum": 13, "isNS": false, "versus": 2, "contract": "3NT", "by": "W", "lead": "7S", "tricks": 13, "plus": "", "minus": -720, "pts": 14.0, "percent": "77.78"}, {"boardNum": 14, "isNS": false, "versus": 2, "contract": "3NT", "by": "W", "lead": "QS", "tricks": 13, "plus": "", "minus": -520, "pts": 15.0, "percent": "83.33"}, {"boardNum": 15, "isNS": false, "versus": 2, "contract": "3NT", "by": "S", "lead": "5S", "tricks": 9, "plus": 600, "minus": "", "pts": 13.0, "percent": "72.22"}, {"boardNum": 16, "isNS": false, "versus": 7, "contract": "4H", "by": "W", "lead": "KS", "tricks": 8, "plus": 200, "minus": "", "pts": 5.7, "percent": "31.67"}, {"boardNum": 17, "isNS": false, "versus": 7, "contract": "4DX", "by": "S", "lead": "QH", "tricks": 7, "plus": "", "minus": -500, "pts": 17.9, "percent": "99.44"}, {"boardNum": 18, "isNS": false, "versus": 7, "contract": "4S", "by": "E", "lead": "9H", "tricks": 11, "plus": "", "minus": -450, "pts": 6.8, "percent": "37.78"}, {"boardNum": 19, "isNS": false, "versus": 3, "contract": "3NT", "by": "S", "lead": "4H", "tricks": 9, "plus": 400, "minus": "", "pts": 13.4, "percent": "74.44"}, {"boardNum": 20, "isNS": false, "versus": 3, "contract": "3S", "by": "W", "lead": "KH", "tricks": 9, "plus": "", "minus": -140, "pts": 13.4, "percent": "74.44"}, {"boardNum": 21, "isNS": false, "versus": 3, "contract": "4S", "by": "N", "lead": "3D", "tricks": 9, "plus": "", "minus": -100, "pts": 14.6, "percent": "81.11"}, {"boardNum": 25, "isNS": false, "versus": 4, "contract": "3CX", "by": "S", "lead": "KD", "tricks": 9, "plus": 470, "minus": "", "pts": 0.1, "percent": "0.56"}, {"boardNum": 26, "isNS": false, "versus": 4, "contract": "3H", "by": "N", "lead": "JD", "tricks": 11, "plus": 200, "minus": "", "pts": 2.3, "percent": "12.78"}, {"boardNum": 27, "isNS": false, "versus": 4, "contract": "3C", "by": "E", "lead": "2S", "tricks": 12, "plus": "", "minus": -170, "pts": 5.7, "percent": "31.67"}, {"boardNum": 28, "isNS": false, "versus": 9, "contract": "3D", "by": "E", "lead": "AH", "tricks": 10, "plus": "", "minus": -130, "pts": 9.0, "percent": "50.00"}, {"boardNum": 29, "isNS": false, "versus": 9, "contract": "1NT", "by": "E", "lead": "6H", "tricks": 10, "plus": "", "minus": -180, "pts": 10.2, "percent": "56.67"}, {"boardNum": 30, "isNS": false, "versus": 9, "contract": "4S", "by": "E", "lead": "6C", "tricks": 13, "plus": "", "minus": -510, "pts": 15.2, "percent": "84.44"}]}, {"pairnum": 16, "pair": "", "board": [{"boardNum": 1, "isNS": false, "versus": 8, "contract": "3NT", "by": "S", "lead": "5S", "tricks": 9, "plus": 400, "minus": "", "pts": 3.4, "percent": "18.89"}, {"boardNum": 2, "isNS": false, "versus": 8, "contract": "3NT", "by": "W", "lead": "8H", "tricks": 10, "plus": "", "minus": -430, "pts": 11.2, "percent": "62.22"}, {"boardNum": 3, "isNS": false, "versus": 8, "contract": "2S", "by": "N", "lead": "KD", "tricks": 9, "plus": 140, "minus": "", "pts": 12.3, "percent": "68.33"}, {"boardNum": 4, "isNS": false, "versus": 4, "contract": "4H", "by": "W", "lead": "4H", "tricks": 9, "plus": 100, "minus": "", "pts": 1.2, "percent": "6.67"}, {"boardNum": 5, "isNS": false, "versus": 4, "contract": "4S", "by": "N", "lead": "2C", "tricks": 10, "plus": 620, "minus": "", "pts": 6.8, "percent": "37.78"}, {"boardNum": 6, "isNS": false, "versus": 4, "contract": "3S", "by": "N", "lead": "AC", "tricks": 7, "plus": "", "minus": -100, "pts": 4.6, "percent": "25.56"}, {"boardNum": 7, "isNS": false, "versus": 9, "contract": "5S", "by": "W", "lead": "JC", "tricks": 11, "plus": "", "minus": -650, "pts": 5.7, "percent": "31.67"}, {"boardNum": 8, "isNS": false, "versus": 9, "contract": "5D", "by": "W", "lead": "AH", "tricks": 12, "plus": "", "minus": -420, "pts": 16.8, "percent": "93.33"}, {"boardNum": 9, "isNS": false, "versus": 9, "contract": "3H", "by": "S", "lead": "9S", "tricks": 10, "plus": 170, "minus": "", "pts": 14.6, "percent": "81.11"}, {"boardNum": 13, "isNS": false, "versus": 10, "contract": "6D", "by": "W", "lead": "5C", "tricks": 13, "plus": "", "minus": -1390, "pts": 17.0, "percent": "94.44"}, {"boardNum": 14, "isNS": false, "versus": 10, "contract": "5C", "by": "E", "lead": "AH", "tricks": 12, "plus": "", "minus": -420, "pts": 4.0, "percent": "22.22"}, {"boardNum": 15, "isNS": false, "versus": 10, "contract": "3NT", "by": "S", "lead": "4H", "tricks": 8, "plus": "", "minus": -100, "pts": 18.0, "percent": "100.00"}, {"boardNum": 16, "isNS": false, "versus": 1, "contract": "PASS", "by": "N", "lead": "", "tricks": 0, "plus": 0, "minus": "", "pts": 14.6, "percent": "81.11"}, {"boardNum": 17, "isNS": false, "versus": 1, "contract": "3S", "by": "S", "lead": "QH", "tricks": 5, "plus": "", "minus": -200, "pts": 14.6, "percent": "81.11"}, {"boardNum": 18, "isNS": false, "versus": 1, "contract": "4S", "by": "W", "lead": "7C", "tricks": 11, "plus": "", "minus": -450, "pts": 6.8, "percent": "37.78"}, {"boardNum": 19, "isNS": false, "versus": 6, "contract": "4H", "by": "N", "lead": "AD", "tricks": 10, "plus": 420, "minus": "", "pts": 9.0, "percent": "50.00"}, {"boardNum": 20, "isNS": false, "versus": 6, "contract": "2S", "by": "W", "lead": "KC", "tricks": 9, "plus": "", "minus": -140, "pts": 13.4, "percent": "74.44"}, {"boardNum": 21, "isNS": false, "versus": 6, "contract": "4S", "by": "N", "lead": "2D", "tricks": 9, "plus": "", "minus": -100, "pts": 14.6, "percent": "81.11"}, {"boardNum": 22, "isNS": false, "versus": 2, "contract": "3NT", "by": "S", "lead": "10C", "tricks": 11, "plus": 460, "minus": "", "pts": 2.3, "percent": "12.78"}, {"boardNum": 23, "isNS": false, "versus": 2, "contract": "4S", "by": "E", "lead": "KC", "tricks": 9, "plus": 100, "minus": "", "pts": 4.6, "percent": "25.56"}, {"boardNum": 24, "isNS": false, "versus": 2, "contract": "2S", "by": "N", "lead": "AH", "tricks": 8, "plus": 110, "minus": "", "pts": 9.0, "percent": "50.00"}, {"boardNum": 25, "isNS": false, "versus": 7, "contract": "2H", "by": "N", "lead": "9C", "tricks": 7, "plus": "", "minus": -50, "pts": 7.9, "percent": "43.89"}, {"boardNum": 26, "isNS": false, "versus": 7, "contract": "5C", "by": "S", "lead": "AD", "tricks": 12, "plus": 620, "minus": "", "pts": 0.1, "percent": "0.56"}, {"boardNum": 27, "isNS": false, "versus": 7, "contract": "4C", "by": "E", "lead": "3C", "tricks": 12, "plus": "", "minus": -170, "pts": 5.7, "percent": "31.67"}, {"boardNum": 28, "isNS": false, "versus": 3, "contract": "4C", "by": "W", "lead": "AS", "tricks": 10, "plus": "", "minus": -130, "pts": 9.0, "percent": "50.00"}, {"boardNum": 29, "isNS": false, "versus": 3, "contract": "1NTX", "by": "N", "lead": "7D", "tricks": 4, "plus": "", "minus": -800, "pts": 17.7, "percent": "98.33"}, {"boardNum": 30, "isNS": false, "versus": 3, "contract": "4S", "by": "E", "lead": "4D", "tricks": 13, "plus": "", "minus": -510, "pts": 15.2, "percent": "84.44"}]}, {"pairnum": 15, "pair": "", "board": [{"boardNum": 1, "isNS": false, "versus": 3, "contract": "3NT", "by": "S", "lead": "5S", "tricks": 9, "plus": 400, "minus": "", "pts": 3.4, "percent": "18.89"}, {"boardNum": 2, "isNS": false, "versus": 3, "contract": "3NT", "by": "E", "lead": "4D", "tricks": 9, "plus": "", "minus": -400, "pts": 3.4, "percent": "18.89"}, {"boardNum": 3, "isNS": false, "versus": 3, "contract": "4H", "by": "N", "lead": "KD", "tricks": 9, "plus": "", "minus": -50, "pts": 16.8, "percent": "93.33"}, {"boardNum": 4, "isNS": false, "versus": 8, "contract": "4H", "by": "W", "lead": "4H", "tricks": 10, "plus": "", "minus": -620, "pts": 11.2, "percent": "62.22"}, {"boardNum": 5, "isNS": false, "versus": 8, "contract": "4S", "by": "N", "lead": "8D", "tricks": 9, "plus": "", "minus": -100, "pts": 13.4, "percent": "74.44"}, {"boardNum": 6, "isNS": false, "versus": 8, "contract": "2S", "by": "N", "lead": "AC", "tricks": 6, "plus": "", "minus": -100, "pts": 4.6, "percent": "25.56"}, {"boardNum": 10, "isNS": false, "versus": 9, "contract": "2S", "by": "N", "lead": "AC", "tricks": 10, "plus": 170, "minus": "", "pts": 4.6, "percent": "25.56"}, {"boardNum": 11, "isNS": false, "versus": 9, "contract": "4S", "by": "S", "lead": "3H", "tricks": 12, "plus": 480, "minus": "", "pts": 16.8, "percent": "93.33"}, {"boardNum": 12, "isNS": false, "versus": 9, "contract": "2D", "by": "S", "lead": "AS", "tricks": 8, "plus": 90, "minus": "", "pts": 0.1, "percent": "0.56"}, {"boardNum": 13, "isNS": false, "versus": 5, "contract": "5D", "by": "W", "lead": "JC", "tricks": 13, "plus": "", "minus": -640, "pts": 5.0, "percent": "27.78"}, {"boardNum": 14, "isNS": false, "versus": 5, "contract": "5SX", "by": "N", "lead": "5D", "tricks": 7, "plus": "", "minus": -800, "pts": 18.0, "percent": "100.00"}, {"boardNum": 15, "isNS": false, "versus": 5, "contract": "3NT", "by": "S", "lead": "4H", "tricks": 10, "plus": 630, "minus": "", "pts": 6.0, "percent": "33.33"}, {"boardNum": 16, "isNS": false, "versus": 10, "contract": "2S", "by": "N", "lead": "KH", "tricks": 10, "plus": 170, "minus": "", "pts": 10.1, "percent": "56.11"}, {"boardNum": 17, "isNS": false, "versus": 10, "contract": "3NT", "by": "N", "lead": "JH", "tricks": 9, "plus": 400, "minus": "", "pts": 1.2, "percent": "6.67"}, {"boardNum": 18, "isNS": false, "versus": 10, "contract": "5S", "by": "W", "lead": "AH", "tricks": 11, "plus": "", "minus": -450, "pts": 6.8, "percent": "37.78"}, {"boardNum": 19, "isNS": false, "versus": 1, "contract": "4H", "by": "S", "lead": "10S", "tricks": 11, "plus": 450, "minus": "", "pts": 2.3, "percent": "12.78"}, {"boardNum": 20, "isNS": false, "versus": 1, "contract": "4S", "by": "W", "lead": "KC", "tricks": 8, "plus": 200, "minus": "", "pts": 2.3, "percent": "12.78"}, {"boardNum": 21, "isNS": false, "versus": 1, "contract": "3D", "by": "E", "lead": "2S", "tricks": 9, "plus": "", "minus": -110, "pts": 17.9, "percent": "99.44"}, {"boardNum": 22, "isNS": false, "versus": 6, "contract": "1NT", "by": "N", "lead": "10C", "tricks": 10, "plus": 180, "minus": "", "pts": 13.4, "percent": "74.44"}, {"boardNum": 23, "isNS": false, "versus": 6, "contract": "2NT", "by": "S", "lead": "5H", "tricks": 9, "plus": 150, "minus": "", "pts": 2.3, "percent": "12.78"}, {"boardNum": 24, "isNS": false, "versus": 6, "contract": "2S", "by": "N", "lead": "AH", "tricks": 7, "plus": "", "minus": -50, "pts": 15.7, "percent": "87.22"}, {"boardNum": 25, "isNS": false, "versus": 2, "contract": "3D", "by": "E", "lead": "9H", "tricks": 9, "plus": "", "minus": -110, "pts": 13.4, "percent": "74.44"}, {"boardNum": 26, "isNS": false, "versus": 2, "contract": "3H", "by": "N", "lead": "AS", "tricks": 7, "plus": "", "minus": -200, "pts": 15.7, "percent": "87.22"}, {"boardNum": 27, "isNS": false, "versus": 2, "contract": "3H", "by": "E", "lead": "3C", "tricks": 12, "plus": "", "minus": -230, "pts": 10.1, "percent": "56.11"}, {"boardNum": 28, "isNS": false, "versus": 7, "contract": "3C", "by": "W", "lead": "AS", "tricks": 12, "plus": "", "minus": -170, "pts": 17.7, "percent": "98.33"}, {"boardNum": 29, "isNS": false, "versus": 7, "contract": "3NT", "by": "W", "lead": "5H", "tricks": 9, "plus": "", "minus": -600, "pts": 15.2, "percent": "84.44"}, {"boardNum": 30, "isNS": false, "versus": 7, "contract": "2H", "by": "W", "lead": "KD", "tricks": 13, "plus": "", "minus": -260, "pts": 2.8, "percent": "15.56"}]}, {"pairnum": 11, "pair": "", "board": [{"boardNum": 1, "isNS": false, "versus": 1, "contract": "2NT", "by": "S", "lead": "3S", "tricks": 6, "plus": "", "minus": -100, "pts": 15.7, "percent": "87.22"}, {"boardNum": 2, "isNS": false, "versus": 1, "contract": "3NT", "by": "E", "lead": "2C", "tricks": 10, "plus": "", "minus": -430, "pts": 11.2, "percent": "62.22"}, {"boardNum": 3, "isNS": false, "versus": 1, "contract": "4H", "by": "S", "lead": "5C", "tricks": 9, "plus": "", "minus": -50, "pts": 16.8, "percent": "93.33"}, {"boardNum": 4, "isNS": false, "versus": 6, "contract": "4H", "by": "W", "lead": "6D", "tricks": 9, "plus": 100, "minus": "", "pts": 1.2, "percent": "6.67"}, {"boardNum": 5, "isNS": false, "versus": 6, "contract": "5HX", "by": "W", "lead": "KC", "tricks": 7, "plus": 800, "minus": "", "pts": 0.1, "percent": "0.56"}, {"boardNum": 6, "isNS": false, "versus": 6, "contract": "3C", "by": "E", "lead": "7S", "tricks": 8, "plus": 100, "minus": "", "pts": 0.1, "percent": "0.56"}, {"boardNum": 7, "isNS": false, "versus": 2, "contract": "5C", "by": "E", "lead": "10S", "tricks": 13, "plus": "", "minus": -640, "pts": 2.3, "percent": "12.78"}, {"boardNum": 8, "isNS": false, "versus": 2, "contract": "5D", "by": "W", "lead": "AH", "tricks": 11, "plus": "", "minus": -400, "pts": 9.0, "percent": "50.00"}, {"boardNum": 9, "isNS": false, "versus": 2, "contract": "4H", "by": "S", "lead": "5S", "tricks": 10, "plus": 420, "minus": "", "pts": 9.0, "percent": "50.00"}, {"boardNum": 10, "isNS": false, "versus": 7, "contract": "3C", "by": "E", "lead": "AS", "tricks": 9, "plus": "", "minus": -110, "pts": 16.8, "percent": "93.33"}, {"boardNum": 11, "isNS": false, "versus": 7, "contract": "4S", "by": "S", "lead": "3H", "tricks": 13, "plus": 510, "minus": "", "pts": 6.8, "percent": "37.78"}, {"boardNum": 12, "isNS": false, "versus": 7, "contract": "1S", "by": "E", "lead": "QD", "tricks": 9, "plus": "", "minus": -140, "pts": 10.1, "percent": "56.11"}, {"boardNum": 13, "isNS": false, "versus": 3, "contract": "3NT", "by": "W", "lead": "7S", "tricks": 11, "plus": "", "minus": -660, "pts": 9.0, "percent": "50.00"}, {"boardNum": 14, "isNS": false, "versus": 3, "contract": "5C", "by": "E", "lead": "AH", "tricks": 12, "plus": "", "minus": -420, "pts": 4.0, "percent": "22.22"}, {"boardNum": 15, "isNS": false, "versus": 3, "contract": "3NT", "by": "S", "lead": "5S", "tricks": 9, "plus": 600, "minus": "", "pts": 13.0, "percent": "72.22"}, {"boardNum": 16, "isNS": false, "versus": 8, "contract": "4H", "by": "W", "lead": "AD", "tricks": 8, "plus": 200, "minus": "", "pts": 5.7, "percent": "31.67"}, {"boardNum": 17, "isNS": false, "versus": 8, "contract": "3NT", "by": "N", "lead": "4S", "tricks": 9, "plus": 400, "minus": "", "pts": 1.2, "percent": "6.67"}, {"boardNum": 18, "isNS": false, "versus": 8, "contract": "4NT", "by": "E", "lead": "5D", "tricks": 12, "plus": "", "minus": -490, "pts": 17.9, "percent": "99.44"}, {"boardNum": 19, "isNS": false, "versus": 4, "contract": "4H", "by": "N", "lead": "5C", "tricks": 10, "plus": 420, "minus": "", "pts": 9.0, "percent": "50.00"}, {"boardNum": 20, "isNS": false, "versus": 4, "contract": "4SX", "by": "W", "lead": "KC", "tricks": 8, "plus": 500, "minus": "", "pts": 0.1, "percent": "0.56"}, {"boardNum": 21, "isNS": false, "versus": 4, "contract": "2S", "by": "N", "lead": "6D", "tricks": 9, "plus": 140, "minus": "", "pts": 4.6, "percent": "25.56"}, {"boardNum": 22, "isNS": false, "versus": 9, "contract": "5D", "by": "S", "lead": "4C", "tricks": 10, "plus": "", "minus": -50, "pts": 16.8, "percent": "93.33"}, {"boardNum": 23, "isNS": false, "versus": 9, "contract": "3S", "by": "E", "lead": "AC", "tricks": 10, "plus": "", "minus": -170, "pts": 14.6, "percent": "81.11"}, {"boardNum": 24, "isNS": false, "versus": 9, "contract": "3NT", "by": "S", "lead": "4H", "tricks": 8, "plus": "", "minus": -50, "pts": 15.7, "percent": "87.22"}, {"boardNum": 25, "isNS": false, "versus": 5, "contract": "3H", "by": "N", "lead": "9S", "tricks": 7, "plus": "", "minus": -100, "pts": 11.2, "percent": "62.22"}, {"boardNum": 26, "isNS": false, "versus": 5, "contract": "3C", "by": "S", "lead": "AD", "tricks": 12, "plus": 170, "minus": "", "pts": 6.8, "percent": "37.78"}, {"boardNum": 27, "isNS": false, "versus": 5, "contract": "4H", "by": "E", "lead": "3C", "tricks": 12, "plus": "", "minus": -480, "pts": 16.8, "percent": "93.33"}]}, {"pairnum": 18, "pair": "", "board": [{"boardNum": 1, "isNS": false, "versus": 9, "contract": "1NT", "by": "S", "lead": "3S", "tricks": 6, "plus": "", "minus": -50, "pts": 12.3, "percent": "68.33"}, {"boardNum": 2, "isNS": false, "versus": 9, "contract": "3NT", "by": "W", "lead": "6H", "tricks": 10, "plus": "", "minus": -430, "pts": 11.2, "percent": "62.22"}, {"boardNum": 3, "isNS": false, "versus": 9, "contract": "4H", "by": "N", "lead": "KD", "tricks": 10, "plus": 420, "minus": "", "pts": 1.2, "percent": "6.67"}, {"boardNum": 4, "isNS": false, "versus": 5, "contract": "4H", "by": "W", "lead": "6D", "tricks": 10, "plus": "", "minus": -620, "pts": 11.2, "percent": "62.22"}, {"boardNum": 5, "isNS": false, "versus": 5, "contract": "4S", "by": "N", "lead": "8D", "tricks": 9, "plus": "", "minus": -100, "pts": 13.4, "percent": "74.44"}, {"boardNum": 6, "isNS": false, "versus": 5, "contract": "1NT", "by": "E", "lead": "8D", "tricks": 9, "plus": "", "minus": -150, "pts": 14.6, "percent": "81.11"}, {"boardNum": 7, "isNS": false, "versus": 10, "contract": "7NT", "by": "E", "lead": "AD", "tricks": 12, "plus": 100, "minus": "", "pts": 0.1, "percent": "0.56"}, {"boardNum": 8, "isNS": false, "versus": 10, "contract": "5D", "by": "W", "lead": "AH", "tricks": 11, "plus": "", "minus": -400, "pts": 9.0, "percent": "50.00"}, {"boardNum": 9, "isNS": false, "versus": 10, "contract": "4H", "by": "S", "lead": "9S", "tricks": 10, "plus": 420, "minus": "", "pts": 9.0, "percent": "50.00"}, {"boardNum": 10, "isNS": false, "versus": 1, "contract": "4S", "by": "N", "lead": "AC", "tricks": 10, "plus": 620, "minus": "", "pts": 0.1, "percent": "0.56"}, {"boardNum": 11, "isNS": false, "versus": 1, "contract": "5S", "by": "S", "lead": "5S", "tricks": 13, "plus": 510, "minus": "", "pts": 6.8, "percent": "37.78"}, {"boardNum": 12, "isNS": false, "versus": 1, "contract": "3S", "by": "W", "lead": "QD", "tricks": 9, "plus": "", "minus": -140, "pts": 10.1, "percent": "56.11"}, {"boardNum": 13, "isNS": false, "versus": 6, "contract": "3NT", "by": "W", "lead": "4S", "tricks": 12, "plus": "", "minus": -690, "pts": 12.0, "percent": "66.67"}, {"boardNum": 14, "isNS": false, "versus": 6, "contract": "5SX", "by": "N", "lead": "AC", "tricks": 8, "plus": "", "minus": -500, "pts": 12.0, "percent": "66.67"}, {"boardNum": 15, "isNS": false, "versus": 6, "contract": "3NT", "by": "S", "lead": "4H", "tricks": 10, "plus": 630, "minus": "", "pts": 6.0, "percent": "33.33"}, {"boardNum": 16, "isNS": false, "versus": 2, "contract": "5H", "by": "W", "lead": "AD", "tricks": 8, "plus": 300, "minus": "", "pts": 2.3, "percent": "12.78"}, {"boardNum": 17, "isNS": false, "versus": 2, "contract": "3D", "by": "S", "lead": "6S", "tricks": 7, "plus": "", "minus": -100, "pts": 7.9, "percent": "43.89"}, {"boardNum": 18, "isNS": false, "versus": 2, "contract": "4S", "by": "E", "lead": "9H", "tricks": 11, "plus": "", "minus": -450, "pts": 6.8, "percent": "37.78"}, {"boardNum": 22, "isNS": false, "versus": 3, "contract": "5D", "by": "S", "lead": "3H", "tricks": 10, "plus": "", "minus": -50, "pts": 16.8, "percent": "93.33"}, {"boardNum": 23, "isNS": false, "versus": 3, "contract": "4D", "by": "N", "lead": "AS", "tricks": 9, "plus": "", "minus": -100, "pts": 7.9, "percent": "43.89"}, {"boardNum": 24, "isNS": false, "versus": 3, "contract": "2S", "by": "N", "lead": "AH", "tricks": 8, "plus": 110, "minus": "", "pts": 9.0, "percent": "50.00"}, {"boardNum": 25, "isNS": false, "versus": 8, "contract": "2H", "by": "N", "lead": "5S", "tricks": 7, "plus": "", "minus": -50, "pts": 7.9, "percent": "43.89"}, {"boardNum": 26, "isNS": false, "versus": 8, "contract": "4C", "by": "S", "lead": "AD", "tricks": 12, "plus": 170, "minus": "", "pts": 6.8, "percent": "37.78"}, {"boardNum": 27, "isNS": false, "versus": 8, "contract": "4H", "by": "E", "lead": "3C", "tricks": 11, "plus": "", "minus": -450, "pts": 13.4, "percent": "74.44"}, {"boardNum": 28, "isNS": false, "versus": 4, "contract": "4D", "by": "E", "lead": "AH", "tricks": 10, "plus": "", "minus": -130, "pts": 9.0, "percent": "50.00"}, {"boardNum": 29, "isNS": false, "versus": 4, "contract": "2H", "by": "N", "lead": "KS", "tricks": 6, "plus": "", "minus": -200, "pts": 12.7, "percent": "70.56"}, {"boardNum": 30, "isNS": false, "versus": 4, "contract": "4S", "by": "E", "lead": "8D", "tricks": 13, "plus": "", "minus": -510, "pts": 15.2, "percent": "84.44"}]}, {"pairnum": 17, "pair": "", "board": [{"boardNum": 1, "isNS": false, "versus": 4, "contract": "1NT", "by": "S", "lead": "5S", "tricks": 7, "plus": 90, "minus": "", "pts": 9.0, "percent": "50.00"}, {"boardNum": 2, "isNS": false, "versus": 4, "contract": "3NT", "by": "E", "lead": "2C", "tricks": 9, "plus": "", "minus": -400, "pts": 3.4, "percent": "18.89"}, {"boardNum": 3, "isNS": false, "versus": 4, "contract": "2H", "by": "N", "lead": "KD", "tricks": 10, "plus": 170, "minus": "", "pts": 7.9, "percent": "43.89"}, {"boardNum": 4, "isNS": false, "versus": 9, "contract": "4H", "by": "W", "lead": "6C", "tricks": 11, "plus": "", "minus": -650, "pts": 16.8, "percent": "93.33"}, {"boardNum": 5, "isNS": false, "versus": 9, "contract": "4S", "by": "S", "lead": "AH", "tricks": 10, "plus": 620, "minus": "", "pts": 6.8, "percent": "37.78"}, {"boardNum": 6, "isNS": false, "versus": 9, "contract": "1NT", "by": "E", "lead": "AD", "tricks": 9, "plus": "", "minus": -150, "pts": 14.6, "percent": "81.11"}, {"boardNum": 7, "isNS": false, "versus": 5, "contract": "6H", "by": "W", "lead": "JC", "tricks": 13, "plus": "", "minus": -1460, "pts": 16.8, "percent": "93.33"}, {"boardNum": 8, "isNS": false, "versus": 5, "contract": "5D", "by": "W", "lead": "AS", "tricks": 11, "plus": "", "minus": -400, "pts": 9.0, "percent": "50.00"}, {"boardNum": 9, "isNS": false, "versus": 5, "contract": "4H", "by": "S", "lead": "8H", "tricks": 10, "plus": 420, "minus": "", "pts": 9.0, "percent": "50.00"}, {"boardNum": 10, "isNS": false, "versus": 10, "contract": "1S", "by": "N", "lead": "AC", "tricks": 9, "plus": 140, "minus": "", "pts": 10.1, "percent": "56.11"}, {"boardNum": 11, "isNS": false, "versus": 10, "contract": "4S", "by": "S", "lead": "3H", "tricks": 12, "plus": 480, "minus": "", "pts": 16.8, "percent": "93.33"}, {"boardNum": 12, "isNS": false, "versus": 10, "contract": "3S", "by": "W", "lead": "4D", "tricks": 11, "plus": "", "minus": -200, "pts": 16.8, "percent": "93.33"}, {"boardNum": 13, "isNS": false, "versus": 1, "contract": "5D", "by": "W", "lead": "5S", "tricks": 12, "plus": "", "minus": -620, "pts": 0.0, "percent": "0.00"}, {"boardNum": 14, "isNS": false, "versus": 1, "contract": "5C", "by": "E", "lead": "9S", "tricks": 13, "plus": "", "minus": -440, "pts": 10.0, "percent": "55.56"}, {"boardNum": 15, "isNS": false, "versus": 1, "contract": "3NT", "by": "N", "lead": "4H", "tricks": 10, "plus": 630, "minus": "", "pts": 6.0, "percent": "33.33"}, {"boardNum": 19, "isNS": false, "versus": 2, "contract": "3NT", "by": "S", "lead": "JD", "tricks": 11, "plus": 460, "minus": "", "pts": 0.1, "percent": "0.56"}, {"boardNum": 20, "isNS": false, "versus": 2, "contract": "3S", "by": "W", "lead": "KC", "tricks": 9, "plus": "", "minus": -140, "pts": 13.4, "percent": "74.44"}, {"boardNum": 21, "isNS": false, "versus": 2, "contract": "2S", "by": "N", "lead": "JD", "tricks": 9, "plus": 140, "minus": "", "pts": 4.6, "percent": "25.56"}, {"boardNum": 22, "isNS": false, "versus": 7, "contract": "4H", "by": "N", "lead": "AD", "tricks": 11, "plus": 450, "minus": "", "pts": 6.8, "percent": "37.78"}, {"boardNum": 23, "isNS": false, "versus": 7, "contract": "4D", "by": "N", "lead": "AS", "tricks": 9, "plus": "", "minus": -100, "pts": 7.9, "percent": "43.89"}, {"boardNum": 24, "isNS": false, "versus": 7, "contract": "2NT", "by": "S", "lead": "2C", "tricks": 9, "plus": 150, "minus": "", "pts": 2.3, "percent": "12.78"}, {"boardNum": 25, "isNS": false, "versus": 3, "contract": "3S", "by": "W", "lead": "AH", "tricks": 8, "plus": 100, "minus": "", "pts": 3.4, "percent": "18.89"}, {"boardNum": 26, "isNS": false, "versus": 3, "contract": "4C", "by": "S", "lead": "AD", "tricks": 10, "plus": 130, "minus": "", "pts": 11.2, "percent": "62.22"}, {"boardNum": 27, "isNS": false, "versus": 3, "contract": "3S", "by": "W", "lead": "10D", "tricks": 8, "plus": 50, "minus": "", "pts": 0.1, "percent": "0.56"}, {"boardNum": 28, "isNS": false, "versus": 8, "contract": "2D", "by": "E", "lead": "3S", "tricks": 10, "plus": "", "minus": -130, "pts": 9.0, "percent": "50.00"}, {"boardNum": 29, "isNS": false, "versus": 8, "contract": "3D", "by": "E", "lead": "6H", "tricks": 10, "plus": "", "minus": -130, "pts": 7.8, "percent": "43.33"}, {"boardNum": 30, "isNS": false, "versus": 8, "contract": "5S", "by": "E", "lead": "6C", "tricks": 11, "plus": "", "minus": -450, "pts": 7.8, "percent": "43.33"}]}, {"pairnum": 20, "pair": "", "board": [{"boardNum": 1, "isNS": false, "versus": 10, "contract": "2NT", "by": "S", "lead": "5S", "tricks": 5, "plus": "", "minus": -150, "pts": 17.9, "percent": "99.44"}, {"boardNum": 2, "isNS": false, "versus": 10, "contract": "4S", "by": "E", "lead": "2C", "tricks": 10, "plus": "", "minus": -420, "pts": 6.8, "percent": "37.78"}, {"boardNum": 3, "isNS": false, "versus": 10, "contract": "3H", "by": "N", "lead": "3D", "tricks": 10, "plus": 170, "minus": "", "pts": 7.9, "percent": "43.89"}, {"boardNum": 4, "isNS": false, "versus": 1, "contract": "3H", "by": "W", "lead": "6C", "tricks": 11, "plus": "", "minus": -200, "pts": 6.8, "percent": "37.78"}, {"boardNum": 5, "isNS": false, "versus": 1, "contract": "4S", "by": "S", "lead": "AH", "tricks": 10, "plus": 620, "minus": "", "pts": 6.8, "percent": "37.78"}, {"boardNum": 6, "isNS": false, "versus": 1, "contract": "3S", "by": "N", "lead": "AC", "tricks": 6, "plus": "", "minus": -150, "pts": 14.6, "percent": "81.11"}, {"boardNum": 7, "isNS": false, "versus": 6, "contract": "6H", "by": "W", "lead": "JC", "tricks": 13, "plus": "", "minus": -1460, "pts": 16.8, "percent": "93.33"}, {"boardNum": 8, "isNS": false, "versus": 6, "contract": "5D", "by": "W", "lead": "AS", "tricks": 11, "plus": "", "minus": -400, "pts": 9.0, "percent": "50.00"}, {"boardNum": 9, "isNS": false, "versus": 6, "contract": "4H", "by": "S", "lead": "JC", "tricks": 12, "plus": 480, "minus": "", "pts": 0.1, "percent": "0.56"}, {"boardNum": 10, "isNS": false, "versus": 2, "contract": "3S", "by": "N", "lead": "AC", "tricks": 10, "plus": 170, "minus": "", "pts": 4.6, "percent": "25.56"}, {"boardNum": 11, "isNS": false, "versus": 2, "contract": "4S", "by": "S", "lead": "QD", "tricks": 13, "plus": 510, "minus": "", "pts": 6.8, "percent": "37.78"}, {"boardNum": 12, "isNS": false, "versus": 2, "contract": "3D", "by": "S", "lead": "KS", "tricks": 8, "plus": "", "minus": -100, "pts": 4.6, "percent": "25.56"}, {"boardNum": 13, "isNS": false, "versus": 7, "contract": "3NT", "by": "W", "lead": "7S", "tricks": 11, "plus": "", "minus": -660, "pts": 9.0, "percent": "50.00"}, {"boardNum": 14, "isNS": false, "versus": 7, "contract": "5C", "by": "E", "lead": "AH", "tricks": 12, "plus": "", "minus": -420, "pts": 4.0, "percent": "22.22"}, {"boardNum": 15, "isNS": false, "versus": 7, "contract": "3NT", "by": "S", "lead": "5S", "tricks": 11, "plus": 660, "minus": "", "pts": 0.0, "percent": "0.00"}, {"boardNum": 16, "isNS": false, "versus": 3, "contract": "4S", "by": "N", "lead": "KH", "tricks": 9, "plus": "", "minus": -50, "pts": 17.9, "percent": "99.44"}, {"boardNum": 17, "isNS": false, "versus": 3, "contract": "2NT", "by": "N", "lead": "6H", "tricks": 5, "plus": "", "minus": -150, "pts": 11.2, "percent": "62.22"}, {"boardNum": 18, "isNS": false, "versus": 3, "contract": "4S", "by": "W", "lead": "9C", "tricks": 11, "plus": "", "minus": -450, "pts": 6.8, "percent": "37.78"}, {"boardNum": 19, "isNS": false, "versus": 8, "contract": "3NT", "by": "S", "lead": "6C", "tricks": 7, "plus": "", "minus": -100, "pts": 16.8, "percent": "93.33"}, {"boardNum": 20, "isNS": false, "versus": 8, "contract": "3S", "by": "W", "lead": "KH", "tricks": 9, "plus": "", "minus": -140, "pts": 13.4, "percent": "74.44"}, {"boardNum": 21, "isNS": false, "versus": 8, "contract": "2S", "by": "S", "lead": "10D", "tricks": 9, "plus": 140, "minus": "", "pts": 4.6, "percent": "25.56"}, {"boardNum": 22, "isNS": false, "versus": 4, "contract": "3NT", "by": "S", "lead": "10C", "tricks": 11, "plus": 460, "minus": "", "pts": 2.3, "percent": "12.78"}, {"boardNum": 23, "isNS": false, "versus": 4, "contract": "5D", "by": "S", "lead": "10H", "tricks": 9, "plus": "", "minus": -200, "pts": 17.9, "percent": "99.44"}, {"boardNum": 24, "isNS": false, "versus": 4, "contract": "3D", "by": "S", "lead": "2S", "tricks": 10, "plus": 130, "minus": "", "pts": 4.6, "percent": "25.56"}, {"boardNum": 28, "isNS": false, "versus": 5, "contract": "3D", "by": "E", "lead": "7H", "tricks": 9, "plus": "", "minus": -110, "pts": 2.8, "percent": "15.56"}, {"boardNum": 29, "isNS": false, "versus": 5, "contract": "2D", "by": "E", "lead": "6H", "tricks": 9, "plus": "", "minus": -110, "pts": 4.0, "percent": "22.22"}, {"boardNum": 30, "isNS": false, "versus": 5, "contract": "4S", "by": "E", "lead": "4D", "tricks": 9, "plus": 50, "minus": "", "pts": 0.3, "percent": "1.67"}]}, {"pairnum": 14, "pair": "", "board": [{"boardNum": 1, "isNS": false, "versus": 7, "contract": "2D", "by": "S", "lead": "10S", "tricks": 11, "plus": 150, "minus": "", "pts": 6.8, "percent": "37.78"}, {"boardNum": 2, "isNS": false, "versus": 7, "contract": "2S", "by": "E", "lead": "2C", "tricks": 10, "plus": "", "minus": -170, "pts": 0.1, "percent": "0.56"}, {"boardNum": 3, "isNS": false, "versus": 7, "contract": "4H", "by": "N", "lead": "KD", "tricks": 10, "plus": 420, "minus": "", "pts": 1.2, "percent": "6.67"}, {"boardNum": 7, "isNS": false, "versus": 8, "contract": "5NT", "by": "W", "lead": "10H", "tricks": 12, "plus": "", "minus": -690, "pts": 9.0, "percent": "50.00"}, {"boardNum": 8, "isNS": false, "versus": 8, "contract": "5D", "by": "W", "lead": "AS", "tricks": 10, "plus": 50, "minus": "", "pts": 0.1, "percent": "0.56"}, {"boardNum": 9, "isNS": false, "versus": 8, "contract": "4H", "by": "S", "lead": "9C", "tricks": 11, "plus": 450, "minus": "", "pts": 3.4, "percent": "18.89"}, {"boardNum": 10, "isNS": false, "versus": 4, "contract": "2S", "by": "N", "lead": "QH", "tricks": 9, "plus": 140, "minus": "", "pts": 10.1, "percent": "56.11"}, {"boardNum": 11, "isNS": false, "versus": 4, "contract": "4S", "by": "S", "lead": "6H", "tricks": 13, "plus": 510, "minus": "", "pts": 6.8, "percent": "37.78"}, {"boardNum": 12, "isNS": false, "versus": 4, "contract": "3S", "by": "W", "lead": "4C", "tricks": 8, "plus": 50, "minus": "", "pts": 2.3, "percent": "12.78"}, {"boardNum": 13, "isNS": false, "versus": 9, "contract": "3NT", "by": "W", "lead": "4S", "tricks": 10, "plus": "", "minus": -630, "pts": 2.0, "percent": "11.11"}, {"boardNum": 14, "isNS": false, "versus": 9, "contract": "5C", "by": "E", "lead": "AH", "tricks": 12, "plus": "", "minus": -420, "pts": 4.0, "percent": "22.22"}, {"boardNum": 15, "isNS": false, "versus": 9, "contract": "3NT", "by": "S", "lead": "5S", "tricks": 10, "plus": 630, "minus": "", "pts": 6.0, "percent": "33.33"}, {"boardNum": 16, "isNS": false, "versus": 5, "contract": "PASS", "by": "N", "lead": "", "tricks": 0, "plus": 0, "minus": "", "pts": 14.6, "percent": "81.11"}, {"boardNum": 17, "isNS": false, "versus": 5, "contract": "5D", "by": "S", "lead": "QH", "tricks": 7, "plus": "", "minus": -200, "pts": 14.6, "percent": "81.11"}, {"boardNum": 18, "isNS": false, "versus": 5, "contract": "3NT", "by": "E", "lead": "5D", "tricks": 11, "plus": "", "minus": -460, "pts": 15.7, "percent": "87.22"}, {"boardNum": 19, "isNS": false, "versus": 10, "contract": "3NT", "by": "S", "lead": "2D", "tricks": 7, "plus": "", "minus": -100, "pts": 16.8, "percent": "93.33"}, {"boardNum": 20, "isNS": false, "versus": 10, "contract": "4S", "by": "W", "lead": "3H", "tricks": 9, "plus": 100, "minus": "", "pts": 5.7, "percent": "31.67"}, {"boardNum": 21, "isNS": false, "versus": 10, "contract": "3S", "by": "N", "lead": "AC", "tricks": 9, "plus": 140, "minus": "", "pts": 4.6, "percent": "25.56"}, {"boardNum": 22, "isNS": false, "versus": 1, "contract": "3NT", "by": "S", "lead": "2C", "tricks": 11, "plus": 460, "minus": "", "pts": 2.3, "percent": "12.78"}, {"boardNum": 23, "isNS": false, "versus": 1, "contract": "3S", "by": "E", "lead": "AC", "tricks": 9, "plus": "", "minus": -140, "pts": 11.2, "percent": "62.22"}, {"boardNum": 24, "isNS": false, "versus": 1, "contract": "2S", "by": "N", "lead": "2D", "tricks": 8, "plus": 110, "minus": "", "pts": 9.0, "percent": "50.00"}, {"boardNum": 25, "isNS": false, "versus": 6, "contract": "3NT", "by": "N", "lead": "10S", "tricks": 6, "plus": "", "minus": -150, "pts": 15.7, "percent": "87.22"}, {"boardNum": 26, "isNS": false, "versus": 6, "contract": "3C", "by": "S", "lead": "AD", "tricks": 12, "plus": 170, "minus": "", "pts": 6.8, "percent": "37.78"}, {"boardNum": 27, "isNS": false, "versus": 6, "contract": "3C", "by": "E", "lead": "JS", "tricks": 10, "plus": "", "minus": -130, "pts": 2.3, "percent": "12.78"}, {"boardNum": 28, "isNS": false, "versus": 2, "contract": "2D", "by": "E", "lead": "4C", "tricks": 11, "plus": "", "minus": -150, "pts": 15.2, "percent": "84.44"}, {"boardNum": 29, "isNS": false, "versus": 2, "contract": "3H", "by": "W", "lead": "9D", "tricks": 8, "plus": 100, "minus": "", "pts": 0.3, "percent": "1.67"}, {"boardNum": 30, "isNS": false, "versus": 2, "contract": "4S", "by": "E", "lead": "7S", "tricks": 11, "plus": "", "minus": -450, "pts": 7.8, "percent": "43.33"}]}, {"pairnum": 13, "pair": "", "board": [{"boardNum": 4, "isNS": false, "versus": 7, "contract": "2H", "by": "W", "lead": "4H", "tricks": 10, "plus": "", "minus": -170, "pts": 4.6, "percent": "25.56"}, {"boardNum": 5, "isNS": false, "versus": 7, "contract": "5S", "by": "N", "lead": "QH", "tricks": 11, "plus": 650, "minus": "", "pts": 2.3, "percent": "12.78"}, {"boardNum": 6, "isNS": false, "versus": 7, "contract": "1NT", "by": "E", "lead": "10D", "tricks": 8, "plus": "", "minus": -120, "pts": 9.0, "percent": "50.00"}, {"boardNum": 7, "isNS": false, "versus": 3, "contract": "4H", "by": "W", "lead": "JC", "tricks": 13, "plus": "", "minus": -710, "pts": 11.2, "percent": "62.22"}, {"boardNum": 8, "isNS": false, "versus": 3, "contract": "4D", "by": "W", "lead": "10C", "tricks": 12, "plus": "", "minus": -170, "pts": 2.3, "percent": "12.78"}, {"boardNum": 9, "isNS": false, "versus": 3, "contract": "4H", "by": "S", "lead": "9S", "tricks": 9, "plus": "", "minus": -50, "pts": 17.9, "percent": "99.44"}, {"boardNum": 10, "isNS": false, "versus": 8, "contract": "2S", "by": "N", "lead": "QH", "tricks": 10, "plus": 170, "minus": "", "pts": 4.6, "percent": "25.56"}, {"boardNum": 11, "isNS": false, "versus": 8, "contract": "4S", "by": "S", "lead": "QD", "tricks": 13, "plus": 510, "minus": "", "pts": 6.8, "percent": "37.78"}, {"boardNum": 12, "isNS": false, "versus": 8, "contract": "1S", "by": "W", "lead": "4D", "tricks": 8, "plus": "", "minus": -110, "pts": 6.8, "percent": "37.78"}, {"boardNum": 13, "isNS": false, "versus": 4, "contract": "5D", "by": "W", "lead": "7S", "tricks": 13, "plus": "", "minus": -640, "pts": 5.0, "percent": "27.78"}, {"boardNum": 14, "isNS": false, "versus": 4, "contract": "5C", "by": "E", "lead": "8S", "tricks": 12, "plus": "", "minus": -420, "pts": 4.0, "percent": "22.22"}, {"boardNum": 15, "isNS": false, "versus": 4, "contract": "3NT", "by": "S", "lead": "4H", "tricks": 10, "plus": 630, "minus": "", "pts": 6.0, "percent": "33.33"}, {"boardNum": 16, "isNS": false, "versus": 9, "contract": "4S", "by": "N", "lead": "KH", "tricks": 10, "plus": 420, "minus": "", "pts": 0.1, "percent": "0.56"}, {"boardNum": 17, "isNS": false, "versus": 9, "contract": "3NT", "by": "N", "lead": "JH", "tricks": 7, "plus": "", "minus": -100, "pts": 7.9, "percent": "43.89"}, {"boardNum": 18, "isNS": false, "versus": 9, "contract": "4S", "by": "W", "lead": "AH", "tricks": 11, "plus": "", "minus": -450, "pts": 6.8, "percent": "37.78"}, {"boardNum": 19, "isNS": false, "versus": 5, "contract": "3NT", "by": "S", "lead": "6C", "tricks": 10, "plus": 430, "minus": "", "pts": 4.6, "percent": "25.56"}, {"boardNum": 20, "isNS": false, "versus": 5, "contract": "2S", "by": "W", "lead": "KC", "tricks": 9, "plus": "", "minus": -140, "pts": 13.4, "percent": "74.44"}, {"boardNum": 21, "isNS": false, "versus": 5, "contract": "5D", "by": "E", "lead": "10S", "tricks": 9, "plus": 100, "minus": "", "pts": 11.2, "percent": "62.22"}, {"boardNum": 22, "isNS": false, "versus": 10, "contract": "3NT", "by": "S", "lead": "10C", "tricks": 9, "plus": 400, "minus": "", "pts": 11.2, "percent": "62.22"}, {"boardNum": 23, "isNS": false, "versus": 10, "contract": "2NT", "by": "S", "lead": "4H", "tricks": 10, "plus": 180, "minus": "", "pts": 0.1, "percent": "0.56"}, {"boardNum": 24, "isNS": false, "versus": 10, "contract": "3NT", "by": "S", "lead": "3H", "tricks": 10, "plus": 430, "minus": "", "pts": 0.1, "percent": "0.56"}, {"boardNum": 25, "isNS": false, "versus": 1, "contract": "2S", "by": "W", "lead": "AH", "tricks": 7, "plus": 100, "minus": "", "pts": 3.4, "percent": "18.89"}, {"boardNum": 26, "isNS": false, "versus": 1, "contract": "3NT", "by": "S", "lead": "AD", "tricks": 6, "plus": "", "minus": -300, "pts": 17.9, "percent": "99.44"}, {"boardNum": 27, "isNS": false, "versus": 1, "contract": "3H", "by": "E", "lead": "3C", "tricks": 12, "plus": "", "minus": -230, "pts": 10.1, "percent": "56.11"}, {"boardNum": 28, "isNS": false, "versus": 6, "contract": "5C", "by": "W", "lead": "AS", "tricks": 10, "plus": 50, "minus": "", "pts": 0.3, "percent": "1.67"}, {"boardNum": 29, "isNS": false, "versus": 6, "contract": "2D", "by": "E", "lead": "6H", "tricks": 9, "plus": "", "minus": -110, "pts": 4.0, "percent": "22.22"}, {"boardNum": 30, "isNS": false, "versus": 6, "contract": "4S", "by": "E", "lead": "JD", "tricks": 11, "plus": "", "minus": -450, "pts": 7.8, "percent": "43.33"}]}];
+	</script>
+    <style>
+    	body { font-family: verdana; font-size: small; min-width: 615px; max-width: 1000px; }
+        #rankings { margin: 20px; }
+		#contenthead { text-align: center; padding-top: 10px; }
+        .item { border: 1px solid #ddd; margin-bottom: 5px; }
+        .itemc { border: 1px solid #ddd; margin-bottom: 5px; text-align: center; }
+		div.stablediv { margin: 0 10px 10px 0; min-width: 610px; }
+		div.boarddiv { margin-bottom: 10px; width: 360px; }
+		div.backlink { clear: both; }
+		div.scorewrapperdiv { margin: 10px 0 10px 0; }
+		div.btnwrapper { margin-top: 10px; }
+        th { background: #647498; color: white; padding: 0px 4px 0px 4px; border: none }
+		table.dealtable { font-size: 1.1em; border-collapse: collapse; width: 360px }
+		table.dealtable th { background: #647498; color: white; padding: 0px 4px 0px 4px; border: none }
+		table.dealtable td { padding: 4px; }
+		table.dealtable td.dealcenter { padding: 4px; text-align: center; }
+		table.dealtable td.northhand, table.dealtable td.southhand { padding-left: 0px; width: 80px; }
+		table.dealtable td.westhand { padding-left: 20px; width: 100px; }
+		table.dealtable td.easthand { padding-left: 20px }
+		table.dealtable td.dealcenter { padding-left: 0px; padding-right: 0px; background:#38904820; }
+		table.scorecardtable { border-collapse: collapse; max-width: 620px; }
+        table.scorecardtable th { padding: 4px 4px 4px 4px; }
+		table.scorecardtable a { color: black; cursor: pointer; text-decoration: unset; }
+		table.travellertable { font-size: 1em; border: 1px solid #ddd; border-collapse: collapse; width: 360px; text-align: center }
+		table.travellertable td { border: 1px solid #ddd; margin-bottom: 5px; padding: 0; }
+		table.travellertable td.scorecell { min-width: 25px; }
+		table.dealtable td.dealinfo { font-size: 0.9em; vertical-align: top; }
+		table.ddtable { font-size: 0.8em; border: 0; border-collapse: collapse; width: 60%; margin-left: 10px; }
+		table.ddtable th { background: transparent; color: black; padding: 16px 8px 0 0; }
+		table.ddtable td { padding: 0 8px 0 0; }
+		.btnspace { padding-top: 10px; }
+		.bdlinkfwd { display: inline-block; padding: 15px; background-color: #a0a0a0; border-radius: 6px; transition: background-color 0.2s ease; }
+		.bdlinkbck { float: right; padding: 15px; background-color: #a0a0a0; border-radius: 6px; transition: background-color 0.2s ease; }
+		.bdlinkfwd a, .bdlinkbck a, .backlink a { font-size: 1.8em;  color: #fff; text-decoration: none; font-weight: 600; }
+		.backlink { display: inline-block; padding: 15px; background-color: #a0a0a0; border-radius: 6px; transition: background-color 0.2s ease; }
+		.backlink:hover, .bdlinkfwd:hover, .bdlinkbck:hover { background-color: #647498; }
+        tr.even { background: #e4eaff }
+		tr.hilite { background:#f4e820 }
+        td { padding: 4px }
+		td.colorlolo { border: 1px solid #ddd; margin-bottom: 5px; text-align: center; background: #f86060; color: white; }
+		td.colorlo { border: 1px solid #ddd; margin-bottom: 5px; text-align: center; background: #fa941f; color: white; }
+		td.colormed { border: 1px solid #ddd; margin-bottom: 5px; text-align: center; background: #ffff20; color: black; }
+		td.colorhi { border: 1px solid #ddd; margin-bottom: 5px; text-align: center; background: #c6fa4e; color: black; }
+		td.colorhihi { border: 1px solid #ddd; margin-bottom: 5px; text-align: center; background: #3cfc5c; color: black; }
+        .rtablediv { margin-bottom: 20px; }
+        h1 { margin: 10px; }
+        h2 { margin: 5px; }
+		table.rankingstable { min-width: 600px; }
+		table.scorecardtable { max-width: 600px;}
+		span.ssym { font-size: 1.2em; }
+		.blanklink { display: inline-block; width: 25px; height: 16px; }
+		a { cursor: pointer; }
+		/* Responsive styling (desktop/tablet) */
+		@media screen and (width >= 990px) {
+			div.scorewrapperdiv {
+				display: flex;
+				grid-template-columns: 2fr 1fr;
+			}
+		}
+		/* Responsive styling (mobile) */
+		body.mobile {
+		  font-size: 1.2em;
+		  div.boarddiv { transform: scale(1.4, 1); transform-origin: top left; }
+		  div.bdlinkfwd, div.bdlinkbck  { transform: scale(0.7, 1); transform-origin: left}
+		  div.btnwrapper { width: 403px}
+		  width: 600px;
+		}
+    </style>
+	<script>
+	/*************************************************************************/
+	// Function to build a rankings table
+	function buildRankingTable(extraHeader, rankingsTable) {
+		// Create table
+		const table = document.createElement('table');
+		table.border = '1';
+		table.style.borderCollapse = 'collapse';
+		table.style.width = '100%'
+		table.className = 'rankingstable'
+
+		// Build the table header, starting with the direction for 2 winner events
+		if (extraHeader != null) {
+			const thead = document.createElement('thead');
+			const headerRow = document.createElement('tr');
+			const th = document.createElement('th');
+			th.textContent = extraHeader;
+			th.setAttribute("colspan", "10");
+			headerRow.appendChild(th);
+			thead.appendChild(headerRow);
+			table.appendChild(thead);
+		}
+
+		// Followed by the two header rows
+		{
+			const thead = document.createElement('thead');
+			const headerRow = document.createElement('tr');
+			['', '', '', '', '', 'Master', 'Small', 'Grand'].forEach(headerText => {
+				const th = document.createElement('th');
+				th.textContent = headerText;
+				headerRow.appendChild(th);
+			});
+			thead.appendChild(headerRow);
+			table.appendChild(thead);
+		}
+		{
+			const thead = document.createElement('thead');
+			const headerRow = document.createElement('tr');
+			['Pos', 'Pair#', 'Strat', 'Pair', 'Score', 'Points', 'Slams', 'Slams'].forEach(headerText => {
+				const th = document.createElement('th');
+				th.textContent = headerText;
+				headerRow.appendChild(th);
+			});
+			thead.appendChild(headerRow);
+			table.appendChild(thead);
+		}
+
+		// Create the table body
+		const tbody = document.createElement('tbody');
+		rowNum = 0;							// Used to stripe the table
+		rankingsTable.forEach(item => {
+			const row = document.createElement('tr');
+			// Add the position and pair number
+			[item.pos, item.pairnum, item.strat].forEach(cellText => {
+				const td = document.createElement('td');
+				td.textContent = cellText;
+				td.className = 'itemc';
+				row.appendChild(td);
+			});
+			// Add the pair names as a link to generate the personal score cards
+			{
+				const td = document.createElement('td');
+				const link = document.createElement('a');
+				link.href = '#';
+				link.textContent = item.pair;
+				link.addEventListener('click', function(event) {
+					event.preventDefault();
+					nameClick(item.pairnum);
+				});
+				td.appendChild(link);
+				td.className = 'item';
+				row.appendChild(td);
+			}
+			// Add the scores
+			{
+				const td = document.createElement('td');
+				td.textContent = item.score + '/' + item.max + ' = ' + item.percent + '%';
+				td.className = 'itemc';
+				row.appendChild(td);
+			}
+			// Add matchpoints
+			{
+				const td = document.createElement('td');
+				td.textContent = item.mps;
+				td.className = 'itemc';
+				row.appendChild(td);
+			}
+			// Add the number of slams, leaving the cell empty if none
+			{
+				const td = document.createElement('td');
+				if (item.ss != 0) {
+					td.textContent = item.ss;
+				}
+				td.className = 'itemc';
+				row.appendChild(td);
+			}
+			{
+				const td = document.createElement('td');
+				if (item.gs != 0) {
+					td.textContent = item.gs;
+				}
+				td.className = 'itemc';
+				row.appendChild(td);
+			}
+			// Stripe the table on even rows using a class on the row element
+			rowNum++;
+			if (rowNum % 2 === 0) {
+				row.className = 'even';
+			}
+			// Glue the newly created row into the table body
+			tbody.appendChild(row);
+		});
+		// Results table built. Append the body onto the table element
+		table.appendChild(tbody);
+		// And wrap the whole thing in a div, returning that
+		const div = document.createElement('div');
+		div.setAttribute("class", "rtablediv");
+		div.append(table);
+		return div;
+	}
+
+	/*************************************************************************/
+	// Function to build a scorecard table
+	function buildScorecardTable(pairnum) {
+		istwowinner = eventInfo.istwowinner;
+		boardsperround = eventInfo.boardsperround;
+
+		// Create table
+		const table = document.createElement('table');
+		table.className = 'scorecardtable'
+
+		// Build the table header, starting with the pair name
+		pairname = getPairName(pairnum);
+		{
+			const thead = document.createElement('thead');
+			const headerRow = document.createElement('tr');
+			const th = document.createElement('th');
+			th.setAttribute("colspan", istwowinner ? "11" : "12");
+			if (pairname != null) {
+				th.textContent = 'Pair ' + pairnum + ' - ' + pairname;
+			}
+			headerRow.appendChild(th);
+			thead.appendChild(headerRow);
+			table.appendChild(thead);
+		}
+
+		// Followed by the header row
+		{
+			const thead = document.createElement('thead');
+			const headerRow = document.createElement('tr');
+			{
+				const th = document.createElement('th');
+				th.textContent = 'Bd';
+				headerRow.appendChild(th);
+			}
+			if (!istwowinner) {
+				const th = document.createElement('th');
+				th.textContent = 'Dir';
+				headerRow.appendChild(th);
+			}
+			{
+				const th = document.createElement('th');
+				th.textContent = 'Opps';
+				th.colSpan = 2;
+				headerRow.appendChild(th);
+
+			}
+			['Ctrt', 'By', 'Lead', 'Tks', '+', '-', 'Pts', '%'].forEach(headerText => {
+				const th = document.createElement('th');
+				th.textContent = headerText;
+				headerRow.appendChild(th);
+			});
+			thead.appendChild(headerRow);
+			table.appendChild(thead);
+		}
+
+		// Create the table body
+		const tbody = document.createElement('tbody');
+		rowNum = 0;							// Used to stripe the table
+		scorecard = null;
+		scorecards.forEach(item => {
+			if (item.pairnum == pairnum) {
+				scorecard = item;
+			}
+		});
+		// Function to create and return a link for the personal scorecard
+		function createLink(linkText, boardNum, pairnum) {
+			const link = document.createElement('a');
+			link.href = '#';
+			link.textContent = linkText;
+			if (linkText == '') {
+				link.className = 'blanklink';
+			}
+			link.addEventListener('click', function(event) {
+				event.preventDefault();
+				boardClick(boardNum, pairnum);
+			});
+			return link;
+		}
+		scorecard.board.forEach(item => {
+			// Create a link to the board
+			const row = document.createElement('tr');
+			const link = document.createElement('a');
+			link.href = '#';
+			link.addEventListener('click', function(event) {
+				event.preventDefault();
+				boardClick(item.boardNum, pairnum);
+			});
+			// Add the board number
+			{
+				const td = document.createElement('td');
+				td.className = 'itemc';
+				td.appendChild(createLink(item.boardNum, item.boardNum, pairnum));
+				row.appendChild(td);
+			}
+			if (!istwowinner) {
+				const td = document.createElement('td');
+				td.className = 'itemc';
+				td.appendChild(createLink(item.isNS ? "N/S" : "E/W", item.boardNum, pairnum));
+				row.appendChild(td);
+			}
+			// Add the opps info only at the start of each round
+			if (rowNum % boardsperround === 0) {
+				const td = document.createElement('td');
+				td.className = 'itemc';
+				td.appendChild(createLink(item.versus, item.boardNum, pairnum));
+				td.rowSpan = boardsperround;
+				row.appendChild(td);
+				pairname = getPairName(item.versus);
+				{
+					const td = document.createElement('td');
+					td.appendChild(createLink((pairname != null) ? pairname : '', item.boardNum, pairnum));
+					td.rowSpan = boardsperround;
+					td.className = 'item';
+					row.appendChild(td);
+				}
+			}
+			[item.contract, item.by, item.lead, item.tricks, item.plus, item.minus, item.pts].forEach(scoreitem => {
+				const td = document.createElement('td');
+				td.className = 'itemc';
+				td.appendChild(createLink(scoreitem, item.boardNum, pairnum));
+				row.appendChild(td);
+			});
+			{
+				const td = document.createElement('td');
+				if (item.percent < 20) {
+					td.className = 'colorlolo';
+				}
+				else if (item.percent < 40) {
+					td.className = 'colorlo';
+				}
+				else if (item.percent <= 60) {
+					td.className = 'colormed';
+				}
+				else if (item.percent < 80) {
+					td.className = 'colorhi';
+				}
+				else {
+					td.className = 'colorhihi'
+				}
+				td.appendChild(createLink(item.percent, item.boardNum, pairnum));
+				row.appendChild(td);
+			}
+
+			// Stripe the table on even rows using a class on the row element
+			rowNum++;
+			if (rowNum % 2 === 0) {
+				row.className = 'even';
+			}
+			// Glue the newly created row into the table body
+			tbody.appendChild(row);
+		});
+		// Scorecard table built. Append the body onto the table element
+		table.appendChild(tbody);
+		// And wrap the whole thing in a div, returning that
+		const div = document.createElement('div');
+		div.setAttribute("class", "stablediv");
+		div.appendChild(table);
+		return div;
+	}
+
+	/*************************************************************************/
+	// Function to build a hand content
+	function buildHand(handDeal, className) {
+		const td = document.createElement('td');
+		td.className = className;
+		// Use unicode chars for the suit symbols
+		td.innerHTML = '<span class="ssym">&#x2660;&nbsp;</span>' + handDeal[0] +
+					   '<br><span class="ssym" style="color:red">&#x2665;&nbsp;</span>' + handDeal[1] +
+					   '<br><span class="ssym" style="color:red">&#x2666;&nbsp;</span>' + handDeal[2] +
+					   '<br><span class="ssym">&#x2663;&nbsp;</span>' + handDeal[3];
+		return td;
+	}
+
+	/*************************************************************************/
+	// Function to build a double-dummy result row content
+	function buildDDRow(directionName, ddRowData, className) {
+		const ddRow = document.createElement('tr');
+		ddRow.className = className;
+		{
+			const td = document.createElement('td');
+			td.textContent = directionName;
+			ddRow.appendChild(td);
+		}
+		{
+			const td = document.createElement('td');
+			var tricks = ddRowData[0] - 6;
+			td.textContent = tricks <= 0 ? '-' : tricks;
+			ddRow.appendChild(td);
+		}
+		{
+			const td = document.createElement('td');
+			var tricks = ddRowData[1] - 6;
+			td.textContent = tricks <= 0 ? '-' : tricks;
+			ddRow.appendChild(td);
+		}
+		{
+			const td = document.createElement('td');
+			var tricks = ddRowData[2] - 6;
+			td.textContent = tricks <= 0 ? '-' : tricks;
+			ddRow.appendChild(td);
+		}
+		{
+			const td = document.createElement('td');
+			var tricks = ddRowData[3] - 6;
+			td.textContent = tricks <= 0 ? '-' : tricks;
+			ddRow.appendChild(td);
+		}
+		{
+			const td = document.createElement('td');
+			var tricks = ddRowData[4] - 6;
+			td.textContent = tricks <= 0 ? '-' : tricks;
+			ddRow.appendChild(td);
+		}
+		return ddRow;
+	}
+
+	/*************************************************************************/
+	// Function to build a deal table
+	function buildDeal(boardNum) {
+		// Find the deal data for the given board number
+		boardData = deals[boardNum];
+		deal = boardData.deal;
+		tricks = boardData.tricks;
+
+		// Create table
+		const table = document.createElement('table');
+		table.className = 'dealtable'
+
+		// Build table header, starting with the board details
+		{
+			const thead = document.createElement('thead');
+			const headerRow = document.createElement('tr');
+			const th = document.createElement('th');
+			th.setAttribute("colspan", '4');
+			th.textContent = 'Board ' + boardNum;
+			headerRow.appendChild(th);
+			thead.appendChild(headerRow);
+			table.appendChild(thead);
+		}
+		// The table body is 3x4 cells
+		const tbody = document.createElement('tbody');
+		// Top row has board info, then North, then a blank cell
+		{
+			const row = document.createElement('tr');
+			{
+				const td = document.createElement('td');
+				td.innerHTML = 'Dealer: ' + boardData.dealer + '<br>Vul: ' + boardData.vulnerability;
+				td.className = 'dealinfo';
+				row.appendChild(td);
+			}
+			{
+				const td = document.createElement('td');
+				row.appendChild(td);
+			}
+			row.append(buildHand(deal[0], 'northhand'));
+			{
+				const td = document.createElement('td');
+				row.appendChild(td);
+			}
+			tbody.appendChild(row);
+		}
+		// Middle row has West, then board, then East
+		{
+			const row = document.createElement('tr');
+			row.append(buildHand(deal[3], 'westhand'));
+			{
+				const td = document.createElement('td');
+				td.innerHTML = 'N<br><br>W&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;E<br><br>S';
+				td.className = 'dealcenter';
+				td.setAttribute('colspan', '2');
+				row.appendChild(td);
+			}
+			row.append(buildHand(deal[1], 'easthand'));
+			tbody.appendChild(row);
+		}
+		// Bottom row has double-dummy contracts, then South, then blank
+		{
+			const row = document.createElement('tr');
+			{
+				// The double-dummy contracts is a nested table
+				const ddtable = document.createElement('table');
+				ddtable.className = 'ddtable'
+				const thead = document.createElement('thead');
+				const headerRow = document.createElement('tr');
+				{
+					const th = document.createElement('th');
+					headerRow.appendChild(th);
+				}
+				{
+					const th = document.createElement('th');
+					th.textContent = 'N';
+					headerRow.appendChild(th);
+				}
+				{
+					const th = document.createElement('th');
+					th.textContent = 'S';
+					headerRow.appendChild(th);
+				}
+				{
+					const th = document.createElement('th');
+					th.textContent = 'H';
+					headerRow.appendChild(th);
+				}
+				{
+					const th = document.createElement('th');
+					th.textContent = 'D';
+					headerRow.appendChild(th);
+				}
+				{
+					const th = document.createElement('th');
+					th.textContent = 'C';
+					headerRow.appendChild(th);
+				}
+				thead.appendChild(headerRow);
+				ddtable.appendChild(thead);
+				const ddtbody = document.createElement('tbody');
+				ddtbody.appendChild(buildDDRow('N', tricks[0], 'ddrow'));
+				ddtbody.appendChild(buildDDRow('S', tricks[1], 'ddrow'));
+				ddtbody.appendChild(buildDDRow('E', tricks[2], 'ddrow'));
+				ddtbody.appendChild(buildDDRow('W', tricks[3], 'ddrow'));
+				ddtable.appendChild(ddtbody);
+				row.appendChild(ddtable);
+			}
+			{
+				const td = document.createElement('td');
+				row.appendChild(td);
+			}
+			row.append(buildHand(deal[2], 'southhand'));
+			tbody.appendChild(row);
+		}
+		table.appendChild(tbody);
+		return table;
+	}
+
+	/*************************************************************************/
+	// Function to build a traveller table
+	function buildTraveller(boardNum, pairnum) {
+		// Create table
+		const table = document.createElement('table');
+		table.className = 'travellertable'
+
+		// Build table header
+		{
+			const thead = document.createElement('thead');
+			const headerRow = document.createElement('tr');
+			headerRow.innerHTML = '<th>NS</th><th>EW</th><th>Ctrt</th><th>By</th><th>Lead</th><th>Tks</th><th>+</th><th>-</th><th colspan="2">MPs</th>';
+			thead.appendChild(headerRow);
+			table.appendChild(thead);
+		}
+		// Add the table rows
+		const tbody = document.createElement('tbody');
+		var rowNum = 1;
+		travellers[boardNum].forEach(travellerLine => {
+			const row = document.createElement('tr');
+			[travellerLine.ns, travellerLine.ew, travellerLine.contract, travellerLine.by, travellerLine.lead, travellerLine.tricks].forEach(lineitem => {
+				const td = document.createElement('td');
+				td.textContent = lineitem;
+				row.appendChild(td);
+			});
+			[travellerLine.plus, travellerLine.minus].forEach(lineitem => {
+				const td = document.createElement('td');
+				td.textContent = lineitem;
+				td.className = 'scorecell'
+				row.appendChild(td);
+			});
+			[travellerLine.nsmps, travellerLine.ewmps].forEach(lineitem => {
+				const td = document.createElement('td');
+				td.textContent = lineitem;
+				row.appendChild(td);
+			});
+			// Stripe the table on even rows using a class on the row element
+
+			rowNum++;
+			if (travellerLine.ns == pairnum || travellerLine.ew == pairnum) {
+				// On the row for this pair, highlight it.
+				row.className = 'hilite';
+			}
+			else {
+				if (rowNum % 2 === 0) {
+					row.className = 'even';
+				}
+			}
+			tbody.appendChild(row);
+		});
+		table.appendChild(tbody);
+		return table;
+	}
+
+	/*************************************************************************/
+	// Function to output a single rankings section
+	function renderOneRanking(container, rankingDataNS, rankingDataEW) {
+		// Set the page type title
+		const typeHeading = document.createElement('h2');
+		typeHeading.id = 'contenthead';
+		typeHeading.textContent = rankingDataNS.heading;
+		container.appendChild(typeHeading);
+
+		// Render the N/S results. 'extraHeader' remains unset for a single winner event
+		extraHeader = null
+		if (rankingDataEW !== null) {
+			extraHeader = 'North/South'
+		}
+		// Add table to container
+		container.appendChild(buildRankingTable(extraHeader, rankingDataNS.data));
+
+		// Render the E/W results - only for 2 winner events
+		if (rankingDataEW !== null) {
+			extraHeader = 'East/West'
+			// Add table to container
+			container.appendChild(buildRankingTable(extraHeader, rankingDataEW.data));
+		}
+	}
+
+	/*************************************************************************/
+	// Function to render content from JSON
+	function renderContent() {
+		// Clear out the container first
+		const container = document.getElementById('content');
+		container.innerHTML = ''; // Clear previous content
+
+		// Set the title (appears in the browser tab)
+		const title = document.getElementById('title');
+		title.innerHTML = ''; // Clear previous content
+		title.textContent = eventInfo.eventname;
+
+		// Set the club name and event title for the page
+		const clubHeading = document.getElementById('clubname');
+		clubHeading.textContent = eventInfo.clubname;
+		const eventHeading = document.getElementById('eventname');
+		eventHeading.textContent = eventInfo.eventname;
+
+		renderOneRanking(container, rankings, typeof rankingsew !== 'undefined' ? rankingsew : null);
+		if (typeof rankings1 !== 'undefined') {
+			renderOneRanking(container, rankings1, typeof rankingsew1 !== 'undefined' ? rankingsew1 : null);
+			if (typeof rankings2 !== 'undefined') {
+				renderOneRanking(container, rankings2, typeof rankingsew2 !== 'undefined' ? rankingsew2 : null);
+			}
+		}
+	}
+
+	/*************************************************************************/
+	function nameClick(pairnum) {
+		// Clear out the container first
+		const container = document.getElementById('content');
+		container.innerHTML = ''; // Clear previous content
+
+		// Set the page type title
+		const typeHeading = document.createElement('h2');
+		typeHeading.id = 'contenthead';
+		typeHeading.textContent = 'Personal Scorecard';
+		container.appendChild(typeHeading);
+
+		// Create back link
+		const backdiv = document.createElement('div');
+		backdiv.className = "backlink";
+		const backlink = document.createElement('a');
+		backlink.href = '#';
+		backlink.onclick = function(event) { event.preventDefault(); renderContent() };
+		backlink.text = '<-Back';
+		backdiv.appendChild(backlink);
+		container.appendChild(backdiv);
+
+		const scorewrapper = document.createElement('div');
+		scorewrapper.className = "scorewrapperdiv";
+
+		scorewrapper.appendChild(buildScorecardTable(pairnum));
+
+		const boarddiv = document.createElement('div');
+		boarddiv.className = "boarddiv";
+		boarddiv.id = "boardcontent"
+		scorewrapper.appendChild(boarddiv);
+
+		container.appendChild(scorewrapper);
+
+		// Create second back link
+		const backdiv2 = document.createElement('div');
+		backdiv2.className = "backlink";
+		const backlink2 = document.createElement('a');
+		backlink2.href = '#';
+		backlink2.onclick = function(event) { event.preventDefault(); renderContent() };
+		backlink2.text = '<-Back';
+		backdiv2.appendChild(backlink2);
+		container.appendChild(backdiv2);
+	}
+
+	/*************************************************************************/
+	function boardClick(boardNum, pairnum) {
+		// Clear out the container first
+		const container = document.getElementById('boardcontent');
+		container.innerHTML = ''; // Clear previous content
+
+		const boarddiv = document.createElement('div');
+		boarddiv.className = "oneboarddiv";
+		boarddiv.appendChild(buildDeal(boardNum));
+
+		const travdiv = document.createElement('div');
+		travdiv.className = "onetravdiv";
+		travdiv.appendChild(buildTraveller(boardNum, pairnum));
+		container.appendChild(boarddiv);
+		container.appendChild(travdiv);
+
+		const btnspacediv = document.createElement('div');
+		btnspacediv.className = "btnwrapper";
+
+		if (boardNum < eventInfo.numboards) {
+			const fwdbddiv = document.createElement('div');
+			fwdbddiv.className = "bdlinkfwd";
+			const fwdlink = document.createElement('a');
+			fwdlink.href = '#';
+			fwdlink.onclick = function(event) { event.preventDefault(); boardClick(boardNum + 1, pairnum) };
+			fwdlink.text = 'Next->   ';
+			fwdbddiv.appendChild(fwdlink);
+			btnspacediv.appendChild(fwdbddiv);
+		}
+		if (boardNum > 1) {
+			const backbddiv = document.createElement('div');
+			backbddiv.className = "bdlinkbck";
+			const backlink = document.createElement('a');
+			backlink.href = '#';
+			backlink.onclick = function(event) { event.preventDefault(); boardClick(boardNum - 1, pairnum) };
+			backlink.text = '   <-Prev';
+			backbddiv.appendChild(backlink);
+			btnspacediv.appendChild(backbddiv);
+		}
+		container.appendChild(btnspacediv);
+	}
+
+	/*************************************************************************/
+	function getPairName(pairnum) {
+		var pairname;
+		rankings.data.forEach(rankingRecord => {
+			if (rankingRecord.pairnum == pairnum) {
+				pairname = rankingRecord.pair;
+			}
+		});
+		if (pairname == null && typeof rankingsew !== 'undefined') {
+			rankingsew.data.forEach(rankingRecord => {
+				if (rankingRecord.pairnum == pairnum) {
+					pairname = rankingRecord.pair;
+				}
+			});
+		}
+		return pairname;
+	}
+	</script>
+</head>
+<body>
+	<div style="text-align: center">
+	    <h1 id="clubname"></h1>
+	    <h2 id="eventname"></h2>
+	</div>
+    <div id="content"></div>
+	<script>
+		if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+			document.body.classList.add('mobile');
+		}
+		renderContent();
+	</script>
+</body>
+</html>

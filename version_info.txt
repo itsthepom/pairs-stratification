@@ -1,0 +1,20 @@
+VSVersionInfo(
+  ffi=FixedFileInfo(
+    filevers=(1,0,0,0),
+    prodvers=(1,0,0,0)
+  ),
+  kids=[
+    StringFileInfo([
+      StringTable(
+        '040904B0',
+        [
+          StringStruct('CompanyName', 'Steve Pomeroy'),
+          StringStruct('FileDescription', 'Pairs stratification'),
+          StringStruct('FileVersion', '1.04'),
+          StringStruct('ProductName', 'PairsStrat'),
+          StringStruct('ProductVersion', '1.04')
+        ]
+      )
+    ])
+  ]
+)

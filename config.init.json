@@ -1,0 +1,11 @@
+{
+    "resultsdir": ".",
+    "outputsdir": ".",
+    "handrecordsdir": ".",
+    "webfiletemplate": "./SingleFileTmpl.html",
+    "stratum1threshold": "Regional Master",
+    "stratum2threshold": "None",
+    "webpagesdir": "WebPages",
+    "masterpointsdir": "MPFiles",
+    "pdfsdir": "PDFs"
+}

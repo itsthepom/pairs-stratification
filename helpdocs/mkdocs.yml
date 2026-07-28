@@ -1,0 +1,21 @@
+site_name: Pairs Stratification Utility
+nav:
+  - Home: index.md
+  - Workfllow: workflow.md
+  - Stratification: stratification.md
+  - User Interface: userif.md
+  - Installation: installation.md
+  - Troubleshooting: troubleshooting.md
+  - Batch Mode: batch.md
+  - FAQs: faqs.md
+theme: material
+extra_css:
+  - theme.css
+markdown_extensions:
+  - tables
+  - attr_list
+  - md_in_html
+  - pymdownx.superfences
+plugins:
+  - search
+  - glightbox

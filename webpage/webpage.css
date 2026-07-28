@@ -1,0 +1,67 @@
+body { font-family: verdana; font-size: small; min-width: 615px; max-width: 1000px; }
+#rankings { margin: 20px; }
+#contenthead { text-align: center; padding-top: 10px; }
+.item { border: 1px solid #ddd; margin-bottom: 5px; }
+.itemc { border: 1px solid #ddd; margin-bottom: 5px; text-align: center; }
+div.stablediv { margin: 0 10px 10px 0; min-width: 610px; }
+div.boarddiv { margin-bottom: 10px; width: 360px; }
+div.backlink { clear: both; }
+div.scorewrapperdiv { margin: 10px 0 10px 0; }
+div.btnwrapper { margin-top: 10px; }
+th { background: #647498; color: white; padding: 0px 4px 0px 4px; border: none }
+table.dealtable { font-size: 1.1em; border-collapse: collapse; width: 360px }
+table.dealtable th { background: #647498; color: white; padding: 0px 4px 0px 4px; border: none }
+table.dealtable td { padding: 4px; }
+table.dealtable td.dealcenter { padding: 4px; text-align: center; }
+table.dealtable td.northhand, table.dealtable td.southhand { padding-left: 0px; width: 80px; }
+table.dealtable td.westhand { padding-left: 20px; width: 100px; }
+table.dealtable td.easthand { padding-left: 20px }
+table.dealtable td.dealcenter { padding-left: 0px; padding-right: 0px; background:#38904820; }
+table.scorecardtable { border-collapse: collapse; max-width: 620px; }
+table.scorecardtable th { padding: 4px 4px 4px 4px; }
+table.scorecardtable a { color: black; cursor: pointer; text-decoration: unset; }
+table.travellertable { font-size: 1em; border: 1px solid #ddd; border-collapse: collapse; width: 360px; text-align: center }
+table.travellertable td { border: 1px solid #ddd; margin-bottom: 5px; padding: 0; }
+table.travellertable td.scorecell { min-width: 25px; }
+table.dealtable td.dealinfo { font-size: 0.9em; vertical-align: top; }
+table.ddtable { font-size: 0.8em; border: 0; border-collapse: collapse; width: 60%; margin-left: 10px; }
+table.ddtable th { background: transparent; color: black; padding: 16px 8px 0 0; }
+table.ddtable td { padding: 0 8px 0 0; }
+.btnspace { padding-top: 10px; }
+.bdlinkfwd { display: inline-block; padding: 15px; background-color: #a0a0a0; border-radius: 6px; transition: background-color 0.2s ease; }
+.bdlinkbck { float: right; padding: 15px; background-color: #a0a0a0; border-radius: 6px; transition: background-color 0.2s ease; }
+.bdlinkfwd a, .bdlinkbck a, .backlink a { font-size: 1.8em;  color: #fff; text-decoration: none; font-weight: 600; }
+.backlink { display: inline-block; padding: 15px; background-color: #a0a0a0; border-radius: 6px; transition: background-color 0.2s ease; }
+.backlink:hover, .bdlinkfwd:hover, .bdlinkbck:hover { background-color: #647498; }
+tr.even { background: #e4eaff }
+tr.hilite { background:#f4e820 }
+td { padding: 4px }
+td.colorlolo { border: 1px solid #ddd; margin-bottom: 5px; text-align: center; background: #f86060; color: white; }
+td.colorlo { border: 1px solid #ddd; margin-bottom: 5px; text-align: center; background: #fa941f; color: white; }
+td.colormed { border: 1px solid #ddd; margin-bottom: 5px; text-align: center; background: #ffff20; color: black; }
+td.colorhi { border: 1px solid #ddd; margin-bottom: 5px; text-align: center; background: #c6fa4e; color: black; }
+td.colorhihi { border: 1px solid #ddd; margin-bottom: 5px; text-align: center; background: #3cfc5c; color: black; }
+.rtablediv { margin-bottom: 20px; }
+h1 { margin: 10px; }
+h2 { margin: 5px; }
+table.rankingstable { min-width: 600px; }
+table.scorecardtable { max-width: 600px;}
+span.ssym { font-size: 1.2em; }
+.blanklink { display: inline-block; width: 25px; height: 16px; }
+a { cursor: pointer; }
+/* Responsive styling (desktop/tablet) */
+@media screen and (width >= 990px) {
+    div.scorewrapperdiv {
+        display: flex;
+        grid-template-columns: 2fr 1fr;
+    }
+}
+/* Responsive styling (mobile) */
+body.mobile {
+    .container { flex-direction: column; }
+    font-size: 1.2em;
+    div.boarddiv { transform: scale(1.4, 1); transform-origin: top left; }
+    div.bdlinkfwd, div.bdlinkbck  { transform: scale(0.7, 1); transform-origin: left}
+    div.btnwrapper { width: 403px}
+    width: 600px;
+}
