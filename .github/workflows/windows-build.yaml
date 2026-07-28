@@ -3,7 +3,9 @@ name: Build Windows Installer
 on:
   push:
     branches: [ "main" ]
-  workflow_dispatch: # Allows manual triggers from the GitHub UI
+  release:
+    types: [published]
+  workflow_dispatch:        # Allows manual triggers from the GitHub UI
 
 jobs:
   build-windows:
@@ -44,8 +46,21 @@ jobs:
       run: |
         & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" pythonbuild/PairsUtility.iss
 
-    - name: Upload Installer Artifact
+      # THIS STEP ONLY RUNS IF TRIGGERED BY A PUBLISHED RELEASE
+    - name: Sign Binary (Release Only)
+        if: github.event_name == 'release'
+        run: echo "Run your signing command or action here"
+
+    - name: Upload Installer Artifact (Push only)
+      if: github.event_name == 'push'
       uses: actions/upload-artifact@v4
+      with:
+        name: Windows-Installer
+        path: installer_output/PairsStrat-Setup.exe
+
+    - name: Attach signed binary to Github Release
+      if: github.event_name == 'release'
+      uses: softprops/action-gh-release@v1
       with:
         name: Windows-Installer
         path: installer_output/PairsStrat-Setup.exe
