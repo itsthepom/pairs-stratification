@@ -12,7 +12,7 @@ Information messages are in GREEN. They just tell you when an operation has comp
 | Message | Cause |
 |---------|-------|
 | Not a pairs event | The selected tournament is not a pairs event.<br/>This message will also be displayed if there is something wrong with your USEBIO input file. |
-| No deal file selected. Are you sure you wish to create the webpage? | When creating a webpage, this warning indicates that no deal file has been created. Without this, the individual scorecards will not be able to display boards and possible making contracts. |
+| Cannot load webpage template file. | When creating a webpage, this indicates that no webpage template file can been found. Check the file configured in Options exists. |
 
 ## Warning messages
 | Message | Cause |

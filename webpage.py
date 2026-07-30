@@ -12,6 +12,7 @@ import ttkbootstrap as tb
 from tkinter import messagebox
 import json
 import os
+from pathlib import Path
 import pbnreader
 import filehandling
 from dateutil import parser
@@ -104,8 +105,8 @@ class webpage(baseUIClass):
         self.spacerLabel1 = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
         self.spacerLabel1.grid(row=14, column=0, columnspan=2, sticky="nw")
 
-        self.completeLabel = tb.Label(self.frame, text="", font=("Arial", 10, "bold"), justify='left', foreground=CompleteColor)
-        self.completeLabel.grid(row=15, column=0, columnspan=2, sticky="w", padx=20)
+        self.messageLabel = tb.Label(self.frame, text="", font=("Arial", 10, "bold"), justify='left', foreground=CompleteColor)
+        self.messageLabel.grid(row=15, column=0, columnspan=2, sticky="w", padx=20)
 
         self.spacerLabel = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
         self.spacerLabel.grid(row=16, column=0, columnspan=2, sticky="nw", padx=420, pady=250)
@@ -113,7 +114,7 @@ class webpage(baseUIClass):
         
     def clearContent(self):
         self.spacerLabel.destroy()
-        self.completeLabel.destroy()
+        self.messageLabel.destroy()
         self.spacerLabel1.destroy()
         self.createButton.destroy()
         self.spacerLabel2.destroy()
@@ -153,7 +154,7 @@ class webpage(baseUIClass):
 
     def fileSelected(self, name, index, mode):
         try:
-            self.completeLabel.config(text='')
+            self.messageLabel.config(text='')
             if len(self.outputFileVar.get()) > 0:
                 self.createButton.config(state="normal")
             else:
@@ -162,7 +163,7 @@ class webpage(baseUIClass):
             pass
    
     def showDetail(self):
-        self.completeLabel.config(text='')
+        self.messageLabel.config(text='')
         if self.inputFile != None and len(self.inputFile) > 0:
             self.dealInfo = pbnreader.PBNReader()
             self.dealInfo.read(self.inputFile)
@@ -175,10 +176,11 @@ class webpage(baseUIClass):
             self.dateVar.set('')
 
     def createWrapper(self):
+        self.messageLabel.config(text='')
         OKToCreate = True
         if self.dealInfo == None:
             response = messagebox.askyesno(title="No hand record", message="No deal file selected.\nAre you sure you wish to create the webpage?")
-            OKToCreate = response == 'Yes'
+            OKToCreate = response
         else:
             # Try and parse the date from the deal file
             try:
@@ -186,7 +188,7 @@ class webpage(baseUIClass):
                 eventDate = parser.parse(self.tournamentData.tournamentDate).date()
                 if dealDate != eventDate:
                     response = messagebox.askyesno(title="Deal date does not match", message="Different deal date selected.\nAre you sure you wish to create the webpage?")
-                    OKToCreate = response == 'Yes'
+                    OKToCreate = response
             except:
                 OKToCreate = False
         if OKToCreate:
@@ -217,111 +219,117 @@ class webpage(baseUIClass):
             return data
         
         # Load HTML content
-        with open(self.uiparts.options.config['webfiletemplate'], "r", encoding="utf-8") as file:
-            soup = BeautifulSoup(file, "html.parser")
-
-        # Find the script tag where we store our data
-        scriptTag = soup.find(id="resultdata")
-        if not scriptTag is None:
-            # Looks like a valid template file. Build the JSON to drop into the resultData script tag
-            # Event data first
-            dateObj = datetime.strptime(self.tournamentData.tournamentDate, "%d/%m/%Y")
-            isTwoWinner = self.tournamentData.numWinners > 1
-            data = {
-                "clubname": self.tournamentData.clubName,
-		        "eventname": self.tournamentData.tournamentName + ' - ' + dateObj.strftime("%A") + ' ' + dateObj.strftime("%d") + ' ' + dateObj.strftime("%b") + ' ' + dateObj.strftime("%Y"),
-                "istwowinner": isTwoWinner,
-                "boardsperround": self.tournamentData.boardsPerRound,
-                "numboards": self.tournamentData.numBoards
-            }
-            JSONString = "\nlet eventInfo = " + json.dumps(data) + ";"
-
-            # Then the results - single winner or N/S first, then E/W
-            JSONString = JSONString + '\nlet rankings = {"heading": "Stratum A - Overall Rankings", "data": ' + json.dumps(createRanking(self.tournamentData.resultSet.overallRankings[0][0], 1)) + "};"
-            if len(self.tournamentData.resultSet.overallRankings[0][1]) > 0:
-                JSONString = JSONString + '\nlet rankingsew = {"heading": "", "data": ' + json.dumps(createRanking(self.tournamentData.resultSet.overallRankings[0][1], 1)) + "};"
-            # Stratum 1
-            if len(self.tournamentData.resultSet.overallRankings[1][0]) > 0:
-                if len(self.tournamentData.resultSet.overallRankings[2][0]) > 0:
-                    heading = "Stratum B - " + self.tournamentData.resultSet.stratumLabels[0] + " to above " + self.tournamentData.resultSet.stratumLabels[1]
-                else:
-                    heading = "Stratum B - " + self.tournamentData.resultSet.stratumLabels[0] + " and lower"
-                JSONString = JSONString + '\nlet rankings1 = {"heading": "' + heading + '", "data": ' + json.dumps(createRanking(self.tournamentData.resultSet.overallRankings[1][0], 2)) + "};"
-                if len(self.tournamentData.resultSet.overallRankings[1][1]) > 0:
-                    JSONString = JSONString + '\nlet rankingsew1 = {"heading": "", "data": ' + json.dumps(createRanking(self.tournamentData.resultSet.overallRankings[1][1], 2)) + "};"
-                if len(self.tournamentData.resultSet.overallRankings[2][0]) > 0:
-                    heading = "Stratum C - " + self.tournamentData.resultSet.stratumLabels[1] + " and lower"
-                    JSONString = JSONString + '\nlet rankings2 = {"heading": "' + heading + '", "data": ' + json.dumps(createRanking(self.tournamentData.resultSet.overallRankings[2][0], 3)) + "};"
-                    if len(self.tournamentData.resultSet.overallRankings[2][1]) > 0:
-                        JSONString = JSONString + '\nlet rankingsew2 = {"heading": "", "data": ' + json.dumps(createRanking(self.tournamentData.resultSet.overallRankings[2][1], 3)) + "};"
-
-            # Now add the pair scorecards
-            JSONString = JSONString + "\nlet scorecards = "
-            scorecards = []
-            for key, pair in self.tournamentData.resultSet.pairData.items():
-                data = {
-                    "pairnum": key,
-                    "pair": '',
-                    "board": []
-                }
-                for key, board in pair.scorecard.items():
-                    boardData = {
-                        "boardNum": key,
-                        "isNS": board.isNS,
-                        "versus": board.versus,
-                        "contract": board.contract,
-                        "by": board.by,
-                        "lead": board.lead,
-                        "tricks": board.tricks,
-                        "plus": board.plus,
-                        "minus": board.minus * -1,
-                        "pts": board.pts,
-                        "percent": "{:.0f}".format(board.percent)
-                    }
-                    data["board"].append(boardData)
-                scorecards.append(data)
-            JSONString = JSONString + json.dumps(scorecards) + ";"
-
-            if not self.dealInfo is None:
-                # Add the deals
-                JSONString = JSONString + "\nlet deals = " + self.dealInfo.getJSON()  + ";"
-
-            # Add the travellers
-            JSONString = JSONString + "\nlet travellers = ";
-            travellers = {}
-            for traveller in self.tournamentData.resultSet.travellerSet.travellers:
-                data = []
-                for line in traveller.travellerLines:
-                    linedata = {
-                        "ns": line.NSPair,
-                        "ew": line.EWPair,
-                        "contract": line.contract,
-                        "by": line.by,
-                        "lead": line.lead,
-                        "tricks": line.tricks,
-                        "plus": line.score,
-                        "minus": '',
-                        "nsmps": line.NSMPs,
-                        "ewmps": line.EWMPs
-                    }
-                    if isinstance(line.score, int):
-                        if line.score < 0:
-                            linedata['plus'] = ''
-                            linedata['minus'] = line.score * -1
-                    else:
-                        line.score = linedata['plus']
-                    data.append(linedata)
-                travellers[traveller.boardNum] = data
-            JSONString = JSONString + json.dumps(travellers) + ";\n"
-
-            # Assign the string to the HTML element
-            scriptTag.string = JSONString
-
-        # Save changes
-        with open(self.outputFileVar.get(), "w", encoding="utf-8") as file:
-            file.write(str(soup))
+        webfilePath = Path(self.uiparts.options.config['webfiletemplate'])
+        if webfilePath.is_file():
+            with open(self.uiparts.options.config['webfiletemplate'], "r", encoding="utf-8") as file:
+                soup = BeautifulSoup(file, "html.parser")
         
-        self.completeLabel.config(text='Webpage file generation complete.')
+            # Find the script tag where we store our data
+            scriptTag = soup.find(id="resultdata")
+            if not scriptTag is None:
+                # Looks like a valid template file. Build the JSON to drop into the resultData script tag
+                # Event data first
+                dateObj = datetime.strptime(self.tournamentData.tournamentDate, "%d/%m/%Y")
+                isTwoWinner = self.tournamentData.numWinners > 1
+                data = {
+                    "clubname": self.tournamentData.clubName,
+                    "eventname": self.tournamentData.tournamentName + ' - ' + dateObj.strftime("%A") + ' ' + dateObj.strftime("%d") + ' ' + dateObj.strftime("%b") + ' ' + dateObj.strftime("%Y"),
+                    "istwowinner": isTwoWinner,
+                    "boardsperround": self.tournamentData.boardsPerRound,
+                    "numboards": self.tournamentData.numBoards
+                }
+                JSONString = "\nlet eventInfo = " + json.dumps(data) + ";"
 
-        # Display the Webpage
-        os.startfile(self.outputFileVar.get().replace("/", "\\"))
+                # Then the results - single winner or N/S first, then E/W
+                JSONString = JSONString + '\nlet rankings = {"heading": "Stratum A - Overall Rankings", "data": ' + json.dumps(createRanking(self.tournamentData.resultSet.overallRankings[0][0], 1)) + "};"
+                if len(self.tournamentData.resultSet.overallRankings[0][1]) > 0:
+                    JSONString = JSONString + '\nlet rankingsew = {"heading": "", "data": ' + json.dumps(createRanking(self.tournamentData.resultSet.overallRankings[0][1], 1)) + "};"
+                # Stratum 1
+                if len(self.tournamentData.resultSet.overallRankings[1][0]) > 0:
+                    if len(self.tournamentData.resultSet.overallRankings[2][0]) > 0:
+                        heading = "Stratum B - " + self.tournamentData.resultSet.stratumLabels[0] + " to above " + self.tournamentData.resultSet.stratumLabels[1]
+                    else:
+                        heading = "Stratum B - " + self.tournamentData.resultSet.stratumLabels[0] + " and lower"
+                    JSONString = JSONString + '\nlet rankings1 = {"heading": "' + heading + '", "data": ' + json.dumps(createRanking(self.tournamentData.resultSet.overallRankings[1][0], 2)) + "};"
+                    if len(self.tournamentData.resultSet.overallRankings[1][1]) > 0:
+                        JSONString = JSONString + '\nlet rankingsew1 = {"heading": "", "data": ' + json.dumps(createRanking(self.tournamentData.resultSet.overallRankings[1][1], 2)) + "};"
+                    if len(self.tournamentData.resultSet.overallRankings[2][0]) > 0:
+                        heading = "Stratum C - " + self.tournamentData.resultSet.stratumLabels[1] + " and lower"
+                        JSONString = JSONString + '\nlet rankings2 = {"heading": "' + heading + '", "data": ' + json.dumps(createRanking(self.tournamentData.resultSet.overallRankings[2][0], 3)) + "};"
+                        if len(self.tournamentData.resultSet.overallRankings[2][1]) > 0:
+                            JSONString = JSONString + '\nlet rankingsew2 = {"heading": "", "data": ' + json.dumps(createRanking(self.tournamentData.resultSet.overallRankings[2][1], 3)) + "};"
+
+                # Now add the pair scorecards
+                JSONString = JSONString + "\nlet scorecards = "
+                scorecards = []
+                for key, pair in self.tournamentData.resultSet.pairData.items():
+                    data = {
+                        "pairnum": key,
+                        "pair": '',
+                        "board": []
+                    }
+                    for key, board in pair.scorecard.items():
+                        boardData = {
+                            "boardNum": key,
+                            "isNS": board.isNS,
+                            "versus": board.versus,
+                            "contract": board.contract,
+                            "by": board.by,
+                            "lead": board.lead,
+                            "tricks": board.tricks,
+                            "plus": board.plus,
+                            "minus": board.minus * -1,
+                            "pts": board.pts,
+                            "percent": "{:.0f}".format(board.percent)
+                        }
+                        data["board"].append(boardData)
+                    scorecards.append(data)
+                JSONString = JSONString + json.dumps(scorecards) + ";"
+
+                if not self.dealInfo is None:
+                    # Add the deals
+                    JSONString = JSONString + "\nlet deals = " + self.dealInfo.getJSON()  + ";"
+
+                # Add the travellers
+                JSONString = JSONString + "\nlet travellers = ";
+                travellers = {}
+                for traveller in self.tournamentData.resultSet.travellerSet.travellers:
+                    data = []
+                    for line in traveller.travellerLines:
+                        linedata = {
+                            "ns": line.NSPair,
+                            "ew": line.EWPair,
+                            "contract": line.contract,
+                            "by": line.by,
+                            "lead": line.lead,
+                            "tricks": line.tricks,
+                            "plus": line.score,
+                            "minus": '',
+                            "nsmps": line.NSMPs,
+                            "ewmps": line.EWMPs
+                        }
+                        if isinstance(line.score, int):
+                            if line.score < 0:
+                                linedata['plus'] = ''
+                                linedata['minus'] = line.score * -1
+                        else:
+                            line.score = linedata['plus']
+                        data.append(linedata)
+                    travellers[traveller.boardNum] = data
+                JSONString = JSONString + json.dumps(travellers) + ";\n"
+
+                # Assign the string to the HTML element
+                scriptTag.string = JSONString
+
+            # Save changes
+            with open(self.outputFileVar.get(), "w", encoding="utf-8") as file:
+                file.write(str(soup))
+            
+            self.messageLabel.config(text='Webpage file generation complete.')
+            self.messageLabel.config(foreground=CompleteColor)
+
+            # Display the Webpage
+            os.startfile(self.outputFileVar.get().replace("/", "\\"))
+        else:
+            self.messageLabel.config(text='Error - cannot load webpage template file.')
+            self.messageLabel.config(foreground="red")
