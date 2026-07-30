@@ -26,9 +26,9 @@ MPCode = (0, 5, 10, 20,
           150, 160, 165, 170,
           180, 190, 200, 210)
 
-StratAColor = "#000000"
-StratBColor = "#CC1000"
-StratCColor = "#379600"
+StratAColor = "#CC1000"
+StratBColor = "#379600"
+StratCColor = "#4B48E4"
 WarningColor = "#FF8800"
 CompleteColor = "#44880C"
 
@@ -116,9 +116,15 @@ class stratify(baseUIClass):
             self.overallNSStringLabel.set('Strat A N/S Pairs:')
             self.overallEWStringLabel.set('Strat A E/W Pairs:')
             self.strat1NSStringLabel.set('Strat B N/S Pairs:')
-            self.strat1EWLabel.config(text='Strat B E/W Pairs')
-            self.strat2NSLabel.config(text='Strat C N/S Pairs:')
-            self.strat2EWLabel.config(text='Strat C E/W Pairs:')
+            self.strat1EWStringLabel.config(text='Strat B E/W Pairs')
+            self.strat2NSStringLabel.config(text='Strat C N/S Pairs:')
+            self.strat2EWStringLabel.config(text='Strat C E/W Pairs:')
+            self.overallNSLabel.configure(foreground=StratAColor)
+            self.overallEWLabel.configure(foreground=StratAColor)
+            self.strat1NSLabel.configure(foreground=StratBColor)
+            self.strat1EWStringLabel.configure(foreground=StratBColor)
+            self.strat2NSStringLabel.configure(foreground=StratCColor)
+            self.strat2EWStringLabel.configure(foreground=StratCColor)
         else:
             self.overallNSPairs.set(str(self.buckets[0]) + ' (' + str(self.buckets[0]+self.buckets[2]) + ' overall)')
             self.overallEWPairs.set(str(self.buckets[2]-self.buckets[4]) + ' (' + str(self.buckets[2]) + ' in stratum)')
@@ -129,25 +135,12 @@ class stratify(baseUIClass):
             self.overallNSStringLabel.set('Strat A Pairs:')
             self.overallEWStringLabel.set('Strat B Pairs:')
             self.strat1NSStringLabel.set('Strat C Pairs:')
-            self.strat1EWLabel.config(text='')
-            self.strat2NSLabel.config(text='')
-            self.strat2EWLabel.config(text='')
-
-    def resetStratStrings(self):
-        """ Clears the tournament details strings.
-        """
-        self.overallNSStringLabel.set('Strat A N/S Pairs:')
-        self.overallEWStringLabel.set('Strat A E/W Pairs:')
-        self.strat1NSStringLabel.set('Strat B N/S Pairs:')
-        self.strat1EWLabel.config(text='Strat B E/W Pairs:')
-        self.strat2NSLabel.config(text='Strat C N/S Pairs:')
-        self.strat2EWLabel.config(text='Strat C E/W Pairs:')
-        self.overallNSPairs.set('')
-        self.overallEWPairs.set('')
-        self.strat1NSPairs.set('')
-        self.strat1EWPairs.set('')
-        self.strat2NSPairs.set('')
-        self.strat2EWPairs.set('')
+            self.overallNSLabel.configure(foreground=StratAColor)
+            self.overallEWLabel.configure(foreground=StratBColor)
+            self.strat1NSLabel.configure(foreground=StratCColor)
+            self.strat1EWStringLabel.config(text='')
+            self.strat2NSStringLabel.config(text='')
+            self.strat2EWStringLabel.config(text='')
 
     def coloriseLabels(self):
         for i, lbl in enumerate(self.label_widgets):
@@ -245,7 +238,7 @@ class stratify(baseUIClass):
                                orient="vertical",
                                variable=self.BSliderVar,
                                length=self.slider_height,
-                               bootstyle="danger",
+                               bootstyle="success",
                                command=lambda event: self.enforce_limits(None, self.BSliderVar, True)) # Uses Bootstrap theme styling directly
         self.scaleB.grid(row=2, column=1, columnspan=1, rowspan=len(UIMPLevels), sticky="w", padx=20)
         self.scaleB.bind("<Button-1>", lambda event: self.handle_trough_click(event, self.BSliderVar, True))
@@ -257,7 +250,7 @@ class stratify(baseUIClass):
                                orient="vertical",
                                variable=self.CSliderVar,
                                length=self.slider_height,
-                               bootstyle="success",
+                               bootstyle="primary",
                                command=lambda event: self.enforce_limits(None, self.CSliderVar, False)) # Uses Bootstrap theme styling directly
         self.scaleC.grid(row=2, column=2, columnspan=1, rowspan=len(UIMPLevels), sticky="w", padx=10)
         self.scaleC.bind("<Button-1>", lambda event: self.handle_trough_click(event, self.CSliderVar, False))
@@ -265,7 +258,7 @@ class stratify(baseUIClass):
 
         self.strataLabel1 = tb.Label(self.frame, text="Select the strata levels", font=("Arial", 10, "bold"), justify='left')
         self.strataLabel1.grid(row=0, column=0, columnspan=3, pady=10)
-        self.stratLevelsLabel1 = tb.Label(self.frame, text="A", font=("Arial", 10, "bold"), justify='left')
+        self.stratLevelsLabel1 = tb.Label(self.frame, text="A", font=("Arial", 10, "bold"), justify='left', foreground=StratAColor)
         self.stratLevelsLabel1.grid(row=1, column=0, sticky="w", padx=20)
         self.stratLevelsLabel2 = tb.Label(self.frame, text="B", font=("Arial", 10, "bold"), justify='left', foreground=StratBColor)
         self.stratLevelsLabel2.grid(row=1, column=1, sticky="w", padx=24)
@@ -300,16 +293,16 @@ class stratify(baseUIClass):
         self.strat1NSLabel.grid(row=7, column=4, sticky="w", padx=20)
         self.strat1NSContentLabel = tb.Label(self.frame, textvariable=self.strat1NSPairs, font=("Arial", 10), justify='left')
         self.strat1NSContentLabel.grid(row=7, column=4, sticky="w", padx=150)
-        self.strat1EWLabel = tb.Label(self.frame, text='', font=("Arial", 10), justify='left')
-        self.strat1EWLabel.grid(row=8, column=4, sticky="w", padx=20)
+        self.strat1EWStringLabel = tb.Label(self.frame, text='', font=("Arial", 10), justify='left')
+        self.strat1EWStringLabel.grid(row=8, column=4, sticky="w", padx=20)
         self.strat1EWContentLabel = tb.Label(self.frame, textvariable=self.strat1EWPairs, font=("Arial", 10), justify='left')
         self.strat1EWContentLabel.grid(row=8, column=4, sticky="w", padx=150)
-        self.strat2NSLabel = tb.Label(self.frame, text='', font=("Arial", 10), justify='left')
-        self.strat2NSLabel.grid(row=9, column=4, sticky="w", padx=20)
+        self.strat2NSStringLabel = tb.Label(self.frame, text='', font=("Arial", 10), justify='left')
+        self.strat2NSStringLabel.grid(row=9, column=4, sticky="w", padx=20)
         self.strat2NSContentLabel = tb.Label(self.frame, textvariable=self.strat2NSPairs, font=("Arial", 10), justify='left')
         self.strat2NSContentLabel.grid(row=9, column=4, sticky="w", padx=150)
-        self.strat2EWLabel = tb.Label(self.frame, text='', font=("Arial", 10), justify='left')
-        self.strat2EWLabel.grid(row=10, column=4, sticky="w", padx=20)
+        self.strat2EWStringLabel = tb.Label(self.frame, text='', font=("Arial", 10), justify='left')
+        self.strat2EWStringLabel.grid(row=10, column=4, sticky="w", padx=20)
         self.strat2EWContentLabel = tb.Label(self.frame, textvariable=self.strat2EWPairs, font=("Arial", 10), justify='left')
         self.strat2EWContentLabel.grid(row=10, column=4, sticky="w", padx=150)
 
@@ -364,11 +357,11 @@ class stratify(baseUIClass):
         self.stratResultsALabel.destroy()
         self.stratResultsLabel.destroy()
         self.strat2EWContentLabel.destroy()
-        self.strat2EWLabel.destroy()
+        self.strat2EWStringLabel.destroy()
         self.strat2NSContentLabel.destroy()
-        self.strat2NSLabel.destroy()
+        self.strat2NSStringLabel.destroy()
         self.strat1EWContentLabel.destroy()
-        self.strat1EWLabel.destroy()
+        self.strat1EWStringLabel.destroy()
         self.strat1NSContentLabel.destroy()
         self.strat1NSLabel.destroy()
         self.overallEWContentLabel.destroy()
