@@ -52,56 +52,87 @@ class pdfresults(baseUIClass):
             else:
                 self.outputFileVar.set("")
 
-        self.spacerLabel4 = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel4.grid(row=0, column=0, columnspan=2, sticky="nw")
+        self.labels = []
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=0, column=0, columnspan=2, sticky="nw")
+        self.labels.append(label)
 
-        self.outputFileLabel1 = tb.Label(self.frame, text="Select the new PDF file to be created.", font=("Arial", 10, "bold"), justify='left')
-        self.outputFileLabel1.grid(row=1, column=0, columnspan=2, sticky="w", padx=20)
-        self.outputFileLabel2 = tb.Label(self.frame, text="The results PDF will be written to this file.", font=("Arial", 10), justify='left')
-        self.outputFileLabel2.grid(row=2, column=0, columnspan=2, sticky="w", padx=20)
-        self.browseButton = tb.Button(self.frame, text="Browse", bootstyle="Primary", command=lambda: self.pickInputFile())
-        self.browseButton.grid(row=3, column=0, pady=10, padx=20, sticky="w")
-        self.outputFileEntry = tb.Entry(self.frame, textvariable=self.outputFileVar, width=95, font=("Arial", 10))
-        self.outputFileEntry.grid(row=3, column=0, sticky="w", padx=100)
+        label = tb.Label(self.frame, text="Select the new PDF file to be created.", font=("Arial", 10, "bold"), justify='left')
+        label.grid(row=1, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, text="The results PDF will be written to this file.", font=("Arial", 10), justify='left')
+        label.grid(row=2, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Button(self.frame, text="Browse", bootstyle="Primary", command=lambda: self.pickInputFile())
+        label.grid(row=3, column=0, pady=10, padx=20, sticky="w")
+        self.labels.append(label)   
+        label = tb.Entry(self.frame, textvariable=self.outputFileVar, width=95, font=("Arial", 10))
+        label.grid(row=3, column=0, sticky="w", padx=100)
+        self.labels.append(label)   
 
-        self.spacerLabel3 = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel3.grid(row=4, column=0, columnspan=2, sticky="nw")
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=4, column=0, columnspan=2, sticky="nw")
+        self.labels.append(label)
 
-        self.matrixLabel1 = tb.Label(self.frame, text="Check this box to include the matchpoints matrix.", font=("Arial", 10, "bold"), justify='left')
-        self.matrixLabel1.grid(row=5, column=0, columnspan=2, sticky="w", padx=20)
-        self.matrixCheckbox = tb.Checkbutton(self.frame, text="Include Matrix", variable=self.outputMatrix, bootstyle="Primary")
-        self.matrixCheckbox.grid(row=6, column=0, columnspan=2, sticky="w", padx=20, pady=10)
+        label = tb.Label(self.frame, text="Check this box to include the matchpoints matrix.", font=("Arial", 10, "bold"), justify='left')
+        label.grid(row=5, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Checkbutton(self.frame, text="Include Matrix", variable=self.outputMatrix, bootstyle="Primary")
+        label.grid(row=6, column=0, columnspan=2, sticky="w", padx=20, pady=10)
+        self.labels.append(label)
 
-        self.spacerLabel2 = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel2.grid(row=7, column=0, columnspan=2, sticky="nw")
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=7, column=0, columnspan=2, sticky="nw")
+        self.labels.append(label)
 
         self.createButton = tb.Button(self.frame, text="Create", bootstyle="Primary", state="disabled", command=lambda: self.createPDF())
         self.createButton.grid(row=8, column=0, sticky="w", padx=20, pady=10)
+        self.labels.append(self.createButton)
 
-        self.spacerLabel1 = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel1.grid(row=9, column=0, columnspan=2, sticky="nw")
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=9, column=0, columnspan=2, sticky="nw")
+        self.labels.append(label)
 
         self.completeLabel = tb.Label(self.frame, text="", font=("Arial", 10, "bold"), foreground=CompleteColor, justify='left')
         self.completeLabel.grid(row=10, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(self.completeLabel)
 
-        self.spacerLabel = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel.grid(row=11, column=0, columnspan=2, sticky="nw", padx=420, pady=250)
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=11, column=0, columnspan=2, sticky="nw", padx=420, pady=250)
+        self.labels.append(label)
+
         self.fileSelected('', '', '')
         
     def clearContent(self):
-        self.spacerLabel.destroy()
-        self.completeLabel.destroy()
-        self.spacerLabel1.destroy()
-        self.createButton.destroy()
-        self.spacerLabel2.destroy()
-        self.matrixCheckbox.destroy()
-        self.matrixLabel1.destroy()
-        self.spacerLabel3.destroy()
-        self.outputFileEntry.destroy()
-        self.browseButton.destroy()
-        self.outputFileLabel2.destroy()
-        self.outputFileLabel1.destroy()
-        self.spacerLabel4.destroy()
+        """Safely destroys all PDF generator widgets, breaks lambda bindings, and resets references."""
+        # Clear button command callbacks (breaks lambda closure references)
+        if hasattr(self, 'createButton') and self.createButton:
+            try:
+                self.createButton.configure(command="")
+            except Exception:
+                pass
+
+        # Iterate through labels list to clear any command callbacks on dynamic buttons
+        if hasattr(self, 'labels') and self.labels:
+            for widget in self.labels:
+                if isinstance(widget, tb.Button):
+                    try:
+                        widget.configure(command="")
+                    except Exception:
+                        pass
+
+        # Destroy the frame child entries, buttons, labels
+        if hasattr(self, 'frame') and self.frame:
+            for widget in self.frame.winfo_children():
+                widget.destroy()
+
+        # Clear list of widget references
+        self.labels = []
+
+        # Reset attribute references for Garbage Collection
+        self.createButton = None
+        self.completeLabel = None
+        self.outputMatrix = None
 
     def pickInputFile(self):
         filename = filehandling.openPDFFile(self.uiparts.options.getDirectory("outputsdir") + self.uiparts.options.config["pdfsdir"])

@@ -30,89 +30,121 @@ class selectTournament(baseUIClass):
     
     def construct(self, pagebgnd: str):
         self.pagebgnd = pagebgnd
-        self.spacerLabel = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel.grid(row=0, column=0, columnspan=2, sticky="nw")
-        self.inputFileLabel1 = tb.Label(self.frame, text="Select a USEBIO results file for processing.", font=("Arial", 10, "bold"), justify='left')
-        self.inputFileLabel1.grid(row=1, column=0, columnspan=2, sticky="w", padx=20)
-        self.inputFileLabel2 = tb.Label(self.frame, text="Your scoring program generates these.", font=("Arial", 10), justify='left')
-        self.inputFileLabel2.grid(row=2, column=0, columnspan=2, sticky="w", padx=20)
-        self.browseButton = tb.Button(self.frame, text="Browse", bootstyle="primary", command=lambda: self.pickInputFile())
-        self.browseButton.grid(row=3, column=0, pady=10, padx=20, sticky="w")
-        self.inputFileEntry = tb.Entry(self.frame, textvariable=self.inputFileVar, width=95, font=("Arial", 10))
-        self.inputFileEntry.grid(row=3, column=0, sticky="w", padx=100)
 
-        self.spacerLabel1 = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel1.grid(row=4, column=0, columnspan=2, sticky="nw")
-        self.detailTitleLabel = tb.Label(self.frame, text="Tournament Details:", font=("Arial", 10, "bold"), justify='left')
-        self.detailTitleLabel.grid(row=5, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels = []
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=0, column=0, columnspan=2, sticky="nw")
+        self.labels.append(label)
+        label = tb.Label(self.frame, text="Select a USEBIO results file for processing.", font=("Arial", 10, "bold"), justify='left')
+        label.grid(row=1, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, text="Your scoring program generates these.", font=("Arial", 10), justify='left')
+        label.grid(row=2, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Button(self.frame, text="Browse", bootstyle="primary", command=lambda: self.pickInputFile())
+        label.grid(row=3, column=0, pady=10, padx=20, sticky="w")
+        self.labels.append(label)
+        label = tb.Entry(self.frame, textvariable=self.inputFileVar, width=95, font=("Arial", 10))
+        label.grid(row=3, column=0, sticky="w", padx=100)
+        self.labels.append(label)
+
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=4, column=0, columnspan=2, sticky="nw")
+        self.labels.append(label)
+
+        label = tb.Label(self.frame, text="Tournament Details:", font=("Arial", 10, "bold"), justify='left')
+        label.grid(row=5, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+
         self.clubNameVar = tb.StringVar()
-        self.clubNameLabel1 = tb.Label(self.frame, text='Club:', font=("Arial", 10), justify='left')
-        self.clubNameLabel1.grid(row=6, column=0, sticky="w", padx=20)
-        self.clubNameLabel2 = tb.Label(self.frame, textvariable=self.clubNameVar, font=("Arial", 10), justify='left')
-        self.clubNameLabel2.grid(row=6, column=0, sticky="w", padx=175)
-        self.tournamentNameVar = tb.StringVar()
-        self.tournamentNameLabel1 = tb.Label(self.frame, text='Tournament', font=("Arial", 10), justify='left')
-        self.tournamentNameLabel1.grid(row=7, column=0, sticky="w", padx=20)
-        self.tournamentNameLabel2 = tb.Label(self.frame, textvariable=self.tournamentNameVar, font=("Arial", 10), justify='left')
-        self.tournamentNameLabel2.grid(row=7, column=0, sticky="w", padx=175)
-        self.dateVar = tb.StringVar()
-        self.dateLabel1 = tb.Label(self.frame, text='Date:', font=("Arial", 10), justify='left')
-        self.dateLabel1.grid(row=8, column=0, sticky="w", padx=20)
-        self.dateLabel2 = tb.Label(self.frame, textvariable=self.dateVar, font=("Arial", 10), justify='left')
-        self.dateLabel2.grid(row=8, column=0, sticky="w", padx=175)
-        self.numPairsVar = tb.StringVar()
-        self.numPairsLabel1 = tb.Label(self.frame, text='Number of pairs:', font=("Arial", 10), justify='left')
-        self.numPairsLabel1.grid(row=9, column=0, sticky="w", padx=20)
-        self.numPairsLabel2 = tb.Label(self.frame, textvariable=self.numPairsVar, font=("Arial", 10), justify='left')
-        self.numPairsLabel2.grid(row=9, column=0, sticky="w", padx=175)
-        self.numBoardsVar = tb.StringVar()
-        self.numBoardsLabel1 = tb.Label(self.frame, text='Number of boards:', font=("Arial", 10), justify='left')
-        self.numBoardsLabel1.grid(row=10, column=0, sticky="w", padx=20)
-        self.numBoardsLabel2 = tb.Label(self.frame, textvariable=self.numBoardsVar, font=("Arial", 10), justify='left')
-        self.numBoardsLabel2.grid(row=10, column=0, sticky="w", padx=175)
-        self.numWinnersVar = tb.StringVar()
-        self.numWinnersLabel1 = tb.Label(self.frame, text='Number of winners:', font=("Arial", 10), justify='left')
-        self.numWinnersLabel1.grid(row=11, column=0, sticky="w", padx=20)
-        self.numWinnersLabel2 = tb.Label(self.frame, textvariable=self.numWinnersVar, font=("Arial", 10), justify='left')
-        self.numWinnersLabel2.grid(row=11, column=0, sticky="w", padx=175)
+        label = tb.Label(self.frame, text='Club:', font=("Arial", 10), justify='left')
+        label.grid(row=6, column=0, sticky="w", padx=20)
+        self.labels.append(label)
 
-        self.spacerLabel2 = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel2.grid(row=14, column=0, columnspan=2, sticky="nw", padx=420)
+        label = tb.Label(self.frame, textvariable=self.clubNameVar, font=("Arial", 10), justify='left')
+        label.grid(row=6, column=0, sticky="w", padx=175)
+        self.labels.append(label)
+
+        self.tournamentNameVar = tb.StringVar()
+        label = tb.Label(self.frame, text='Tournament', font=("Arial", 10), justify='left')
+        label.grid(row=7, column=0, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, textvariable=self.tournamentNameVar, font=("Arial", 10), justify='left')
+        label.grid(row=7, column=0, sticky="w", padx=175)
+        self.labels.append(label)
+
+        self.dateVar = tb.StringVar()
+        label = tb.Label(self.frame, text='Date:', font=("Arial", 10), justify='left')
+        label.grid(row=8, column=0, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, textvariable=self.dateVar, font=("Arial", 10), justify='left')
+        label.grid(row=8, column=0, sticky="w", padx=175)
+        self.labels.append(label)
+        
+        self.numPairsVar = tb.StringVar()
+        label = tb.Label(self.frame, text='Number of pairs:', font=("Arial", 10), justify='left')
+        label.grid(row=9, column=0, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, textvariable=self.numPairsVar, font=("Arial", 10), justify='left')
+        label.grid(row=9, column=0, sticky="w", padx=175)
+        self.labels.append(label)
+
+        self.numBoardsVar = tb.StringVar()
+        label = tb.Label(self.frame, text='Number of boards:', font=("Arial", 10), justify='left')
+        label.grid(row=10, column=0, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, textvariable=self.numBoardsVar, font=("Arial", 10), justify='left')
+        label.grid(row=10, column=0, sticky="w", padx=175)
+        self.labels.append(label)
+
+        self.numWinnersVar = tb.StringVar()
+        label = tb.Label(self.frame, text='Number of winners:', font=("Arial", 10), justify='left')
+        label.grid(row=11, column=0, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, textvariable=self.numWinnersVar, font=("Arial", 10), justify='left')
+        label.grid(row=11, column=0, sticky="w", padx=175)
+        self.labels.append(label)
+
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=14, column=0, columnspan=2, sticky="nw", padx=420)
+        self.labels.append(label)
 
         self.errorLabel = tb.Label(self.frame, text="", font=("Arial", 10, "bold"), justify='left', bootstyle="Danger")
         self.errorLabel.grid(row=15, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(self.errorLabel)
 
         self.preStratLabel = tb.Label(self.frame, text="", font=("Arial", 10, "bold"), justify='left', bootstyle="Warning")
         self.preStratLabel.grid(row=16, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(self.preStratLabel)
 
-        self.spacerLabel3 = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel3.grid(row=17, column=0, columnspan=2, sticky="nw", padx=420, pady=250)
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=17, column=0, columnspan=2, sticky="nw", padx=420, pady=250)
+        self.labels.append(label)
+
         self.showDetail()
         
     def clearContent(self):
-        self.spacerLabel3.destroy()
-        self.preStratLabel.destroy()
-        self.errorLabel.destroy()
-        self.spacerLabel2.destroy()
-        self.numWinnersLabel2.destroy()
-        self.numWinnersLabel1.destroy()
-        self.numBoardsLabel2.destroy()
-        self.numBoardsLabel1.destroy()
-        self.numPairsLabel2.destroy()
-        self.numPairsLabel1.destroy()
-        self.dateLabel2.destroy()
-        self.dateLabel1.destroy()
-        self.tournamentNameLabel2.destroy()
-        self.tournamentNameLabel1.destroy()
-        self.clubNameLabel2.destroy()
-        self.clubNameLabel1.destroy()
-        self.detailTitleLabel.destroy()
-        self.spacerLabel1.destroy()
-        self.inputFileEntry.destroy()
-        self.browseButton.destroy()
-        self.inputFileLabel2.destroy()
-        self.inputFileLabel1.destroy()
-        self.spacerLabel.destroy()
+        """Safely destroys all file selection & metadata widgets, unbinds callbacks, and breaks references."""
+        # Unbind command callbacks from any buttons inside self.labels
+        if hasattr(self, 'labels') and self.labels:
+            for widget in self.labels:
+                if isinstance(widget, tb.Button):
+                    try:
+                        widget.configure(command="")
+                    except Exception:
+                        pass
+
+        # Destroy the frame child entries, buttons, labels
+        if hasattr(self, 'frame') and self.frame:
+            for widget in self.frame.winfo_children():
+                widget.destroy()
+
+        # Reset list reference
+        self.labels = []
+
+        # Clear widget instance variables
+        self.errorLabel = None
+        self.preStratLabel = None
 
     def pickInputFile(self):
         filename = filehandling.openResultsFile(self.uiparts.options.config["resultsdir"], False)
