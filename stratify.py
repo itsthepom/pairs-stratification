@@ -58,7 +58,7 @@ class stratify(baseUIClass):
     """
     def __init__(self, frame, tournamentData, uiparts: UIParts):
         global MPLevels, UIMPLevels
-        self.frame = frame
+        self.outerFrame = frame
         self.tournamentData = tournamentData
         self.uiparts = uiparts
         uiparts.stratifyDisplay = self
@@ -76,6 +76,9 @@ class stratify(baseUIClass):
             self.overallNSStringLabel = tb.StringVar()
             self.overallEWStringLabel = tb.StringVar()
             self.strat1NSStringLabel = tb.StringVar()
+            self.strat1EWStringLabel = tb.StringVar()
+            self.strat2NSStringLabel = tb.StringVar()
+            self.strat2EWStringLabel = tb.StringVar()
             self.overallNSStringLabel.set('Overall N/S Pairs:')
             self.overallEWStringLabel.set('Overall E/W Pairs:')
             self.strat1NSStringLabel.set('Strat B N/S Pairs:')
@@ -219,8 +222,15 @@ class stratify(baseUIClass):
             self.indexC = self.stratum2Level
             self.clearResult()
 
-        self.spacerLabel = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel.grid(row=0, column=0, columnspan=2, sticky="nw")
+        # Create an inner frame owned exclusively by this page
+        self.frame = tb.Frame(self.outerFrame)
+        self.frame.pack(fill="both", expand=True)
+
+        self.labels = []
+
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=0, column=0, columnspan=2, sticky="nw")
+        self.labels.append(label)
 
         self.label_widgets = []
         # Create labels aligned with scale
@@ -228,9 +238,6 @@ class stratify(baseUIClass):
             lbl = tb.Label(self.frame, text=text, anchor="w")
             lbl.grid(row=len(UIMPLevels) + 1 - i, column=0, sticky="w", padx=0)
             self.label_widgets.append(lbl)
-        # Make rows expand evenly
-        for i in range(len(UIMPLevels)):
-            self.frame.rowconfigure(i, weight=1)
 
         self.scaleB = tb.Scale(self.frame,
                                from_=self.slider_height,   # reverse so top = highest
@@ -243,6 +250,7 @@ class stratify(baseUIClass):
         self.scaleB.grid(row=2, column=1, columnspan=1, rowspan=len(UIMPLevels), sticky="w", padx=20)
         self.scaleB.bind("<Button-1>", lambda event: self.handle_trough_click(event, self.BSliderVar, True))
         self.scaleB.bind("<B1-Motion>", lambda event: self.enforce_limits(event, self.BSliderVar, True))
+        self.labels.append(self.scaleB)
 
         self.scaleC = tb.Scale(self.frame,
                                from_=self.slider_height,   # reverse so top = highest
@@ -255,85 +263,121 @@ class stratify(baseUIClass):
         self.scaleC.grid(row=2, column=2, columnspan=1, rowspan=len(UIMPLevels), sticky="w", padx=10)
         self.scaleC.bind("<Button-1>", lambda event: self.handle_trough_click(event, self.CSliderVar, False))
         self.scaleC.bind("<B1-Motion>", lambda event: self.enforce_limits(event, self.CSliderVar, False))
+        self.labels.append(self.scaleC)
 
-        self.strataLabel1 = tb.Label(self.frame, text="Select the strata levels", font=("Arial", 10, "bold"), justify='left')
-        self.strataLabel1.grid(row=0, column=0, columnspan=3, pady=10)
-        self.stratLevelsLabel1 = tb.Label(self.frame, text="A", font=("Arial", 10, "bold"), justify='left', foreground=StratAColor)
-        self.stratLevelsLabel1.grid(row=1, column=0, sticky="w", padx=20)
-        self.stratLevelsLabel2 = tb.Label(self.frame, text="B", font=("Arial", 10, "bold"), justify='left', foreground=StratBColor)
-        self.stratLevelsLabel2.grid(row=1, column=1, sticky="w", padx=24)
-        self.stratLevelsLabel3 = tb.Label(self.frame, text="C", font=("Arial", 10, "bold"), justify='left', foreground=StratCColor)
-        self.stratLevelsLabel3.grid(row=1, column=2, sticky="w", padx=14)
+        label = tb.Label(self.frame, text="Select the strata levels", font=("Arial", 10, "bold"), justify='left')
+        label.grid(row=0, column=0, columnspan=3, pady=10)
+        self.labels.append(label)
+        label = tb.Label(self.frame, text="A", font=("Arial", 10, "bold"), justify='left', foreground=StratAColor)
+        label.grid(row=1, column=0, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, text="B", font=("Arial", 10, "bold"), justify='left', foreground=StratBColor)
+        label.grid(row=1, column=1, sticky="w", padx=24)
+        self.labels.append(label)
+        label = tb.Label(self.frame, text="C", font=("Arial", 10, "bold"), justify='left', foreground=StratCColor)
+        label.grid(row=1, column=2, sticky="w", padx=14)
+        self.labels.append(label)
 
-        self.spacerLabel1 = tb.Label(self.frame, text="", font=("Arial", 1), justify='left')
-        self.spacerLabel1.grid(row=8, column=3, sticky="nw", padx=20)
+        label = tb.Label(self.frame, text="", font=("Arial", 1), justify='left')
+        label.grid(row=8, column=3, sticky="nw", padx=20)
+        self.labels.append(label)
 
-        self.ranksLabel = tb.Label(self.frame, text="Min/Max Ranks in event", font=("Arial", 10, "bold"), justify='left')
-        self.ranksLabel.grid(row=0, column=4, sticky="w", padx=20, pady=5)
-        self.maxRankLabel = tb.Label(self.frame, text="Highest Rank", font=("Arial", 10), justify='left')
-        self.maxRankLabel.grid(row=1, column=4, sticky="w", padx=20)
+        label = tb.Label(self.frame, text="Min/Max Ranks in event", font=("Arial", 10, "bold"), justify='left')
+        label.grid(row=0, column=4, sticky="w", padx=20, pady=5)
+        self.labels.append(label)
+        label = tb.Label(self.frame, text="Highest Rank", font=("Arial", 10), justify='left')
+        label.grid(row=1, column=4, sticky="w", padx=20)
+        self.labels.append(label)
         self.maxRankContentLabel = tb.Label(self.frame, textvariable=self.maxRankText, font=("Arial", 10), justify='left')
         self.maxRankContentLabel.grid(row=1, column=4, sticky="w", padx=150)
-        self.minRankLabel = tb.Label(self.frame, text="Lowest Rank", font=("Arial", 10), justify='left')
-        self.minRankLabel.grid(row=2, column=4, sticky="w", padx=20)
+        self.labels.append(self.maxRankContentLabel)
+        label = tb.Label(self.frame, text="Lowest Rank", font=("Arial", 10), justify='left')
+        label.grid(row=2, column=4, sticky="w", padx=20)
+        self.labels.append(label)   
         self.minRankContentLabel = tb.Label(self.frame, textvariable=self.minRankText, font=("Arial", 10), justify='left')
         self.minRankContentLabel.grid(row=2, column=4, sticky="w", padx=150)
+        self.labels.append(self.minRankContentLabel)
 
-        self.stratDetailLabel = tb.Label(self.frame, text="Stratification Split", font=("Arial", 10, "bold"), justify='left')
-        self.stratDetailLabel.grid(row=4, column=4, sticky="w", padx=20)
-        self.overallNSLabel = tb.Label(self.frame, textvariable=self.overallNSStringLabel, font=("Arial", 10), justify='left')
-        self.overallNSLabel.grid(row=5, column=4, sticky="w", padx=20)
-        self.overallNSContentLabel = tb.Label(self.frame, textvariable=self.overallNSPairs, font=("Arial", 10), justify='left')
-        self.overallNSContentLabel.grid(row=5, column=4, sticky="w", padx=150)
-        self.overallEWLabel = tb.Label(self.frame, textvariable=self.overallEWStringLabel, font=("Arial", 10), justify='left')
-        self.overallEWLabel.grid(row=6, column=4, sticky="w", padx=20)
-        self.overallEWContentLabel = tb.Label(self.frame, textvariable=self.overallEWPairs, font=("Arial", 10), justify='left')
-        self.overallEWContentLabel.grid(row=6, column=4, sticky="w", padx=150)
-        self.strat1NSLabel = tb.Label(self.frame, textvariable=self.strat1NSStringLabel, font=("Arial", 10), justify='left')
-        self.strat1NSLabel.grid(row=7, column=4, sticky="w", padx=20)
-        self.strat1NSContentLabel = tb.Label(self.frame, textvariable=self.strat1NSPairs, font=("Arial", 10), justify='left')
-        self.strat1NSContentLabel.grid(row=7, column=4, sticky="w", padx=150)
-        self.strat1EWStringLabel = tb.Label(self.frame, text='', font=("Arial", 10), justify='left')
-        self.strat1EWStringLabel.grid(row=8, column=4, sticky="w", padx=20)
-        self.strat1EWContentLabel = tb.Label(self.frame, textvariable=self.strat1EWPairs, font=("Arial", 10), justify='left')
-        self.strat1EWContentLabel.grid(row=8, column=4, sticky="w", padx=150)
-        self.strat2NSStringLabel = tb.Label(self.frame, text='', font=("Arial", 10), justify='left')
-        self.strat2NSStringLabel.grid(row=9, column=4, sticky="w", padx=20)
-        self.strat2NSContentLabel = tb.Label(self.frame, textvariable=self.strat2NSPairs, font=("Arial", 10), justify='left')
-        self.strat2NSContentLabel.grid(row=9, column=4, sticky="w", padx=150)
-        self.strat2EWStringLabel = tb.Label(self.frame, text='', font=("Arial", 10), justify='left')
-        self.strat2EWStringLabel.grid(row=10, column=4, sticky="w", padx=20)
-        self.strat2EWContentLabel = tb.Label(self.frame, textvariable=self.strat2EWPairs, font=("Arial", 10), justify='left')
-        self.strat2EWContentLabel.grid(row=10, column=4, sticky="w", padx=150)
+        label = tb.Label(self.frame, text="Stratification Split", font=("Arial", 10, "bold"), justify='left')
+        label.grid(row=4, column=4, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, textvariable=self.overallNSStringLabel, font=("Arial", 10), justify='left')
+        label.grid(row=5, column=4, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, textvariable=self.overallNSPairs, font=("Arial", 10), justify='left')
+        label.grid(row=5, column=4, sticky="w", padx=150)
+        self.labels.append(label)
+        label = tb.Label(self.frame, textvariable=self.overallEWStringLabel, font=("Arial", 10), justify='left')
+        label.grid(row=6, column=4, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, textvariable=self.overallEWPairs, font=("Arial", 10), justify='left')
+        label.grid(row=6, column=4, sticky="w", padx=150)
+        self.labels.append(label)
+        label = tb.Label(self.frame, textvariable=self.strat1NSStringLabel, font=("Arial", 10), justify='left')
+        label.grid(row=7, column=4, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, textvariable=self.strat1NSPairs, font=("Arial", 10), justify='left')
+        label.grid(row=7, column=4, sticky="w", padx=150)
+        self.labels.append(label)
+        label = tb.Label(self.frame, textvariable=self.strat1EWStringLabel, font=("Arial", 10), justify='left')
+        label.grid(row=8, column=4, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, textvariable=self.strat1EWPairs, font=("Arial", 10), justify='left')
+        label.grid(row=8, column=4, sticky="w", padx=150)
+        self.labels.append(label)
+        label = tb.Label(self.frame, textvariable=self.strat2NSStringLabel, font=("Arial", 10), justify='left')
+        label.grid(row=9, column=4, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, textvariable=self.strat2NSPairs, font=("Arial", 10), justify='left')
+        label.grid(row=9, column=4, sticky="w", padx=150)
+        self.labels.append(label)
+        label = tb.Label(self.frame, textvariable=self.strat2EWStringLabel, font=("Arial", 10), justify='left')
+        label.grid(row=10, column=4, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, textvariable=self.strat2EWPairs, font=("Arial", 10), justify='left')
+        label.grid(row=10, column=4, sticky="w", padx=150)
+        self.labels.append(label)
 
-        self.stratResultsLabel = tb.Label(self.frame, text="Stratification Results", font=("Arial", 10, "bold"), justify='left')
-        self.stratResultsLabel.grid(row=12, column=4, sticky="w", padx=20)
-        self.stratResultsALabel = tb.Label(self.frame, text='Stratum A Masterpoints:', font=("Arial", 10), justify='left')
-        self.stratResultsALabel.grid(row=13, column=4, sticky="w", padx=20)
-        self.stratResultsAContentLabel = tb.Label(self.frame, textvariable=self.resultsAmps, font=("Arial", 10), justify='left')
-        self.stratResultsAContentLabel.grid(row=13, column=4, sticky="w", padx=180)
-        self.stratResultsBLabel = tb.Label(self.frame, text='Stratum B Masterpoints:', font=("Arial", 10), justify='left')
-        self.stratResultsBLabel.grid(row=14, column=4, sticky="w", padx=20)
-        self.stratResultsBContentLabel = tb.Label(self.frame, textvariable=self.resultsBmps, font=("Arial", 10), justify='left')
-        self.stratResultsBContentLabel.grid(row=14, column=4, sticky="w", padx=180)
-        self.stratResultsCLabel = tb.Label(self.frame, text='Stratum C Masterpoints:', font=("Arial", 10), justify='left')
-        self.stratResultsCLabel.grid(row=15, column=4, sticky="w", padx=20)
-        self.stratResultsCContentLabel = tb.Label(self.frame, textvariable=self.resultsCmps, font=("Arial", 10), justify='left')
-        self.stratResultsCContentLabel.grid(row=15, column=4, sticky="w", padx=180)
+        label = tb.Label(self.frame, text="Stratification Results", font=("Arial", 10, "bold"), justify='left')
+        label.grid(row=12, column=4, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, text='Stratum A Masterpoints:', font=("Arial", 10), justify='left')
+        label.grid(row=13, column=4, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, textvariable=self.resultsAmps, font=("Arial", 10), justify='left')
+        label.grid(row=13, column=4, sticky="w", padx=180)
+        self.labels.append(label)
+        label = tb.Label(self.frame, text='Stratum B Masterpoints:', font=("Arial", 10), justify='left')
+        label.grid(row=14, column=4, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, textvariable=self.resultsBmps, font=("Arial", 10), justify='left')
+        label.grid(row=14, column=4, sticky="w", padx=180)
+        self.labels.append(label)
+        label = tb.Label(self.frame, text='Stratum C Masterpoints:', font=("Arial", 10), justify='left')
+        label.grid(row=15, column=4, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, textvariable=self.resultsCmps, font=("Arial", 10), justify='left')
+        label.grid(row=15, column=4, sticky="w", padx=180)
+        self.labels.append(label)
 
         self.statusLabel = tb.Label(self.frame, textvariable=self.statusText, font=("Arial", 10, "bold"), justify='left')
         self.statusLabel.grid(row=17, column=4, columnspan=2, sticky="w", padx=20)
+        self.labels.append(self.statusLabel)
 
-        self.strataLabel2 = tb.Label(self.frame, text="Click Stratify to apply this stratification.", font=("Arial", 10, "bold"), justify='left')
-        self.strataLabel2.grid(row=27, column=4, sticky="w")
+        label = tb.Label(self.frame, text="Click Stratify to apply this stratification.", font=("Arial", 10, "bold"), justify='left')
+        label.grid(row=27, column=4, sticky="w")
+        self.labels.append(label)
 
         self.stratifyButton = tb.Button(self.frame, text="Stratify", bootstyle="primary", width=10, command=lambda: self.stratifyResults())
         self.stratifyButton.place(x=340, y=650)
+        self.labels.append(self.stratifyButton)
 
-        self.spacerLabel2 = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel2.grid(row=0, column=5, sticky="nw", padx=220)
-        self.spacerLabel3 = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel3.grid(row=30, column=0, columnspan=5, sticky="nw", padx=220, pady=100)
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=0, column=5, sticky="nw", padx=220)
+        self.labels.append(label)
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=30, column=0, columnspan=5, sticky="nw", padx=220, pady=100)
+        self.labels.append(label)
 
         # Init the labels
         self.setRange()
@@ -344,46 +388,44 @@ class stratify(baseUIClass):
         self.coloriseLabels()
 
     def clearContent(self):
-        self.spacerLabel3.destroy()
-        self.spacerLabel2.destroy()
-        self.stratifyButton.destroy()
-        self.strataLabel2.destroy()
-        self.statusLabel.destroy()
-        self.stratResultsCContentLabel.destroy()
-        self.stratResultsCLabel.destroy()
-        self.stratResultsBContentLabel.destroy()
-        self.stratResultsBLabel.destroy()
-        self.stratResultsAContentLabel.destroy()
-        self.stratResultsALabel.destroy()
-        self.stratResultsLabel.destroy()
-        self.strat2EWContentLabel.destroy()
-        self.strat2EWStringLabel.destroy()
-        self.strat2NSContentLabel.destroy()
-        self.strat2NSStringLabel.destroy()
-        self.strat1EWContentLabel.destroy()
-        self.strat1EWStringLabel.destroy()
-        self.strat1NSContentLabel.destroy()
-        self.strat1NSLabel.destroy()
-        self.overallEWContentLabel.destroy()
-        self.overallEWLabel.destroy()
-        self.overallNSContentLabel.destroy()
-        self.overallNSLabel.destroy()
-        self.minRankContentLabel.destroy()
-        self.minRankLabel.destroy()
-        self.maxRankContentLabel.destroy()
-        self.maxRankLabel.destroy()
-        self.stratDetailLabel.destroy()
-        self.spacerLabel1.destroy()
-        self.stratLevelsLabel3.destroy()
-        self.stratLevelsLabel2.destroy()
-        self.stratLevelsLabel1.destroy()
-        self.ranksLabel.destroy()
-        self.strataLabel1.destroy()
-        self.scaleC.destroy()
-        self.scaleB.destroy()
-        for lbl in self.label_widgets:
-            lbl.destroy()
-        self.spacerLabel.destroy()
+        """Safely destroys all widgets, unbinds events, and breaks references."""
+        # Unbind Scale events & break button command lambdas
+        if hasattr(self, 'scaleB') and self.scaleB:
+            try:
+                self.scaleB.unbind("<Button-1>")
+                self.scaleB.unbind("<B1-Motion>")
+                self.scaleB.configure(command="")
+            except Exception:
+                pass
+
+        if hasattr(self, 'scaleC') and self.scaleC:
+            try:
+                self.scaleC.unbind("<Button-1>")
+                self.scaleC.unbind("<B1-Motion>")
+                self.scaleC.configure(command="")
+            except Exception:
+                pass
+
+        if hasattr(self, 'stratifyButton') and self.stratifyButton:
+            try:
+                self.stratifyButton.configure(command="")
+            except Exception:
+                pass
+
+        # Destroy the frame container completely
+        # (This destroys self.frame AND all child labels, scales, buttons at the C/Tk level)
+        if hasattr(self, 'frame') and self.frame:
+            self.frame.destroy()
+
+        # Clear lists and break Python instance references
+        self.labels = []
+        self.label_widgets = []
+        self.frame = None
+        self.scaleB = None
+        self.scaleC = None
+        self.stratifyButton = None
+        self.maxRankContentLabel = None
+        self.minRankContentLabel = None
 
     def setResult(self, message: str, warning: bool, mpsawarded: list=None):
         self.statusText.set(message)

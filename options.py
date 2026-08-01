@@ -58,105 +58,142 @@ class options(baseUIClass):
 
     def construct(self, pagebgnd):
         self.pagebgnd = pagebgnd
-        self.spacerLabel6 = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel6.grid(row=0, column=0, columnspan=2, sticky="nw")
 
-        self.resultsDirLabel1 = tb.Label(self.frame, text="Select the default input USEBIO results directory.", font=("Arial", 10, "bold"), justify='left')
-        self.resultsDirLabel1.grid(row=1, column=0, columnspan=2, sticky="w", padx=20)
-        self.resultsDirLabel2 = tb.Label(self.frame, text="This is where your scoring program outputs USEBIO XML files.", font=("Arial", 10), justify='left')
-        self.resultsDirLabel2.grid(row=2, column=0, columnspan=2, sticky="w", padx=20)
-        self.browseButton1 = tb.Button(self.frame, text="Browse", bootstyle="primary", command=self.pickDefaultResultsDir)
-        self.browseButton1.grid(row=3, column=0, sticky="w", padx=20, pady=10)
+        self.labels = []
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=0, column=0, columnspan=2, sticky="nw")
+        self.labels.append(label)
+
+        label = tb.Label(self.frame, text="Select the default input USEBIO results directory.", font=("Arial", 10, "bold"), justify='left')
+        label.grid(row=1, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, text="This is where your scoring program outputs USEBIO XML files.", font=("Arial", 10), justify='left')
+        label.grid(row=2, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Button(self.frame, text="Browse", bootstyle="primary", command=self.pickDefaultResultsDir)
+        label.grid(row=3, column=0, sticky="w", padx=20, pady=10)
+        self.labels.append(label)
         self.resultsPathVar = tb.StringVar()
         self.resultsPathVar.set(self._config['resultsdir'])
-        self.resultsPathEntry = tb.Entry(self.frame, textvariable=self.resultsPathVar, width=95, font=("Arial", 10))
-        self.resultsPathEntry.grid(row=3, column=0, sticky="w", padx=100)
+        label = tb.Entry(self.frame, textvariable=self.resultsPathVar, width=95, font=("Arial", 10))
+        label.grid(row=3, column=0, sticky="w", padx=100)
+        self.labels.append(label)
 
-        self.spacerLabel5 = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel5.grid(row=4, column=0, columnspan=2, sticky="nw")
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=4, column=0, columnspan=2, sticky="nw")
+        self.labels.append(label)
 
-        self.outputsDirLabel1 = tb.Label(self.frame, text="Select the default output directory.", font=("Arial", 10, "bold"), justify='left')
-        self.outputsDirLabel1.grid(row=5, column=0, columnspan=2, sticky="w", padx=20)
-        self.outputsDirLabel2 = tb.Label(self.frame, text="Files created by this utility are written here.", font=("Arial", 10), justify='left')
-        self.outputsDirLabel2.grid(row=6, column=0, columnspan=2, sticky="w", padx=20)
-        self.browseButton2 = tb.Button(self.frame, text="Browse", bootstyle="primary", command=self.pickOutputsDir)
-        self.browseButton2.grid(row=7, column=0, sticky="w", padx=20, pady=10)
+        label = tb.Label(self.frame, text="Select the default output directory.", font=("Arial", 10, "bold"), justify='left')
+        label.grid(row=5, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, text="Files created by this utility are written here.", font=("Arial", 10), justify='left')
+        label.grid(row=6, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Button(self.frame, text="Browse", bootstyle="primary", command=self.pickOutputsDir)
+        label.grid(row=7, column=0, sticky="w", padx=20, pady=10)
+        self.labels.append(label)
         self.outputsPathVar = tb.StringVar()
         self.outputsPathVar.set(self._config['outputsdir'])
-        self.outputsPathEntry = tb.Entry(self.frame, textvariable=self.outputsPathVar, width=95, font=("Arial", 10))
-        self.outputsPathEntry.grid(row=7, column=0, sticky="w", padx=100)
+        label = tb.Entry(self.frame, textvariable=self.outputsPathVar, width=95, font=("Arial", 10))
+        label.grid(row=7, column=0, sticky="w", padx=100)
+        self.labels.append(label)
 
-        self.spacerLabel4 = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel4.grid(row=8, column=0, columnspan=2, sticky="nw")
-        
-        self.hRecDirLabel1 = tb.Label(self.frame, text="Select the default hand records directory.", font=("Arial", 10, "bold"), justify='left')
-        self.hRecDirLabel1.grid(row=9, column=0, columnspan=2, sticky="w", padx=20)
-        self.hRecDirLabel2 = tb.Label(self.frame, text="This is where .PBN files are located.", font=("Arial", 10), justify='left')
-        self.hRecDirLabel2.grid(row=10, column=0, columnspan=2, sticky="w", padx=20)
-        self.browseButton3 = tb.Button(self.frame, text="Browse", bootstyle="primary", command=self.pickHandRecDir)
-        self.browseButton3.grid(row=11, column=0, sticky="w", padx=20, pady=10)
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=8, column=0, columnspan=2, sticky="nw")
+        self.labels.append(label)
+
+        label = tb.Label(self.frame, text="Select the default hand records directory.", font=("Arial", 10, "bold"), justify='left')
+        label.grid(row=9, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, text="This is where .PBN files are located.", font=("Arial", 10), justify='left')
+        label.grid(row=10, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Button(self.frame, text="Browse", bootstyle="primary", command=self.pickHandRecDir)
+        label.grid(row=11, column=0, sticky="w", padx=20, pady=10)
+        self.labels.append(label)
         self.hrecPathVar = tb.StringVar()
         self.hrecPathVar.set(self._config['handrecordsdir'])
-        self.hRecPathEntry = tb.Entry(self.frame, textvariable=self.hrecPathVar, width=95, font=("Arial", 10))
-        self.hRecPathEntry.grid(row=11, column=0, sticky="w", padx=100)
+        label = tb.Entry(self.frame, textvariable=self.hrecPathVar, width=95, font=("Arial", 10))
+        label.grid(row=11, column=0, sticky="w", padx=100)
+        self.labels.append(label)
 
-        self.spacerLabel3 = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel3.grid(row=12, column=0, columnspan=2, sticky="nw")
-        
-        self.webpageLabel1 = tb.Label(self.frame, text="Select the webpage template to use.", font=("Arial", 10, "bold"), justify='left')
-        self.webpageLabel1.grid(row=13, column=0, columnspan=2, sticky="w", padx=20)
-        self.webpageLabel2 = tb.Label(self.frame, text="This allows you to customise the webpage.", font=("Arial", 10), justify='left')
-        self.webpageLabel2.grid(row=14, column=0, columnspan=2, sticky="w", padx=20)
-        self.browseButton4 = tb.Button(self.frame, text="Browse", bootstyle="primary", command=self.pickTemplate)
-        self.browseButton4.grid(row=15, column=0, sticky="w", padx=20, pady=10)
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=12, column=0, columnspan=2, sticky="nw")
+        self.labels.append(label)
+
+        label = tb.Label(self.frame, text="Select the webpage template to use.", font=("Arial", 10, "bold"), justify='left')
+        label.grid(row=13, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, text="This allows you to customise the webpage.", font=("Arial", 10), justify='left')
+        label.grid(row=14, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Button(self.frame, text="Browse", bootstyle="primary", command=self.pickTemplate)
+        label.grid(row=15, column=0, sticky="w", padx=20, pady=10)
+        self.labels.append(label)
         self.webpTmplVar = tb.StringVar()
         self.webpTmplVar.set(self._config['webfiletemplate'])
-        self.webpTmplEntry = tb.Entry(self.frame, textvariable=self.webpTmplVar, width=95, font=("Arial", 10))
-        self.webpTmplEntry.grid(row=15, column=0, sticky="w", padx=100)
+        label = tb.Entry(self.frame, textvariable=self.webpTmplVar, width=95, font=("Arial", 10))
+        label.grid(row=15, column=0, sticky="w", padx=100)
+        self.labels.append(label)
 
-        self.spacerLabel2 = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel2.grid(row=16, column=0, columnspan=2, sticky="nw")
-        
-        self.stratLevelsLabel1 = tb.Label(self.frame, text="Select the default stratification levels below.", font=("Arial", 10, "bold"), justify='left')
-        self.stratLevelsLabel1.grid(row=17, column=0, columnspan=2, sticky="w", padx=20)
-        self.stratLevelsLabel2 = tb.Label(self.frame, text="You can supply different ones while stratifying a tournament", font=("Arial", 10), justify='left')
-        self.stratLevelsLabel2.grid(row=18, column=0, columnspan=2, sticky="w", padx=20)
-        self.stratLevelsLabel3 = tb.Label(self.frame, text="Stratum A is the overall rankings (all pairs).", font=("Arial", 10), justify='left')
-        self.stratLevelsLabel3.grid(row=19, column=0, columnspan=2, sticky="w", padx=20)
-        self.stratLevelsLabel4 = tb.Label(self.frame, text="Stratum B is all pairs at or below the selected B rank.", font=("Arial", 10), justify='left')
-        self.stratLevelsLabel4.grid(row=20, column=0, columnspan=2, sticky="w", padx=20)
-        self.stratLevelsLabel5 = tb.Label(self.frame, text="Stratum C is the subset of B at or below the selected C rank (\"None\" for just 1 stratum).", font=("Arial", 10), justify='left')
-        self.stratLevelsLabel5.grid(row=21, column=0, columnspan=2, sticky="w", padx=20)
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=16, column=0, columnspan=2, sticky="nw")
+        self.labels.append(label)
 
-        self.spacerLabel1 = tb.Label(self.frame, text="", font=("Arial", 1), justify='left')
-        self.spacerLabel1.grid(row=22, column=0, columnspan=2, sticky="nw", pady=0)
+        label = tb.Label(self.frame, text="Select the default stratification levels below.", font=("Arial", 10, "bold"), justify='left')
+        label.grid(row=17, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, text="You can supply different ones while stratifying a tournament", font=("Arial", 10), justify='left')
+        label.grid(row=18, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, text="Stratum A is the overall rankings (all pairs).", font=("Arial", 10), justify='left')
+        label.grid(row=19, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, text="Stratum B is all pairs at or below the selected B rank.", font=("Arial", 10), justify='left')
+        label.grid(row=20, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, text="Stratum C is the subset of B at or below the selected C rank (\"None\" for just 1 stratum).", font=("Arial", 10), justify='left')
+        label.grid(row=21, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
 
-        self.stratLevelsLabel6 = tb.Label(self.frame, text="Highest rank in Stratum B", font=("Arial", 10), justify='right')
-        self.stratLevelsLabel6.grid(row=23, column=0, columnspan=2, sticky="w", padx=30)
+        label = tb.Label(self.frame, text="", font=("Arial", 1), justify='left')
+        label.grid(row=22, column=0, columnspan=2, sticky="nw", pady=0)
+        self.labels.append(label)
+
+        label = tb.Label(self.frame, text="Highest rank in Stratum B", font=("Arial", 10), justify='right')
+        label.grid(row=23, column=0, columnspan=2, sticky="w", padx=30)
+        self.labels.append(label)
         self.stratum1ThresholdVar = tb.StringVar()
         self.stratum1ThresholdVar.set(self._config['stratum1threshold'])
         self.cb1 = tb.Combobox(self.frame, width=25, justify='left', textvariable=self.stratum1ThresholdVar)
         self.cb1['values'] = UIMPLevels[::-1]
         self.cb1.grid(row=23, column=0, padx=200, sticky="w")
-
-        self.stratLevelsLabel7 = tb.Label(self.frame, text="Highest rank in Stratum C", font=("Arial", 10), justify='right')
-        self.stratLevelsLabel7.grid(row=24, column=0, columnspan=2, sticky="w", padx=30)
+        self.labels.append(self.cb1)
+        
+        label = tb.Label(self.frame, text="Highest rank in Stratum C", font=("Arial", 10), justify='right')
+        label.grid(row=24, column=0, columnspan=2, sticky="w", padx=30)
+        self.labels.append(label)
         self.stratum2ThresholdVar = tb.StringVar()
         self.stratum2ThresholdVar.set(self._config['stratum2threshold'])
         self.cb2 = tb.Combobox(self.frame, width=25, justify='left', textvariable=self.stratum2ThresholdVar)
         self.cb2['values'] = UIMPLevels[::-1]
         self.cb2.grid(row=24, column=0, padx=200, sticky="w")
+        self.labels.append(self.cb2)
+        
         self.cb1.bind("<<ComboboxSelected>>", lambda e: self.setStratum2List())
         self.cb2.bind("<<ComboboxSelected>>", lambda e: self.setStratum1List())
 
         self.completeLabel = tb.Label(self.frame, text="", foreground=CompleteColor, font=("Arial", 10, "bold"), justify='left')
         self.completeLabel.place(x=300, y=650)
     
-        self.spacerLabel = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel.grid(row=26, column=0, columnspan=2, sticky="nw", padx=420, pady=200)
-        
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=26, column=0, columnspan=2, sticky="nw", padx=420, pady=200)
+        self.labels.append(label)
+
         self.saveButton = tb.Button(self.frame, text="Save", bootstyle="primary", width=10, command=self.SavePressed)
         self.cancelButton = tb.Button(self.frame, text="Reset", bootstyle="primary", width=10, command=self.ResetPressed)
+        self.labels.append(self.saveButton)
+        self.labels.append(self.cancelButton)
 
         self.saveButton.place(x=590, y=650)
         self.cancelButton.place(x=690, y=650)
@@ -165,41 +202,47 @@ class options(baseUIClass):
         self.setStratum1List()
 
     def clearContent(self):
-        self.cancelButton.destroy()
-        self.saveButton.destroy()
-        self.spacerLabel.destroy()
-        self.completeLabel.destroy()
-        self.cb2.destroy()
-        self.stratLevelsLabel7.destroy()
-        self.cb1.destroy()
-        self.stratLevelsLabel6.destroy()
-        self.spacerLabel1.destroy()
-        self.stratLevelsLabel5.destroy()
-        self.stratLevelsLabel4.destroy()
-        self.stratLevelsLabel3.destroy()
-        self.stratLevelsLabel2.destroy()
-        self.stratLevelsLabel1.destroy()
-        self.spacerLabel2.destroy()
-        self.webpTmplEntry.destroy()
-        self.browseButton4.destroy()
-        self.webpageLabel2.destroy()
-        self.webpageLabel1.destroy()
-        self.spacerLabel3.destroy()
-        self.hRecPathEntry.destroy()
-        self.browseButton3.destroy()
-        self.hRecDirLabel2.destroy()
-        self.hRecDirLabel1.destroy()
-        self.spacerLabel4.destroy()
-        self.outputsPathEntry.destroy()
-        self.browseButton2.destroy()
-        self.outputsDirLabel2.destroy()
-        self.outputsDirLabel1.destroy()
-        self.spacerLabel5.destroy()
-        self.resultsPathEntry.destroy()
-        self.browseButton1.destroy()
-        self.resultsDirLabel2.destroy()
-        self.resultsDirLabel1.destroy()
-        self.spacerLabel6.destroy()
+        """Safely tears down the options view, unbinds combobox events, and clears references."""
+        # Unbind combobox virtual events
+        if hasattr(self, 'cb1') and self.cb1:
+            try:
+                self.cb1.unbind("<<ComboboxSelected>>")
+            except Exception:
+                pass
+
+        if hasattr(self, 'cb2') and self.cb2:
+            try:
+                self.cb2.unbind("<<ComboboxSelected>>")
+            except Exception:
+                pass
+
+        # Break button command references
+        if hasattr(self, 'saveButton') and self.saveButton:
+            try:
+                self.saveButton.configure(command="")
+            except Exception:
+                pass
+
+        if hasattr(self, 'cancelButton') and self.cancelButton:
+            try:
+                self.cancelButton.configure(command="")
+            except Exception:
+                pass
+
+        # Destroy the frame child entries, buttons, labels
+        if hasattr(self, 'frame') and self.frame:
+            for widget in self.frame.winfo_children():
+                widget.destroy()
+
+        # Clear list of widget references
+        self.labels = []
+
+        # Reset widget variables to None for Garbage Collection
+        self.cb1 = None
+        self.cb2 = None
+        self.completeLabel = None
+        self.saveButton = None
+        self.cancelButton = None
 
     def pickDefaultResultsDir(self):
         dirname = filehandling.findResultsFileDirectory()

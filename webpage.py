@@ -58,82 +58,112 @@ class webpage(baseUIClass):
             else:
                 self.outputFileVar.set("")
 
-        self.spacerLabel5 = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel5.grid(row=0, column=0, columnspan=2, sticky="nw")
+        self.labels = []
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=0, column=0, columnspan=2, sticky="nw")
+        self.labels.append(label)
 
-        self.outputFileLabel1 = tb.Label(self.frame, text="Select the new webpage file to be created.", font=("Arial", 10, "bold"), justify='left')
-        self.outputFileLabel1.grid(row=1, column=0, columnspan=2, sticky="w", padx=20)
-        self.outputFileLabel2 = tb.Label(self.frame, text="This file can be uploaded to your website.", font=("Arial", 10), justify='left')
-        self.outputFileLabel2.grid(row=2, column=0, columnspan=2, sticky="w", padx=20)
-        self.browseButton1 = tb.Button(self.frame, text="Browse", bootstyle="Primary", command=lambda: self.pickOutputFile())
-        self.browseButton1.grid(row=3, column=0, pady=10, padx=20, sticky="w")
-        self.outputFileEntry = tb.Entry(self.frame, textvariable=self.outputFileVar, width=95, font=("Arial", 10))
-        self.outputFileEntry.grid(row=3, column=0, sticky="w", padx=100)
+        label = tb.Label(self.frame, text="Select the new webpage file to be created.", font=("Arial", 10, "bold"), justify='left')
+        label.grid(row=1, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, text="This file can be uploaded to your website.", font=("Arial", 10), justify='left')
+        label.grid(row=2, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Button(self.frame, text="Browse", bootstyle="Primary", command=lambda: self.pickOutputFile())
+        label.grid(row=3, column=0, pady=10, padx=20, sticky="w")
+        self.labels.append(label)
+        label = tb.Entry(self.frame, textvariable=self.outputFileVar, width=95, font=("Arial", 10))
+        label.grid(row=3, column=0, sticky="w", padx=100)
+        self.labels.append(label)
 
-        self.spacerLabel4 = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel4.grid(row=4, column=0, columnspan=2, sticky="nw")
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=4, column=0, columnspan=2, sticky="nw")
+        self.labels.append(label)
 
-        self.inputFileLabel1 = tb.Label(self.frame, text="Select a hand record file to include in the webpage.", font=("Arial", 10, "bold"), justify='left')
-        self.inputFileLabel1.grid(row=5, column=0, columnspan=2, sticky="w", padx=20)
-        self.inputFileLabel2 = tb.Label(self.frame, text="This must be a PBN (Portable Bridge Notation) format file.", font=("Arial", 10), justify='left')
-        self.inputFileLabel2.grid(row=62, column=0, columnspan=2, sticky="w", padx=20)
-        self.browseButton2 = tb.Button(self.frame, text="Browse", bootstyle="Primary", command=lambda: self.pickInputFile())
-        self.browseButton2.grid(row=7, column=0, pady=10, padx=20, sticky="w")
-        self.inputFileEntry = tb.Entry(self.frame, textvariable=self.inputFileVar, width=95, font=("Arial", 10))
-        self.inputFileEntry.grid(row=7, column=0, sticky="w", padx=100)
+        label = tb.Label(self.frame, text="Select a hand record file to include in the webpage.", font=("Arial", 10, "bold"), justify='left')
+        label.grid(row=5, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, text="This must be a PBN (Portable Bridge Notation) format file.", font=("Arial", 10), justify='left')
+        label.grid(row=62, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Button(self.frame, text="Browse", bootstyle="Primary", command=lambda: self.pickInputFile())
+        label.grid(row=7, column=0, pady=10, padx=20, sticky="w")
+        self.labels.append(label)
+        label = tb.Entry(self.frame, textvariable=self.inputFileVar, width=95, font=("Arial", 10))
+        label.grid(row=7, column=0, sticky="w", padx=100)
+        self.labels.append(label)
 
-        self.spacerLabel3 = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel3.grid(row=8, column=0, columnspan=2, sticky="nw")
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=8, column=0, columnspan=2, sticky="nw")
+        self.labels.append(label)
 
-        self.detailTitleLabel = tb.Label(self.frame, text="Hand Record Details:", font=("Arial", 10, "bold"), justify='left')
-        self.detailTitleLabel.grid(row=9, column=0, columnspan=2, sticky="w", padx=20)
-        self.eventNameLabel1 = tb.Label(self.frame, text='Event:', font=("Arial", 10), justify='left')
-        self.eventNameLabel1.grid(row=10, column=0, sticky="w", padx=20)
-        self.eventNameLabel2 = tb.Label(self.frame, textvariable=self.eventNameVar, font=("Arial", 10), justify='left')
-        self.eventNameLabel2.grid(row=10, column=0, sticky="w", padx=100)
-        self.dateLabel1 = tb.Label(self.frame, text='Date:', font=("Arial", 10), justify='left')
-        self.dateLabel1.grid(row=11, column=0, sticky="w", padx=20)
-        self.dateLabel2 = tb.Label(self.frame, textvariable=self.dateVar, font=("Arial", 10), justify='left')
-        self.dateLabel2.grid(row=11, column=0, sticky="w", padx=100)
+        label = tb.Label(self.frame, text="Hand Record Details:", font=("Arial", 10, "bold"), justify='left')
+        label.grid(row=9, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, text='Event:', font=("Arial", 10), justify='left')
+        label.grid(row=10, column=0, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, textvariable=self.eventNameVar, font=("Arial", 10), justify='left')
+        label.grid(row=10, column=0, sticky="w", padx=100)
+        self.labels.append(label)
+        label = tb.Label(self.frame, text='Date:', font=("Arial", 10), justify='left')
+        label.grid(row=11, column=0, sticky="w", padx=20)
+        self.labels.append(label)
+        label = tb.Label(self.frame, textvariable=self.dateVar, font=("Arial", 10), justify='left')
+        label.grid(row=11, column=0, sticky="w", padx=100)
+        self.labels.append(label)
 
-        self.spacerLabel2 = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel2.grid(row=12, column=0, columnspan=2, sticky="nw")
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=12, column=0, columnspan=2, sticky="nw")
+        self.labels.append(label)
 
         self.createButton = tb.Button(self.frame, text="Create", bootstyle="Primary", command=lambda: self.createWrapper())
         self.createButton.grid(row=13, column=0, sticky="w", padx=20, pady=10)
+        self.labels.append(self.createButton)
 
-        self.spacerLabel1 = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel1.grid(row=14, column=0, columnspan=2, sticky="nw")
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=14, column=0, columnspan=2, sticky="nw")
+        self.labels.append(label)
 
         self.messageLabel = tb.Label(self.frame, text="", font=("Arial", 10, "bold"), justify='left', foreground=CompleteColor)
         self.messageLabel.grid(row=15, column=0, columnspan=2, sticky="w", padx=20)
+        self.labels.append(self.messageLabel)
 
-        self.spacerLabel = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        self.spacerLabel.grid(row=16, column=0, columnspan=2, sticky="nw", padx=420, pady=250)
+        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
+        label.grid(row=16, column=0, columnspan=2, sticky="nw", padx=420, pady=250)
+        self.labels.append(label)
+
         self.showDetail()
         
     def clearContent(self):
-        self.spacerLabel.destroy()
-        self.messageLabel.destroy()
-        self.spacerLabel1.destroy()
-        self.createButton.destroy()
-        self.spacerLabel2.destroy()
-        self.dateLabel2.destroy()
-        self.dateLabel1.destroy()
-        self.eventNameLabel2.destroy()
-        self.eventNameLabel1.destroy()
-        self.detailTitleLabel.destroy()
-        self.spacerLabel3.destroy()
-        self.inputFileEntry.destroy()
-        self.browseButton2.destroy()
-        self.inputFileLabel2.destroy()
-        self.inputFileLabel1.destroy()
-        self.spacerLabel4.destroy()
-        self.outputFileEntry.destroy()
-        self.browseButton1.destroy()
-        self.outputFileLabel2.destroy()
-        self.outputFileLabel1.destroy()
-        self.spacerLabel5.destroy()
+        """Safely destroys all webpage creation widgets, breaks lambda bindings, and resets references."""
+        # Clear button command callbacks (breaks lambda closure references to self)
+        if hasattr(self, 'createButton') and self.createButton:
+            try:
+                self.createButton.configure(command="")
+            except Exception:
+                pass
+
+        # Unbind commands from any buttons stored inside self.labels
+        if hasattr(self, 'labels') and self.labels:
+            for widget in self.labels:
+                if isinstance(widget, tb.Button):
+                    try:
+                        widget.configure(command="")
+                    except Exception:
+                        pass
+
+        # Destroy the frame child entries, buttons, labels
+        if hasattr(self, 'frame') and self.frame:
+            for widget in self.frame.winfo_children():
+                widget.destroy()
+
+        # Clear list of widget references
+        self.labels = []
+
+        # 5. Clear widget instance variables
+        self.createButton = None
+        self.messageLabel = None
 
     def setInputFile(self, filename):
         self.inputFile = filename
