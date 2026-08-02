@@ -14,6 +14,7 @@ class UIParts:
         self.selectTournamentDisplay = None
         self.tournamentDisplay = None
         self.lastDisplay = None
+        self.changeRanksDisplay = None
         self.stratifyDisplay = None
         self.pdfResultsDisplay = None
         self.masterpointsResultsDisplay = None
