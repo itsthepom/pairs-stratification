@@ -61,7 +61,7 @@ class ScalableApp(tb.Window):
         self.current_dpi = None
 
         self.title(AppName + " " + AppVersion)
-        self.geometry("980x750")
+        self.geometry("1030x750")
 
         # Split the window up into two horizontally arranged panes
         panedWindow = PanedWindow(self, orient=HORIZONTAL, bg=menubgnd)

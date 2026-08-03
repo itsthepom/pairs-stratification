@@ -2,7 +2,7 @@
 # Pairs Stratification Utility.
 # Copyright Steve Pomeroy 2026
 #
-# Entry point and main menu
+# Auto-hiding scrollbar
 ###############################################################################
 from tkinter import ttk
 import tkinter as tk
