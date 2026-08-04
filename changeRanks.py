@@ -4,15 +4,12 @@
 #
 # User interface to allow change of auto-assigned ranks
 ###############################################################################
-from tkinter import ttk
-
 from baseclasses import baseUIClass
 from uiparts import UIParts
 import tkinter as tk
 import ttkbootstrap as tb
 from stratify import UIMPLevels
 from autoscroll import AutoScrollbar
-from itertools import chain
 from mousewheel import MouseWheel
 from coloredcombo import ColoredCombo
 
@@ -91,8 +88,6 @@ class changeRanks(baseUIClass):
 
         # Triggered when a combox selection changes
         def on_selection_change(row_name, var):
-            """Triggered whenever any dropdown value changes."""
-            print(f"Updated '{row_name}' -> New Status: {var.get()}")
             self.tournamentData.resultSet.pairData[row_name].masterpointsRankIndex = UIMPLevels.index(var.get())
 
         self.labels = []
@@ -111,18 +106,20 @@ class changeRanks(baseUIClass):
         # Populate Table Rows
         selections = {}
 
-        # Flatten the 3-level nested list into a single stream of items
-        rankings = self.tournamentData.resultSet.overallRankings[0]
-        all_items = chain.from_iterable(rankings)
+        # Get the pairData keys
+        nspairNumbers, ewpairnumbers = [], []
+
+        for k, v in sorted(self.tournamentData.resultSet.pairData.items()):
+            (nspairNumbers if v.isNS else ewpairnumbers).append(k)
 
         self.traces = []  # Store trace IDs for cleanup
 
         # Enumerate, starting at 1 to have row numbers automatically
-        for row_number, k in enumerate(all_items, start=1):
-            pair_data = self.tournamentData.resultSet.pairData[k.pairNumber]
+        for row_number, k in enumerate(nspairNumbers + ewpairnumbers, start=1):
+            pair_data = self.tournamentData.resultSet.pairData[k]
 
             # Define cell contents for columns 0 and 1
-            labels_text = [str(k.pairNumber), f"{k.player1Name} & {k.player2Name}"]
+            labels_text = [str(k), f"{pair_data.result.player1Name} & {pair_data.result.player2Name}"]
             
             # Build standard labels for the first two columns
             for col, text in enumerate(labels_text):
@@ -137,13 +134,13 @@ class changeRanks(baseUIClass):
             
             # Right Dropdown
             combobox = self.coloredCombo.create(var, row_number,UIMPLevels[::-1],
-                                                UIMPLevels[self.tournamentData.resultSet.pairData[k.pairNumber].masterpointsRankIndex],
-                                                UIMPLevels[self.tournamentData.resultSet.pairData[k.pairNumber].origmasterpointsRankIndex])
+                                                UIMPLevels[pair_data.masterpointsRankIndex],
+                                                UIMPLevels[pair_data.origmasterpointsRankIndex])
             self.mousewheel.register_combobox_popdown(combobox)
             self.labels.append(combobox)
 
             # Set trigger on value change
-            trace_id = var.trace_add("write", lambda *args, p_num=k.pairNumber, v=var: on_selection_change(p_num, v))
+            trace_id = var.trace_add("write", lambda *args, p_num=k, v=var: on_selection_change(p_num, v))
             self.traces.append((var, "write", trace_id))
 
         # Right hand column instructions
