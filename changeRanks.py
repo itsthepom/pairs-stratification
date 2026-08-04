@@ -47,6 +47,11 @@ class changeRanks(baseUIClass):
         self.scrollbar = AutoScrollbar(self.frame, orient="vertical", command=self.canvas.yview)
         self.scrollable_frame = tk.Frame(self.canvas, bg=self.pagebgnd)
         self.mousewheel = MouseWheel(self.frame, self.scrollable_frame, self.canvas)
+
+        # Register the scrollbarwith the MouseWheel manager instance
+        self.mousewheel.register_scrollbar(self.scrollbar)
+
+        # Init our colored combox box manager to handle color changes on value change
         self.coloredCombo = ColoredCombo(self.scrollable_frame)
 
         # Create a window inside the canvas to hold the scrollable frame
