@@ -136,11 +136,10 @@ class changeRanks(baseUIClass):
             selections[row_number] = var
             
             # Right Dropdown
-            combobox = self.coloredCombo.create(var, UIMPLevels[::-1],
-                                                 UIMPLevels[self.tournamentData.resultSet.pairData[k.pairNumber].masterpointsRankIndex],
-                                                 UIMPLevels[self.tournamentData.resultSet.pairData[k.pairNumber].origmasterpointsRankIndex])
+            combobox = self.coloredCombo.create(var, row_number,UIMPLevels[::-1],
+                                                UIMPLevels[self.tournamentData.resultSet.pairData[k.pairNumber].masterpointsRankIndex],
+                                                UIMPLevels[self.tournamentData.resultSet.pairData[k.pairNumber].origmasterpointsRankIndex])
             self.mousewheel.register_combobox_popdown(combobox)
-            combobox.grid(row=row_number, column=2, padx=5, sticky="e")
             self.labels.append(combobox)
 
             # Set trigger on value change
