@@ -1,5 +1,5 @@
 ###############################################################################
-# Pairs Stratification Utility.
+# Pairs Stratification Program.
 # Copyright Steve Pomeroy 2026
 #
 # User interface to allow change of auto-assigned ranks
@@ -14,6 +14,7 @@ from stratify import UIMPLevels
 from autoscroll import AutoScrollbar
 from itertools import chain
 from mousewheel import MouseWheel
+from coloredcombo import ColoredCombo
 
 class changeRanks(baseUIClass):
     """ Runs a UI to allow the user to change player ranks.
@@ -28,7 +29,6 @@ class changeRanks(baseUIClass):
         self.tournamentData = tournamentData
         self.uiparts = uiparts
         uiparts.changeRanksDisplay = self
-        pass
 
     def getName(self):
         return 'changeranks'
@@ -47,6 +47,7 @@ class changeRanks(baseUIClass):
         self.scrollbar = AutoScrollbar(self.frame, orient="vertical", command=self.canvas.yview)
         self.scrollable_frame = tk.Frame(self.canvas, bg=self.pagebgnd)
         self.mousewheel = MouseWheel(self.frame, self.scrollable_frame, self.canvas)
+        self.coloredCombo = ColoredCombo(self.scrollable_frame)
 
         # Create a window inside the canvas to hold the scrollable frame
         self.canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw")
@@ -92,13 +93,13 @@ class changeRanks(baseUIClass):
         self.labels = []
 
         # Header
-        label = tk.Label(self.scrollable_frame, text="Pair #", font=("Helvetica", 10, "bold"), bg=self.pagebgnd)
+        label = tk.Label(self.scrollable_frame, text="Pair #", font=("Arial", 10, "bold"), bg=self.pagebgnd)
         label.grid(row=0, column=0, padx=15, pady=12, sticky="w")
         self.labels.append(label)
-        label = tk.Label(self.scrollable_frame, text="Pair", font=("Helvetica", 10, "bold"), bg=self.pagebgnd)
+        label = tk.Label(self.scrollable_frame, text="Pair", font=("Arial", 10, "bold"), bg=self.pagebgnd)
         label.grid(row=0, column=1, padx=15, pady=12, sticky="w")
         self.labels.append(label)
-        label = tk.Label(self.scrollable_frame, text="Pair Rank", font=("Helvetica", 10, "bold"), bg=self.pagebgnd)
+        label = tk.Label(self.scrollable_frame, text="Pair Rank", font=("Arial", 10, "bold"), bg=self.pagebgnd)
         label.grid(row=0, column=2, padx=5, pady=12, sticky="w")
         self.labels.append(label)
 
@@ -129,17 +130,20 @@ class changeRanks(baseUIClass):
             var = tk.StringVar(value=initial_val)
             selections[row_number] = var
             
-            trace_id = var.trace_add("write", lambda *args, p_num=k.pairNumber, v=var: on_selection_change(p_num, v))
-            self.traces.append((var, "write", trace_id))
-
             # Right Dropdown
-            combobox = ttk.Combobox(self.scrollable_frame, textvariable=var, values=UIMPLevels[::-1], state="readonly", width=15)
+            combobox = self.coloredCombo.create(var, UIMPLevels[::-1],
+                                                 UIMPLevels[self.tournamentData.resultSet.pairData[k.pairNumber].masterpointsRankIndex],
+                                                 UIMPLevels[self.tournamentData.resultSet.pairData[k.pairNumber].origmasterpointsRankIndex])
             self.mousewheel.register_combobox_popdown(combobox)
             combobox.grid(row=row_number, column=2, padx=5, sticky="e")
             self.labels.append(combobox)
 
+            # Set trigger on value change
+            trace_id = var.trace_add("write", lambda *args, p_num=k.pairNumber, v=var: on_selection_change(p_num, v))
+            self.traces.append((var, "write", trace_id))
+
         # Right hand column instructions
-        label = tk.Label(self.fixed_frame, text="Changing Player Ranks", font=("Helvetica", 10, "bold"), anchor="w", bg=self.pagebgnd)
+        label = tk.Label(self.fixed_frame, text="Change Player Ranks", font=("Arial", 10, "bold"), anchor="w", bg=self.pagebgnd)
         label.grid(row=0, column=3, padx=25, pady=8, sticky="w")
         self.labels.append(label)
 
@@ -189,3 +193,6 @@ class changeRanks(baseUIClass):
         for label in self.labels:
             label.destroy()
         self.labels.clear()
+
+        # Clean up the ColoredCombo instance
+        self.coloredCombo = None

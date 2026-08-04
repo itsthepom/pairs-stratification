@@ -1,5 +1,5 @@
 ###############################################################################
-# Pairs Stratification Utility.
+# Pairs Stratification Program.
 # Copyright Steve Pomeroy 2026
 #
 # A set of classes to hold tournament data
@@ -109,7 +109,7 @@ class pairData:
         self.sslams = 0
         self.gslams = 0
         self.scorecard = {}
-        self.masterpointsRankIndex = masterpointsRankIndex
+        self.origmasterpointsRankIndex = self.masterpointsRankIndex = masterpointsRankIndex
         self.strat = 0
     
     class scorecardLine:

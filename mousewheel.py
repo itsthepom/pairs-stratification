@@ -1,5 +1,5 @@
 ###############################################################################
-# Pairs Stratification Utility.
+# Pairs Stratification Program.
 # Copyright Steve Pomeroy 2026
 #
 # Global mousewheel scrolling for a canvas with multiple widgets, including comboboxes.

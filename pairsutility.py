@@ -1,5 +1,5 @@
 ###############################################################################
-# Pairs Stratification Utility.
+# Pairs Stratification Program.
 # Copyright Steve Pomeroy 2026
 #
 # Entry point and main menu
@@ -360,11 +360,11 @@ class mainContent(baseUIClass):
         label.grid(row=6, column=0, sticky=NW)
         self.labels.append(label)
 
-        label = Label(self.frame, text="Use Stratify Tournament to stratify a tournament", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
+        label = Label(self.frame, text="Use Change Player Ranks to modify the stratification rank of a pair", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
         label.grid(row=7, column=0, sticky=SW, padx=20)
         self.labels.append(label)
 
-        label = Label(self.frame, text="This creates masterpoint awards for pairs below a certain ranking", font=("Arial", 10), justify='left', bg=pagebgnd)
+        label = Label(self.frame, text="This allows you to adjust the rankings of pairs within the stratification", font=("Arial", 10), justify='left', bg=pagebgnd)
         label.grid(row=8, column=0, sticky=W, padx=20)
         self.labels.append(label)
 
@@ -372,60 +372,76 @@ class mainContent(baseUIClass):
         label.grid(row=9, column=0, sticky=NW)
         self.labels.append(label)
 
-        label = Label(self.frame, text="Use Print Results to create a PDF of the results", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
+        label = Label(self.frame, text="Use Stratify Tournament to stratify a tournament", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
         label.grid(row=10, column=0, sticky=SW, padx=20)
         self.labels.append(label)
 
+        label = Label(self.frame, text="This creates masterpoint awards for pairs below a certain ranking", font=("Arial", 10), justify='left', bg=pagebgnd)
+        label.grid(row=11, column=0, sticky=W, padx=20)
+        self.labels.append(label)
+
         label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=11, column=0, sticky=NW)
+        label.grid(row=12, column=0, sticky=NW)
         self.labels.append(label)
 
-        label = Label(self.frame, text="Use Write Results File to create a new USEBIO file", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=12, column=0, sticky=SW, padx=20)
-        self.labels.append(label)
-
-        label = Label(self.frame, text="This contains the stratified results in an uploadable format", font=("Arial", 10), justify='left', bg=pagebgnd)
+        label = Label(self.frame, text="Use Print Results to create a PDF of the results", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
         label.grid(row=13, column=0, sticky=SW, padx=20)
         self.labels.append(label)
 
+        label = Label(self.frame, text="You can pin this on your club notice board", font=("Arial", 10), justify='left', bg=pagebgnd)
+        label.grid(row=14, column=0, sticky=SW, padx=20)
+        self.labels.append(label)
+
         label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=14, column=0, sticky=NW)
+        label.grid(row=15, column=0, sticky=NW)
+        self.labels.append(label)
+
+        label = Label(self.frame, text="Use Write Results File to create a new USEBIO file", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
+        label.grid(row=16, column=0, sticky=SW, padx=20)
+        self.labels.append(label)
+
+        label = Label(self.frame, text="This contains the stratified results in an uploadable format", font=("Arial", 10), justify='left', bg=pagebgnd)
+        label.grid(row=17, column=0, sticky=SW, padx=20)
+        self.labels.append(label)
+
+        label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
+        label.grid(row=18, column=0, sticky=NW)
         self.labels.append(label)
 
         label = Label(self.frame, text="Use Stand-alone Webpage to create a results webpage", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=15, column=0, sticky=W, padx=20)
-        self.labels.append(label)
-
-        label = Label(self.frame, text="This is useful if you do not upload to Bridgewebs or similar.", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=16, column=0, sticky=W, padx=20)
-        self.labels.append(label)
-
-        label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=17, column=0, sticky=NW)
-        self.labels.append(label)
-
-        label = Label(self.frame, text="Use Options to configure the utility", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=18, column=0, sticky=W, padx=20)
-        self.labels.append(label)
-
-        label = Label(self.frame, text="You can set the default directories and stratification levels here.", font=("Arial", 10), justify='left', bg=pagebgnd)
         label.grid(row=19, column=0, sticky=W, padx=20)
         self.labels.append(label)
 
-        label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=20, column=0, sticky=NW)
+        label = Label(self.frame, text="This is useful if you do not upload to Bridgewebs or similar.", font=("Arial", 10), justify='left', bg=pagebgnd)
+        label.grid(row=20, column=0, sticky=W, padx=20)
         self.labels.append(label)
 
-        label = Label(self.frame, text="Use Help to access the utility help", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=21, column=0, sticky=W, padx=20)
+        label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
+        label.grid(row=21, column=0, sticky=NW)
+        self.labels.append(label)
+
+        label = Label(self.frame, text="Use Options to configure the program", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
+        label.grid(row=22, column=0, sticky=W, padx=20)
+        self.labels.append(label)
+
+        label = Label(self.frame, text="You can set the default directories and stratification levels here.", font=("Arial", 10), justify='left', bg=pagebgnd)
+        label.grid(row=23, column=0, sticky=W, padx=20)
+        self.labels.append(label)
+
+        label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
+        label.grid(row=24, column=0, sticky=NW)
+        self.labels.append(label)
+
+        label = Label(self.frame, text="Use Help to access the program help", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
+        label.grid(row=25, column=0, sticky=W, padx=20)
         self.labels.append(label)
 
         label = Label(self.frame, text="We recommend you read the Home page of the help BEFORE starting.", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=22, column=0, sticky=W, padx=20)
+        label.grid(row=26, column=0, sticky=W, padx=20)
         self.labels.append(label)
         
         label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=23, column=0, sticky=NW, padx=420, pady=200)
+        label.grid(row=27, column=0, sticky=NW, padx=420, pady=200)
         self.labels.append(label)
         
     def clearContent(self):
@@ -446,7 +462,7 @@ if sys.stderr is None:
     sys.stderr = open(os.devnull, "w")
 
 # Initialize argument parser
-parser = argparse.ArgumentParser(description='Pairs Stratification Utility')
+parser = argparse.ArgumentParser(description='Pairs Stratification Program')
 parser.add_argument('--dir', type=str, required=False,
                     help='Directory containing input USEBIO files for batch processing')
 parser.add_argument('--out', type=str, required=False,

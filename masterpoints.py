@@ -1,5 +1,5 @@
 ###############################################################################
-# Pairs Stratification Utility.
+# Pairs Stratification Program.
 # Copyright Steve Pomeroy 2026
 #
 # Class to assign masterpoints and provide the UI for creating a new USEBIO

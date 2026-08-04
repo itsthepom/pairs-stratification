@@ -63,7 +63,7 @@ As mentioned earlier, the scale of awards in a stratified tournament is reduced 
 
 This means that the total masterpoints awarded to a stratified event may be slightly larger or smaller than before stratification, but not significantly so.
 
-At the present time, the utility only awards LOCAL points, according to the scales defined in the SBU Masterpoints and Licensing Handbook.
+At the present time, the program only awards LOCAL points, according to the scales defined in the SBU Masterpoints and Licensing Handbook.
 
 ### Awards Scales
 

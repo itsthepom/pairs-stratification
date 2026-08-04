@@ -1,12 +1,12 @@
 ###############################################################################
-# Pairs Stratification Utility.
+# Pairs Stratification Program.
 # Copyright Steve Pomeroy 2026
 #
 # Abstract base classes
 ###############################################################################
 from abc import ABC, abstractmethod
 
-AppName="Pairs Stratification Utility"
+AppName="Pairs Stratification Program"
 AppVersion="1.04"
 
 class baseUIClass(ABC):

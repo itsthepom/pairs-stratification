@@ -1,5 +1,5 @@
 ###############################################################################
-# Pairs Stratification Utility.
+# Pairs Stratification Program.
 # Copyright Steve Pomeroy 2026
 #
 # Auto-hiding scrollbar
@@ -44,7 +44,7 @@ class AutoScrollbar(ttk.Scrollbar):
         style.configure(
             "Vertical.Custom.TScrollbar",
             arrowsize=16,
-            width=24,
+            width=10,
             relief="flat",
             troughcolor="#f8f9fa",   # Track background
         )

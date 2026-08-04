@@ -9,9 +9,9 @@
 ![User Interface](ui.png){ align=right width="400" }
 </div>
 
-When you run the utility, you will see the user interface (click on any image to see it full size)
+When you run the program, you will see the user interface (click on any image to see it full size)
 
-At the left is a menu, allowing you to navigate the various functions offered by the utility. 
+At the left is a menu, allowing you to navigate the various functions offered by the program. 
 Only functions that are active can be clicked. Those that are disabled are grey. As you progress through loading and stratifying a tournament, these functions will be enabled.
 
 The top of the window displays the selected tournament (once you have selected one). This is displayed at the top for all functions that you select, so you can easily verify you're working with the right one.
@@ -203,7 +203,7 @@ It produces a single HTML file that can be uploaded to your website. The HTML fi
 
 You can use the Browse button to select a different location and name for the HTML file.
 
-If you want to have the hand records included in the web page, use the second Browse button to locate the hand record file (i.e. .PBN file) for the tournament. Once a hand record file has been selected, the event name and date are displayed so that you can confirm you have the correct hand record for the event. The utility will also perform its own check that the date matches, but it's up to you to check the event name is correct (you may have been running more than one event on the same day).
+If you want to have the hand records included in the web page, use the second Browse button to locate the hand record file (i.e. .PBN file) for the tournament. Once a hand record file has been selected, the event name and date are displayed so that you can confirm you have the correct hand record for the event. The program will also perform its own check that the date matches, but it's up to you to check the event name is correct (you may have been running more than one event on the same day).
 
 N.B. This is *not* the .PDF hand record file that some clubs may also upload to their website.
 
@@ -215,9 +215,9 @@ Click Create to produce the HTML file and then upload this to your website.
 
 ### HTML Templates
 
-Two sample template files are included with the utility. These are located in the directory you installed the utility into.
+Two sample template files are included with the program. These are located in the directory you installed the program into.
 
-The utility uses these as a starting point and writes the results into the files (as JSON strings, for the technically minded). Program code, written in JavaScript then processes these results when the web page is displayed, producing the results and personal scorecards.
+The program uses these as a starting point and writes the results into the files (as JSON strings, for the technically minded). Program code, written in JavaScript then processes these results when the web page is displayed, producing the results and personal scorecards.
 
 #### SingleFileTmpl.html
 
@@ -239,12 +239,12 @@ Webpage.CSS and WebPage.JS contain the styling and program code for you to uploa
 
 #### Modifying the HTML Templates
 
-You can modify the HTML templates to create content that is better suited to your website. Should you choose to do this, please make a copy of one of the existing templates and modify the copy. Should you upgrade the utility, the supplied templates may be overwritten - so work on a copy. The same applies to the JavaScript and CSS files, should you use them.
+You can modify the HTML templates to create content that is better suited to your website. Should you choose to do this, please make a copy of one of the existing templates and modify the copy. Should you upgrade the program, the supplied templates may be overwritten - so work on a copy. The same applies to the JavaScript and CSS files, should you use them.
 
 The supplied JavaScript (embedded in SingleFileTmpl.html and separately in webpage.js) obtains the result data that it uses for the webpage from a <head> element:
 	<script id="resultdata">
 	</script>
-The results are inserted (in JSON form) by the utility. Therefore your web page template MUST include this script element.
+The results are inserted (in JSON form) by the program. Therefore your web page template MUST include this script element.
 </div>
 </div>
 <div class="grid" markdown>
@@ -255,11 +255,11 @@ The results are inserted (in JSON form) by the utility. Therefore your web page 
 ![Options](options.png){ align=right width="400" }
 </div>
 
-The Options function allows you set up some default information specific to your scoring environment to make it easier to use the utility.
+The Options function allows you set up some default information specific to your scoring environment to make it easier to use the program.
 
 Selecting the default USEBIO input results directory allows the Select Tournament function to look in that directory when you click Browse to select a tournament.
 
-Selecting the default output directory allows you to specify a directory that the outputs of the utility will be written to. These can be overridden when using the Browse button to select and output file but, by default, 3 directories are created underneath this output directory named MPFiles (USEBIO output files), PDFs (print files) and WebPages (guess!). A cache directory is also created here to hold the cached copy of the player's database obtained from MEMPAD.
+Selecting the default output directory allows you to specify a directory that the outputs of the program will be written to. These can be overridden when using the Browse button to select and output file but, by default, 3 directories are created underneath this output directory named MPFiles (USEBIO output files), PDFs (print files) and WebPages (guess!). A cache directory is also created here to hold the cached copy of the player's database obtained from MEMPAD.
 
 Selecting the default hand records directory allows you to specify where your hand records (.PBN files) are normally held.
 
@@ -267,7 +267,7 @@ The above options are "convenience" options intended to reduce the amount of bro
 
 The Options function is also where you select the web page template to use (see Stand-alone Webpage).
 
-Finally, you can select the default stratification levels that the utility will use. Once again, this is a convenience to help reduce the number of things you need to change when performing stratification. You can change the stratificiation levels from the defaults when stratifying a tournament (see Stratify Tournament), but the levels shown there will revert to the defaults specified in this Options function when the utility is restarted.
+Finally, you can select the default stratification levels that the program will use. Once again, this is a convenience to help reduce the number of things you need to change when performing stratification. You can change the stratificiation levels from the defaults when stratifying a tournament (see Stratify Tournament), but the levels shown there will revert to the defaults specified in this Options function when the program is restarted.
 
 After making any change to the options, click the Save button to save them. You can click the Reset button to return any changed fields to their current values.
 </div>

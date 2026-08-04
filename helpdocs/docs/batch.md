@@ -11,11 +11,11 @@ The output USEBIO files and PDF results files are written to two new directories
 To use this:
 
 - Start a command prompt or PowerShell shell (WindowsKey+R) and type 'cmd' or 'powershell' (omit the quotes) and hit enter.
-- Change directory to the utility's installation folder (e.g. type 'cd C:\PairsStrat' - no quotes again).
+- Change directory to the program's installation folder (e.g. type 'cd C:\PairsStrat' - no quotes again).
 - type '.\PairsStrat.exe' (no quotes) and you will get a useful reminder of the parameters to the command.
 
 Each parameter is introduced by a double pair of dashes (e.g. - -dir), followed by a space and then the string for the parameter.
-Note that it is wise to enclose the parameter in double quotes, so that spaces in the parameter don't confuse the utility.
+Note that it is wise to enclose the parameter in double quotes, so that spaces in the parameter don't confuse the program.
 
 | Parameter | Description |
 |-|-|
