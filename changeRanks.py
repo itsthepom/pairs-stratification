@@ -154,6 +154,12 @@ class changeRanks(baseUIClass):
         label = tk.Label(self.fixed_frame, wraplength=300, justify="left",text="You can override the ranks by selecting a different rank for any pair.", anchor="w", bg=self.pagebgnd)
         label.grid(row=2, column=3, padx=25, sticky="w")
         self.labels.append(label)
+        label = tk.Label(self.fixed_frame, wraplength=300, justify="left",text="Modified pair ranks are indicated with a different color.", anchor="w", bg=self.pagebgnd)
+        label.grid(row=3, column=3, padx=25, sticky="w")
+        self.labels.append(label)
+        label = tk.Label(self.fixed_frame, wraplength=300, justify="left",text="Use the ↺ button next to a changed rank to reset it.", anchor="w", bg=self.pagebgnd)
+        label.grid(row=4, column=3, padx=25, sticky="w")
+        self.labels.append(label)
 
     def clearContent(self):
         # Unbind global application events
