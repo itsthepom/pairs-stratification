@@ -62,7 +62,8 @@ class ScalableApp(tb.Window):
 
         self.title(AppName + " " + AppVersion)
         self.geometry("1030x750")
-
+        self.resizable(False, False)
+        
         # Split the window up into two horizontally arranged panes
         panedWindow = PanedWindow(self, orient=HORIZONTAL, bg=menubgnd)
         panedWindow.pack(side=LEFT, fill=BOTH, expand=True)
