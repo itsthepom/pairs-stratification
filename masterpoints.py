@@ -53,44 +53,33 @@ class masterpoints(baseUIClass):
                 self.outputFileVar.set("")
 
         self.labels = []
-        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        label.grid(row=0, column=0, columnspan=2, sticky="nw")
-        self.labels.append(label)
 
         label = tb.Label(self.frame, text="Select the new USEBIO format results file to be created.", font=("Arial", 10, "bold"), justify='left')
-        label.grid(row=1, column=0, columnspan=2, sticky="w", padx=20)
+        label.grid(row=1, column=0, columnspan=2, sticky="w", padx=20, pady=(20, 5))
         self.labels.append(label)
 
         label = tb.Label(self.frame, text="This file can be uploaded to MEMPAD.", font=("Arial", 10), justify='left')
-        label.grid(row=2, column=0, columnspan=2, sticky="w", padx=20)
+        label.grid(row=2, column=0, columnspan=2, sticky="w", padx=20, pady=(0, 10))
         self.labels.append(label)
 
         label = tb.Button(self.frame, text="Browse", bootstyle="primary", command=lambda: self.pickInputFile())
         label.grid(row=3, column=0, pady=10, padx=20, sticky="w")
         self.labels.append(label)
 
-        label = tb.Entry(self.frame, textvariable=self.outputFileVar, width=95, font=("Arial", 10))
+        label = tb.Entry(self.frame, textvariable=self.outputFileVar, width=102, font=("Arial", 10))
         label.grid(row=3, column=0, sticky="w", padx=100)
         self.labels.append(label)
 
-        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        label.grid(row=4, column=0, columnspan=2, sticky="nw")
-        self.labels.append(label)
-
         self.createButton = tb.Button(self.frame, text="Create", bootstyle="primary", state="disabled", command=lambda: self.writeMasterpointsFile())
-        self.createButton.grid(row=7, column=0, sticky="w", padx=20, pady=10)
+        self.createButton.grid(row=4, column=0, sticky="w", padx=20, pady=(20, 10))
         self.labels.append(self.createButton)
 
-        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        label.grid(row=8, column=0, columnspan=2, sticky="nw")
-        self.labels.append(label)
-
         self.completeLabel = tb.Label(self.frame, text="", font=("Arial", 10, "bold"), foreground=CompleteColor, justify='left')
-        self.completeLabel.grid(row=9, column=0, columnspan=2, sticky="w", padx=20)
+        self.completeLabel.grid(row=6, column=0, columnspan=2, sticky="w", padx=20, pady=10)
         self.labels.append(self.completeLabel)
 
         label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        label.grid(row=10, column=0, columnspan=2, sticky="nw", padx=420, pady=250)
+        label.grid(row=7, column=0, columnspan=2, sticky="nw", padx=420, pady=250)
         self.labels.append(label)
 
         self.fileSelected('', '', '')

@@ -328,12 +328,8 @@ class mainContent(baseUIClass):
     
     def construct(self, pagebgnd):
         self.labels = []
-        label = Label(self.frame, text="", bg=pagebgnd)
-        label.grid(row=0, column=0, sticky=N, pady=2)
-        self.labels.append(label)
-        
         label = Label(self.frame, text="Use Home to return to this page", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=1, column=0, sticky=W, padx=20)
+        label.grid(row=1, column=0, sticky=W, padx=20, pady=(20, 5))
         self.labels.append(label)
 
         label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
