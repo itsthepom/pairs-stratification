@@ -130,12 +130,13 @@ class USEBIO(baseclasses.resultsReader):
 
         self.tournamentData.processResults()
 
-    def write(self, filename: str=None, outputdir: str=None):
-        """ Writes a USEBIO file in v1.3 format (https://usebio.org/documentation/usebio-1.3.pdf)
+    def write(self, filename: str=None, outputdir: str=None, usebiov13: bool=False):
+        """ Writes a USEBIO file in v1.2 or 1.3 format (https://usebio.org/documentation/usebio-1.3.pdf)
 
             Args:
                 filename(str): Output filename, in interactive mode
                 outputdir(str): In batch mode, the directory to output the file to
+                usebiov13(bool): Whether to write in v1.3 format
         """
         def remove_whitespace_nodes(node):
             for child in list(node.childNodes):
@@ -152,7 +153,10 @@ class USEBIO(baseclasses.resultsReader):
             return innerNode
 
         # Create a new XML file
-        root = ET.Element('USEBIO', {'Version': '1.3'})
+        if usebiov13:
+            root = ET.Element('USEBIO', {'Version': '1.3'})
+        else:
+            root = ET.Element('USEBIO', {'Version': '1.2'})
 
         # Add the club data
         club = createNode(root, 'CLUB')
@@ -163,16 +167,25 @@ class USEBIO(baseclasses.resultsReader):
         event = ET.SubElement(root, 'EVENT', {'EVENT_TYPE': 'PAIRS'})
         createNode(event, 'PROGRAM_NAME', baseclasses.AppName)
         createNode(event, 'PROGRAM_VERSION', baseclasses.AppVersion)
-        createNode(event, 'EVENT_ID', self.tournamentData.eventID)
+        if usebiov13:
+            createNode(event, 'EVENT_ID', self.tournamentData.eventID)
+        else:
+            createNode(event, 'EVENT_IDENTIFIER', self.tournamentData.eventID)
         createNode(event, 'EVENT_DESCRIPTION', self.tournamentData.tournamentName)
-        createNode(event, 'DATE', datetime.strptime(self.tournamentData.tournamentDate, "%d/%m/%Y").date().isoformat())
+        if usebiov13:
+            createNode(event, 'DATE', datetime.strptime(self.tournamentData.tournamentDate, "%d/%m/%Y").date().isoformat())
+        else:
+            createNode(event, 'DATE', self.tournamentData.tournamentDate)
         createNode(event, 'BOARDS_PLAYED', self.tournamentData.numBoards)
         createNode(event, 'WINNER_TYPE', self.tournamentData.numWinners)
         createNode(event, 'PAIRS', self.tournamentData.numPairs)
         createNode(event, 'EW_PAIRS', self.tournamentData.numEWPairs)
         if len(self.tournamentData.eventRating) > 0:
             createNode(event, 'MPS_AWARDED_FLAG', 'Y')
-            createNode(event, 'EVENT_RATING', self.tournamentData.eventRating)
+            if usebiov13:
+                createNode(event, 'EVENT_RATING', self.tournamentData.eventRating)
+            else:
+                createNode(event, 'MASTER_POINT_SCALE', self.tournamentData.eventRating)
         
         # If the tournament is stratified, add the appropriate XML elements
         if len(self.tournamentData.resultSet.overallRankings[1][0]) > 0:
@@ -266,7 +279,10 @@ class USEBIO(baseclasses.resultsReader):
 
        
         # Tidy up the XML, removing excess whitespace
-        xml_str = b'<!DOCTYPE USEBIO SYSTEM "usebio_v1_3.dtd">\n' + ET.tostring(root, encoding='utf-8')
+        if usebiov13:
+            xml_str = b'<!DOCTYPE USEBIO SYSTEM "usebio_v1_3.dtd">\n' + ET.tostring(root, encoding='utf-8')
+        else:
+            xml_str = b'<!DOCTYPE USEBIO SYSTEM "usebio_v1_2.dtd">\n' + ET.tostring(root, encoding='utf-8')
         parsed = minidom.parseString(xml_str)
         remove_whitespace_nodes(parsed)
 
