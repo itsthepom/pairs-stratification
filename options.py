@@ -1,5 +1,5 @@
 ###############################################################################
-# Pairs Stratification Utility.
+# Pairs Stratification Program.
 # Copyright Steve Pomeroy 2026
 #
 # The Options UI and loading/saving the user options
@@ -86,7 +86,7 @@ class options(baseUIClass):
         label = tb.Label(self.frame, text="Select the default output directory.", font=("Arial", 10, "bold"), justify='left')
         label.grid(row=5, column=0, columnspan=2, sticky="w", padx=20)
         self.labels.append(label)
-        label = tb.Label(self.frame, text="Files created by this utility are written here.", font=("Arial", 10), justify='left')
+        label = tb.Label(self.frame, text="Files created by this program are written here.", font=("Arial", 10), justify='left')
         label.grid(row=6, column=0, columnspan=2, sticky="w", padx=20)
         self.labels.append(label)
         label = tb.Button(self.frame, text="Browse", bootstyle="primary", command=self.pickOutputsDir)

@@ -1,5 +1,5 @@
 ###############################################################################
-# Pairs Stratification Utility.
+# Pairs Stratification Program.
 # Copyright Steve Pomeroy 2026
 #
 # A set of classes to hold tournament data
@@ -99,7 +99,7 @@ class pairData:
         Args:
             isNS(bool): True for single winner events. False if E/W in two winner tournaments
     """
-    def __init__(self, isNS: bool, masterpointsRankIndex: int):
+    def __init__(self, newresult, isNS: bool, masterpointsRankIndex: int):
         self.masterpoints = 0
         self.isNS = isNS
         self.awardedStratum = None
@@ -109,8 +109,9 @@ class pairData:
         self.sslams = 0
         self.gslams = 0
         self.scorecard = {}
-        self.masterpointsRankIndex = masterpointsRankIndex
+        self.origmasterpointsRankIndex = self.masterpointsRankIndex = masterpointsRankIndex
         self.strat = 0
+        self.result = newresult
     
     class scorecardLine:
         """ A line on the scorecard for a pair
@@ -169,7 +170,7 @@ class results:
             orientation = 1
         self.overallRankings[0][orientation].append(newResult)
         if newResult.pairNumber not in self.pairData:
-            self.pairData[newResult.pairNumber] = pairData(0 if orientation == 1 else 1, getMasterpointRankIndex(self.tournament.tournamentContentInst.memberDict, newResult.player1SBUNum, newResult.player2SBUNum))
+            self.pairData[newResult.pairNumber] = pairData(newResult, 0 if orientation == 1 else 1, getMasterpointRankIndex(self.tournament.tournamentContentInst.memberDict, newResult.player1SBUNum, newResult.player2SBUNum))
 
     def addTraveller(self, board: any):
         newTraveller = self.travellerSet.addTraveller(board, self.pairData, self.resultsMatrix)

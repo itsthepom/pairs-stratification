@@ -34,7 +34,7 @@
             <mxPoint x="350" y="109.71000000000001" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="Z4P34jC2JIAQwuWWR18o-10" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Pairs&lt;div&gt;Stratification&lt;/div&gt;&lt;div&gt;Utility&lt;/div&gt;" vertex="1">
+        <mxCell id="Z4P34jC2JIAQwuWWR18o-10" parent="1" style="shape=process;whiteSpace=wrap;html=1;backgroundOutline=1;" value="Pairs&lt;div&gt;Stratification&lt;/div&gt;&lt;div&gt;Program&lt;/div&gt;" vertex="1">
           <mxGeometry height="60" width="120" x="330" y="210" as="geometry" />
         </mxCell>
         <mxCell id="Z4P34jC2JIAQwuWWR18o-11" edge="1" parent="1" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;" value="">
@@ -94,13 +94,13 @@
         <mxCell id="Z4P34jC2JIAQwuWWR18o-26" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="" vertex="1">
           <mxGeometry height="15" width="30" x="28" y="355" as="geometry" />
         </mxCell>
-        <mxCell id="Z4P34jC2JIAQwuWWR18o-29" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;align=left;fontSize=10;" value="Utility Inputs" vertex="1">
+        <mxCell id="Z4P34jC2JIAQwuWWR18o-29" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;align=left;fontSize=10;" value="Program Inputs" vertex="1">
           <mxGeometry height="15" width="70" x="63" y="355" as="geometry" />
         </mxCell>
         <mxCell id="Z4P34jC2JIAQwuWWR18o-30" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" value="" vertex="1">
           <mxGeometry height="15" width="30" x="28" y="375" as="geometry" />
         </mxCell>
-        <mxCell id="Z4P34jC2JIAQwuWWR18o-31" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;align=left;fontSize=10;" value="Utility Outputs" vertex="1">
+        <mxCell id="Z4P34jC2JIAQwuWWR18o-31" parent="1" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;align=left;fontSize=10;" value="Program Outputs" vertex="1">
           <mxGeometry height="15" width="70" x="63" y="375" as="geometry" />
         </mxCell>
       </root>

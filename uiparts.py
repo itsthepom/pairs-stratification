@@ -1,5 +1,5 @@
 ###############################################################################
-# Pairs Stratification Utility.
+# Pairs Stratification Program.
 # Copyright Steve Pomeroy 2026
 #
 # Component parts of the UI
@@ -14,6 +14,7 @@ class UIParts:
         self.selectTournamentDisplay = None
         self.tournamentDisplay = None
         self.lastDisplay = None
+        self.changeRanksDisplay = None
         self.stratifyDisplay = None
         self.pdfResultsDisplay = None
         self.masterpointsResultsDisplay = None

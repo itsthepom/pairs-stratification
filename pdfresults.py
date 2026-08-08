@@ -1,5 +1,5 @@
 ###############################################################################
-# Pairs Stratification Utility.
+# Pairs Stratification Program.
 # Copyright Steve Pomeroy 2026
 #
 # Class to write a PDF results file
@@ -132,7 +132,6 @@ class pdfresults(baseUIClass):
         # Reset attribute references for Garbage Collection
         self.createButton = None
         self.completeLabel = None
-        self.outputMatrix = None
 
     def pickInputFile(self):
         filename = filehandling.openPDFFile(self.uiparts.options.getDirectory("outputsdir") + self.uiparts.options.config["pdfsdir"])

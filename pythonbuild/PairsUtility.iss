@@ -74,7 +74,7 @@ begin
   with TLabel.Create(IntroPage) do
   begin
     Parent := IntroPage.Surface;
-    Caption := '         Welcome to the Pairs Stratification Utility.' + #13#10 + #13#10 +
+    Caption := '         Welcome to the Pairs Stratification Program.' + #13#10 + #13#10 +
                'This installer will set up the application on your system.' + #13#10 + #13#10 +
                '                          Click Next to continue.';
     Left := 115;

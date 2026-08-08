@@ -1,5 +1,5 @@
 ###############################################################################
-# Pairs Stratification Utility.
+# Pairs Stratification Program.
 # Copyright Steve Pomeroy 2026
 #
 # Entry point and main menu
@@ -13,6 +13,7 @@ import sys
 from uiparts import UIParts
 import options
 import selectTournament
+import changeRanks
 import stratify
 import tournament
 import pdfresults
@@ -60,7 +61,7 @@ class ScalableApp(tb.Window):
         self.current_dpi = None
 
         self.title(AppName + " " + AppVersion)
-        self.geometry("980x750")
+        self.geometry("1030x750")
 
         # Split the window up into two horizontally arranged panes
         panedWindow = PanedWindow(self, orient=HORIZONTAL, bg=menubgnd)
@@ -68,15 +69,21 @@ class ScalableApp(tb.Window):
 
         # Create a frame for the left-hand menu pane
         menuFrame = Frame(panedWindow, bg=menubgnd)
-        menuFrame.grid(row=0, column=0, rowspan=2, sticky=N)
+        panedWindow.add(menuFrame)
+
+        rightContainer = Frame(panedWindow, bg=pagebgnd)
+        panedWindow.add(rightContainer)
+        rightContainer.rowconfigure(0, weight=0)
+        rightContainer.rowconfigure(1, weight=1)
+        rightContainer.columnconfigure(0, weight=1)
 
         # Create a frame for the selected tournament window
-        tournamentFrame = Frame(panedWindow, bg=tourneybgnd)
+        tournamentFrame = Frame(rightContainer, bg=tourneybgnd)
         tournamentFrame.grid(row=0, column=1, sticky=NW)
 
         # Create a frame for the right-hand content window
-        contentFrame = Frame(panedWindow, bg=pagebgnd)
-        contentFrame.grid(row=1, column=1, sticky=NW)
+        contentFrame = Frame(rightContainer, bg=pagebgnd)
+        contentFrame.grid(row=1, column=1, sticky=NSEW)
 
         # Create the parts of the UI window and construct them
         uiparts.mainMenu = menu(menuFrame)
@@ -98,6 +105,7 @@ class ScalableApp(tb.Window):
 
         # Create the remaining UI components
         selectTournament.selectTournament(contentFrame, tournamentData, uiparts)
+        changeRanks.changeRanks(contentFrame, tournamentData, uiparts)
         stratify.stratify(contentFrame, tournamentData, uiparts)
         webpage.webpage(contentFrame, tournamentData, uiparts)
         pdfresults.pdfresults(contentFrame, tournamentData, uiparts)
@@ -142,6 +150,14 @@ class ScalableApp(tb.Window):
         self.uiparts.selectTournamentDisplay.construct(pagebgnd)
         self.lastDisplay = self.uiparts.selectTournamentDisplay
         self.uiparts.mainMenu.setSelected(self.lastDisplay.getName(), True)
+
+    def showChangeRanks(self, event):
+        if self.uiparts.mainMenu.linksEnabled:
+            self.lastDisplay.clearContent()
+            self.uiparts.mainMenu.setSelected(self.lastDisplay.getName(), False)
+            self.uiparts.changeRanksDisplay.construct(pagebgnd)
+            self.lastDisplay = self.uiparts.changeRanksDisplay
+            self.uiparts.mainMenu.setSelected(self.lastDisplay.getName(), True)
 
     def showStratify(self, event):
         if self.uiparts.mainMenu.linksEnabled:
@@ -194,7 +210,7 @@ class menu:
     def __init__(self, frame: Frame):
         self.frame = frame
         self.homeMenuColor = self.selectMenuColor = self.optionsMenuColor = self.helpMenuColor = menucolor
-        self.stratifyMenuColor = self.printMenuColor = self.writeFileMenuColor = self.webpageMenuColor = menuDisabledcolor
+        self.stratifyMenuColor = self.printMenuColor = self.writeFileMenuColor = self.webpageMenuColor = self.changeRanksMenuColor = menuDisabledcolor
         self.linkHiliteColor = self.writeFileHiliteColor =  menuDisabledcolor
         self.mpfileEnabled = False
         self.linksEnabled = False
@@ -207,18 +223,20 @@ class menu:
         self.homeLabel.grid(row=1, column=0, sticky=W, padx=15, pady=5)
         self.selectLabel = Label(self.frame, text="Select Tournament", font=("Arial", 10, "underline", "bold"), justify='left', fg=self.selectMenuColor, bg=menubgnd)
         self.selectLabel.grid(row=2, column=0, sticky=W, padx=15, pady=5)
+        self.changeRanksLabel = Label(self.frame, text="Change Player Ranks", font=("Arial", 10, "underline", "bold"), justify='left', fg=self.changeRanksMenuColor, bg=menubgnd)
+        self.changeRanksLabel.grid(row=3, column=0, sticky=W, padx=15, pady=5)
         self.stratifyLabel = Label(self.frame, text="Stratify Tournament", font=("Arial", 10, "underline", "bold"), justify='left', fg=self.stratifyMenuColor, bg=menubgnd)
-        self.stratifyLabel.grid(row=3, column=0, sticky=W, padx=15, pady=5)
+        self.stratifyLabel.grid(row=4, column=0, sticky=W, padx=15, pady=5)
         self.printLabel = Label(self.frame, text="Print Results", font=("Arial", 10, "underline", "bold"), justify='left', fg=self.printMenuColor, bg=menubgnd)
-        self.printLabel.grid(row=4, column=0, sticky=W, padx=15, pady=5)
+        self.printLabel.grid(row=5, column=0, sticky=W, padx=15, pady=5)
         self.mpfileLabel = Label(self.frame, text="Write Results File", font=("Arial", 10, "underline", "bold"), justify='left', fg=self.writeFileMenuColor, bg=menubgnd)
-        self.mpfileLabel.grid(row=5, column=0, sticky=W, padx=15, pady=5)
+        self.mpfileLabel.grid(row=6, column=0, sticky=W, padx=15, pady=5)
         self.webpageLabel = Label(self.frame, text="Stand-alone Webpage", font=("Arial", 10, "underline", "bold"), justify='left', fg=self.webpageMenuColor, bg=menubgnd)
-        self.webpageLabel.grid(row=6, column=0, sticky=W, padx=15, pady=5)
+        self.webpageLabel.grid(row=7, column=0, sticky=W, padx=15, pady=5)
         self.optionsLabel = Label(self.frame, text="Options", font=("Arial", 10, "underline", "bold"), justify='left', fg=self.optionsMenuColor, bg=menubgnd)
-        self.optionsLabel.grid(row=7, column=0, sticky=W, padx=15, pady=5)
+        self.optionsLabel.grid(row=8, column=0, sticky=W, padx=15, pady=5)
         self.helpLabel = Label(self.frame, text="Help", font=("Arial", 10, "underline", "bold"), justify='left', fg=self.helpMenuColor, bg=menubgnd)
-        self.helpLabel.grid(row=8, column=0, sticky=W, padx=15, pady=25)
+        self.helpLabel.grid(row=9, column=0, sticky=W, padx=15, pady=25)
         self.homeLabel.bind("<Button-1>", root.showHome)
         self.homeLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.homeLabel, menuhilite)})
         self.homeLabel.bind("<Leave>", lambda e: {root.highlightLink(e, self.homeLabel, self.homeMenuColor)})
@@ -228,6 +246,9 @@ class menu:
         self.stratifyLabel.bind("<Button-1>", root.showStratify)
         self.stratifyLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.stratifyLabel, self.linkHiliteColor)})
         self.stratifyLabel.bind("<Leave>", lambda e: {root.highlightLink(e, self.stratifyLabel, self.stratifyMenuColor)})
+        self.changeRanksLabel.bind("<Button-1>", root.showChangeRanks)
+        self.changeRanksLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.changeRanksLabel, self.linkHiliteColor)})
+        self.changeRanksLabel.bind("<Leave>", lambda e: {root.highlightLink(e, self.changeRanksLabel, self.changeRanksMenuColor)})
         self.printLabel.bind("<Button-1>", root.showPrint)
         self.printLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.printLabel, self.linkHiliteColor)})
         self.printLabel.bind("<Leave>", lambda e: {root.highlightLink(e, self.printLabel, self.printMenuColor)})
@@ -257,11 +278,12 @@ class menu:
     def enableMenuItems(self, enable: bool):
         self.linksEnabled = enable
         if enable:
-            self.stratifyMenuColor = self.printMenuColor = self.webpageMenuColor = menucolor
+            self.stratifyMenuColor = self.printMenuColor = self.webpageMenuColor = self.changeRanksMenuColor = menucolor
             self.linkHiliteColor = menuhilite
         else:
-            self.stratifyMenuColor = self.printMenuColor = self.webpageMenuColor = menuDisabledcolor
+            self.changeRanksMenuColor = self.stratifyMenuColor = self.printMenuColor = self.webpageMenuColor = menuDisabledcolor
             self.linkHiliteColor = menuDisabledcolor
+        self.changeRanksLabel.config(fg=self.changeRanksMenuColor)
         self.stratifyLabel.config(fg=self.stratifyMenuColor)
         self.printLabel.config(fg=self.printMenuColor)
         self.webpageLabel.config(fg=self.webpageMenuColor)
@@ -276,6 +298,9 @@ class menu:
         elif menuItem == 'stratify':
             self.stratifyMenuColor = menuSelectedcolor if enabled else menucolor
             self.stratifyLabel.config(fg=self.stratifyMenuColor)
+        elif menuItem == 'changeranks':
+            self.changeRanksMenuColor = menuSelectedcolor if enabled else menucolor
+            self.changeRanksLabel.config(fg=self.changeRanksMenuColor)
         elif menuItem == 'print':
             self.printMenuColor = menuSelectedcolor if enabled else menucolor
             self.printLabel.config(fg=self.printMenuColor)
@@ -335,11 +360,11 @@ class mainContent(baseUIClass):
         label.grid(row=6, column=0, sticky=NW)
         self.labels.append(label)
 
-        label = Label(self.frame, text="Use Stratify Tournament to stratify a tournament", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
+        label = Label(self.frame, text="Use Change Player Ranks to modify the stratification rank of a pair", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
         label.grid(row=7, column=0, sticky=SW, padx=20)
         self.labels.append(label)
 
-        label = Label(self.frame, text="This creates masterpoint awards for pairs below a certain ranking", font=("Arial", 10), justify='left', bg=pagebgnd)
+        label = Label(self.frame, text="This allows you to adjust the rankings of pairs within the stratification", font=("Arial", 10), justify='left', bg=pagebgnd)
         label.grid(row=8, column=0, sticky=W, padx=20)
         self.labels.append(label)
 
@@ -347,60 +372,76 @@ class mainContent(baseUIClass):
         label.grid(row=9, column=0, sticky=NW)
         self.labels.append(label)
 
-        label = Label(self.frame, text="Use Print Results to create a PDF of the results", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
+        label = Label(self.frame, text="Use Stratify Tournament to stratify a tournament", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
         label.grid(row=10, column=0, sticky=SW, padx=20)
         self.labels.append(label)
 
+        label = Label(self.frame, text="This creates masterpoint awards for pairs below a certain ranking", font=("Arial", 10), justify='left', bg=pagebgnd)
+        label.grid(row=11, column=0, sticky=W, padx=20)
+        self.labels.append(label)
+
         label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=11, column=0, sticky=NW)
+        label.grid(row=12, column=0, sticky=NW)
         self.labels.append(label)
 
-        label = Label(self.frame, text="Use Write Results File to create a new USEBIO file", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=12, column=0, sticky=SW, padx=20)
-        self.labels.append(label)
-
-        label = Label(self.frame, text="This contains the stratified results in an uploadable format", font=("Arial", 10), justify='left', bg=pagebgnd)
+        label = Label(self.frame, text="Use Print Results to create a PDF of the results", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
         label.grid(row=13, column=0, sticky=SW, padx=20)
         self.labels.append(label)
 
+        label = Label(self.frame, text="You can pin this on your club notice board", font=("Arial", 10), justify='left', bg=pagebgnd)
+        label.grid(row=14, column=0, sticky=SW, padx=20)
+        self.labels.append(label)
+
         label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=14, column=0, sticky=NW)
+        label.grid(row=15, column=0, sticky=NW)
+        self.labels.append(label)
+
+        label = Label(self.frame, text="Use Write Results File to create a new USEBIO file", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
+        label.grid(row=16, column=0, sticky=SW, padx=20)
+        self.labels.append(label)
+
+        label = Label(self.frame, text="This contains the stratified results in an uploadable format", font=("Arial", 10), justify='left', bg=pagebgnd)
+        label.grid(row=17, column=0, sticky=SW, padx=20)
+        self.labels.append(label)
+
+        label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
+        label.grid(row=18, column=0, sticky=NW)
         self.labels.append(label)
 
         label = Label(self.frame, text="Use Stand-alone Webpage to create a results webpage", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=15, column=0, sticky=W, padx=20)
-        self.labels.append(label)
-
-        label = Label(self.frame, text="This is useful if you do not upload to Bridgewebs or similar.", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=16, column=0, sticky=W, padx=20)
-        self.labels.append(label)
-
-        label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=17, column=0, sticky=NW)
-        self.labels.append(label)
-
-        label = Label(self.frame, text="Use Options to configure the utility", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=18, column=0, sticky=W, padx=20)
-        self.labels.append(label)
-
-        label = Label(self.frame, text="You can set the default directories and stratification levels here.", font=("Arial", 10), justify='left', bg=pagebgnd)
         label.grid(row=19, column=0, sticky=W, padx=20)
         self.labels.append(label)
 
-        label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=20, column=0, sticky=NW)
+        label = Label(self.frame, text="This is useful if you do not upload to Bridgewebs or similar.", font=("Arial", 10), justify='left', bg=pagebgnd)
+        label.grid(row=20, column=0, sticky=W, padx=20)
         self.labels.append(label)
 
-        label = Label(self.frame, text="Use Help to access the utility help", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=21, column=0, sticky=W, padx=20)
+        label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
+        label.grid(row=21, column=0, sticky=NW)
+        self.labels.append(label)
+
+        label = Label(self.frame, text="Use Options to configure the program", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
+        label.grid(row=22, column=0, sticky=W, padx=20)
+        self.labels.append(label)
+
+        label = Label(self.frame, text="You can set the default directories and stratification levels here.", font=("Arial", 10), justify='left', bg=pagebgnd)
+        label.grid(row=23, column=0, sticky=W, padx=20)
+        self.labels.append(label)
+
+        label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
+        label.grid(row=24, column=0, sticky=NW)
+        self.labels.append(label)
+
+        label = Label(self.frame, text="Use Help to access the program help", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
+        label.grid(row=25, column=0, sticky=W, padx=20)
         self.labels.append(label)
 
         label = Label(self.frame, text="We recommend you read the Home page of the help BEFORE starting.", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=22, column=0, sticky=W, padx=20)
+        label.grid(row=26, column=0, sticky=W, padx=20)
         self.labels.append(label)
         
         label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=23, column=0, sticky=NW, padx=420, pady=200)
+        label.grid(row=27, column=0, sticky=NW, padx=420, pady=200)
         self.labels.append(label)
         
     def clearContent(self):
@@ -421,7 +462,7 @@ if sys.stderr is None:
     sys.stderr = open(os.devnull, "w")
 
 # Initialize argument parser
-parser = argparse.ArgumentParser(description='Pairs Stratification Utility')
+parser = argparse.ArgumentParser(description='Pairs Stratification Program')
 parser.add_argument('--dir', type=str, required=False,
                     help='Directory containing input USEBIO files for batch processing')
 parser.add_argument('--out', type=str, required=False,

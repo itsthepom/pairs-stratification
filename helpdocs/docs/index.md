@@ -1,11 +1,11 @@
-# Pairs Stratification Utility
-First things first - this utility is not a scoring program.
+# Pairs Stratification Program
+First things first - this program is not a scoring program.
 
 It is used after you have scored a pairs tournament using whatever scoring program your club uses.
 
 The results from your scoring program must be in a USEBIO format file. USEBIO stands for Universal Scoring Exchange for Bridge Information and Output. It is a standard XML file format developed and maintained by the English Bridge Union and is in widespread use by many bridge scoring systems. It is also the format of the file that is used to upload your club results to MEMPAD or BridgeWebs.
 
-This utility reads the USEBIO file produced by your scoring program and can perform the following functions:
+This program reads the USEBIO file produced by your scoring program and can perform the following functions:
 
 * Allow you to stratify the pairs tournament. Stratification is explained later.
 * Produce a Portable Document Format (PDF) file of the results that can be printed for display on your club notice board.
@@ -13,9 +13,9 @@ This utility reads the USEBIO file produced by your scoring program and can perf
 * Produce a stand-alone results webpage, intended for clubs that have their own website (as distinct from using a hosted system, like BridgeWebs).
 
 ## Before You Start
-We recommend you read through this guide first to explain the operation of this utility.
+We recommend you read through this guide first to explain the operation of this program.
 
-If you're one of those people that can't be bothered reading it all, please at least read the [Workflow](workflow.md) section and, **IMPORTANTLY, set up the [options](userif.md#options) for the utility** to make life easier for yourself.
+If you're one of those people that can't be bothered reading it all, please at least read the [Workflow](workflow.md) section and, **IMPORTANTLY, set up the [options](userif.md#options) for the program** to make life easier for yourself.
 
 ## Stratification Basics
 Stratification is the process of splitting the overall tournament results into one or more sections (strata) that contain only those pairs that are below a certain masterpoints rank. You could think of it as playing the same boards on the same night in different, rank-restricted sections.
