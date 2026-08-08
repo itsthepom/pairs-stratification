@@ -120,12 +120,13 @@ class masterpoints(baseUIClass):
         """
 
         # Calculate the masterpoints for a particular stratum.
-        def awardMPs(stratumNumber: int, numStrata: int):
+        def awardMPs(stratumNumber: int, numStrata: int, multiplier: float):
             """ Helper to awards masterpoints to a stratum.
 
                 Args:
                     stratumNumber(int): Stratum number (zero based) to process.
                     numStrata(int): Total number of strata in the results.
+                    multiplier(float): Multiplier for the masterpoints.
             """
 
             # Helper used for both one and two winner events
@@ -153,7 +154,7 @@ class masterpoints(baseUIClass):
                     for j in range(numShared):
                         maxMPs = self.tournamentData.resultSet.pairData[stratumRankings[i + j].pairNumber].masterpoints
                         if thisAward > maxMPs:
-                            stratumRankings[i + j].masterpoints = thisAward
+                            stratumRankings[i + j].masterpoints = thisAward * multiplier
                         else:
                             stratumRankings[i + j].masterpoints = maxMPs
                         if numStrata > 0 and thisAward > maxMPs:
@@ -237,7 +238,17 @@ class masterpoints(baseUIClass):
             numStrata = 2
         elif len(self.tournamentData.resultSet.overallRankings[1][0]) > 0:
             numStrata = 1
-        awardMPs(0, numStrata)
+        masterpointsMultiplier = 1
+        try:
+            if self.tournamentData.eventRating.lower() == "area":
+                masterpointsMultiplier = 1.5
+            elif self.tournamentData.eventRating.lower() == "district":
+                masterpointsMultiplier = 2
+            elif self.tournamentData.eventRating.lower() == "national":
+                masterpointsMultiplier = 4
+        except:
+            pass
+        awardMPs(0, numStrata, masterpointsMultiplier)
         if StratificationGood:
-            awardMPs(1, numStrata)
-            awardMPs(2, numStrata)
+            awardMPs(1, numStrata, masterpointsMultiplier)
+            awardMPs(2, numStrata, masterpointsMultiplier)
