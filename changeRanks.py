@@ -94,13 +94,13 @@ class changeRanks(baseUIClass):
 
         # Header
         label = tk.Label(self.scrollable_frame, text="Pair #", font=("Arial", 10, "bold"), bg=self.pagebgnd)
-        label.grid(row=0, column=0, padx=15, pady=12, sticky="w")
+        label.grid(row=0, column=0, padx=15, pady=(20, 5), sticky="w")
         self.labels.append(label)
         label = tk.Label(self.scrollable_frame, text="Pair", font=("Arial", 10, "bold"), bg=self.pagebgnd)
-        label.grid(row=0, column=1, padx=15, pady=12, sticky="w")
+        label.grid(row=0, column=1, padx=15, pady=(20, 5), sticky="w")
         self.labels.append(label)
         label = tk.Label(self.scrollable_frame, text="Pair Rank", font=("Arial", 10, "bold"), bg=self.pagebgnd)
-        label.grid(row=0, column=2, padx=5, pady=12, sticky="w")
+        label.grid(row=0, column=2, padx=5, pady=(20, 5), sticky="w")
         self.labels.append(label)
 
         # Populate Table Rows
@@ -145,7 +145,7 @@ class changeRanks(baseUIClass):
 
         # Right hand column instructions
         label = tk.Label(self.fixed_frame, text="Change Player Ranks", font=("Arial", 10, "bold"), anchor="w", bg=self.pagebgnd)
-        label.grid(row=0, column=3, padx=25, pady=8, sticky="w")
+        label.grid(row=0, column=3, padx=25, pady=(20, 5), sticky="w")
         self.labels.append(label)
 
         label = tk.Label(self.fixed_frame, wraplength=300, justify="left",text="The list on the left shows the current rank assigned to each pair for stratification.", anchor="w", bg=self.pagebgnd)

@@ -239,7 +239,7 @@ class stratify(baseUIClass):
         # Create labels aligned with scale
         for i, text in enumerate(UIMPLevels):
             lbl = tb.Label(self.frame, text=text, anchor="w")
-            lbl.grid(row=len(UIMPLevels) + 1 - i, column=0, sticky="w", padx=0)
+            lbl.grid(row=len(UIMPLevels) + 1 - i, column=0, sticky="w", padx=(10, 0))
             self.label_widgets.append(lbl)
 
         self.scaleB = tb.Scale(self.frame,
@@ -269,7 +269,7 @@ class stratify(baseUIClass):
         self.labels.append(self.scaleC)
 
         label = tb.Label(self.frame, text="Select the strata levels", font=("Arial", 10, "bold"), justify='left')
-        label.grid(row=0, column=0, columnspan=3, pady=10)
+        label.grid(row=0, column=0, columnspan=3, pady=(20, 5))
         self.labels.append(label)
         label = tb.Label(self.frame, text="A", font=("Arial", 10, "bold"), justify='left', foreground=StratAColor)
         label.grid(row=1, column=0, sticky="w", padx=20)
@@ -286,7 +286,7 @@ class stratify(baseUIClass):
         self.labels.append(label)
 
         label = tb.Label(self.frame, text="Min/Max Ranks in event", font=("Arial", 10, "bold"), justify='left')
-        label.grid(row=0, column=4, sticky="w", padx=20, pady=5)
+        label.grid(row=0, column=4, sticky="w", padx=20, pady=(20, 5))
         self.labels.append(label)
         label = tb.Label(self.frame, text="Highest Rank", font=("Arial", 10), justify='left')
         label.grid(row=1, column=4, sticky="w", padx=20)
