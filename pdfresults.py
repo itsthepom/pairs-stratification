@@ -204,7 +204,7 @@ class pdfresults(baseUIClass):
                 ('TOPPADDING', (0,0), (-1,0), 2)
             ])
             # Create the rankings table column widths
-            tableColWidths = [35, 35, 35, 200, 110, 50, 22, 22]
+            tableColWidths = [35, 35, 35, 200, 110 if self.tournamentData.eventType == 0 else 45, 50, 22, 22]
 
             # Create the document template
             class MyDocTemplate(BaseDocTemplate):
@@ -261,7 +261,7 @@ class pdfresults(baseUIClass):
             story = []
             block = []
 
-            def printResults(rankingSet, pairData, heading, stratumNumber):
+            def printResults(eventType, rankingSet, pairData, heading, stratumNumber):
                 nonlocal block
                 tableRows = []
                 def drawResultHeadings(directionString):
@@ -276,13 +276,13 @@ class pdfresults(baseUIClass):
                                     Paragraph("Pair", tableHeading),
                                     Paragraph("Strat", tableHeading),
                                     Paragraph("Pair", tableHeading),
-                                    Paragraph("Score", tableHeading),
+                                    Paragraph("Score", tableHeading) if eventType == 0 or eventType == 2 else Paragraph("IMPs", tableHeading),
                                     Paragraph("Points", tableHeading),
                                     Paragraph("S", tableHeading),
                                     Paragraph("G", tableHeading)]
                     tableRows.append(headingData)
 
-                def printResultRows(results, pairData):
+                def printResultRows(eventType, results, pairData):
                     # Draw each results row
                     for result in results:
                         pair = pairData[result.pairNumber]
@@ -290,13 +290,19 @@ class pdfresults(baseUIClass):
                         if len(masterpoints) > 0 and pair.awardedStratum != None and pair.awardedStratum != stratumNumber:
                             masterpoints = masterpoints + '(' + chr(ord('A') + pair.awardedStratum - 1) + ')'
                         resultRowData = [str(result.position),
-                                            str(result.pairNumber),
-                                            "A" if pair.strat == 0 else "B" if pair.strat == 1 else "C",
-                                            result.player1Name + " & " + result.player2Name,
-                                            "{:.1f}".format(result.rawscore) + "/" + "{:.0f}".format(result.maxscore) + "  =  " + "{:.2f}".format(result.percentscore) + "%",
-                                            masterpoints,
-                                            str(pair.sslams) if pair.sslams != 0 else "",
-                                            str(pair.gslams) if pair.gslams != 0 else ""]
+                                         str(result.pairNumber),
+                                         "A" if pair.strat == 0 else "B" if pair.strat == 1 else "C",
+                                         result.player1Name + " & " + result.player2Name,
+                                         "",
+                                         masterpoints,
+                                         str(pair.sslams) if pair.sslams != 0 else "",
+                                         str(pair.gslams) if pair.gslams != 0 else ""]
+                        if eventType == 0:
+                            resultRowData[4] = "{:.1f}".format(result.rawscore) + "/" + "{:.0f}".format(result.maxscore) + "  =  " + "{:.2f}".format(result.percentscore) + "%"
+                        elif eventType == 1:
+                            resultRowData[4] = "{:>+7.2f}".format(result.rawscore)
+                        else:
+                            resultRowData[4] = "{:>+7.0f}".format(result.rawscore)
                         tableRows.append(resultRowData)
                     resultRowTable = Table(tableRows, colWidths=tableColWidths)
                     resultRowTable.setStyle(tableStyles)
@@ -308,21 +314,21 @@ class pdfresults(baseUIClass):
                 if self.tournamentData.numWinners == 2:
                     directionString = "North/South"
                 drawResultHeadings(directionString)
-                printResultRows(rankingSet[0], pairData)
+                printResultRows(self.tournamentData.eventType, rankingSet[0], pairData)
                 if self.tournamentData.numWinners == 2:
                     tableRows = []
                     drawResultHeadings("East/West")
-                    printResultRows(rankingSet[1], pairData)
+                    printResultRows(self.tournamentData.eventType, rankingSet[1], pairData)
             
             # Print the ranking lists - first the overall ranking
-            printResults(self.tournamentData.resultSet.overallRankings[0], self.tournamentData.resultSet.pairData, "Stratum A - Overall Rankings", 1)
+            printResults(self.tournamentData.eventType, self.tournamentData.resultSet.overallRankings[0], self.tournamentData.resultSet.pairData, "Stratum A - Overall Rankings", 1)
             story.append(KeepTogether(block))
 
             # Add strata rankings
             block = []
             if len(self.tournamentData.resultSet.overallRankings[1][0]) + len(self.tournamentData.resultSet.overallRankings[1][1])> 0:
                 heading = "Stratum B - " + self.tournamentData.resultSet.stratumLabels[0] + " and lower"
-                printResults(self.tournamentData.resultSet.overallRankings[1], self.tournamentData.resultSet.pairData, heading, 2)
+                printResults(self.tournamentData.eventType, self.tournamentData.resultSet.overallRankings[1], self.tournamentData.resultSet.pairData, heading, 2)
                 story.append(KeepTogether(block))
                 if len(self.tournamentData.resultSet.overallRankings[2][0]) > 0:
                     block = []
@@ -369,8 +375,8 @@ class pdfresults(baseUIClass):
                 keyNum = 0
                 for matrixLine in self.tournamentData.resultSet.resultsMatrix.matrixLine.values():
                     matrixTableRows[matrixKeys[keyNum]] = [str(matrixKeys[keyNum])]
-                    for i in range(len(matrixLine.MPs)):
-                        matrixTableRows[matrixKeys[keyNum]].append(((str(int(matrixLine.MPs[i])) if matrixLine.MPs[i] != None else "")))
+                    for i in range(len(matrixLine.score)):
+                        matrixTableRows[matrixKeys[keyNum]].append(((str(int(matrixLine.score[i])) if matrixLine.score[i] != None else "")))
                     matrixTableRows[matrixKeys[keyNum]].append(str(int(matrixLine.total)))
                     keyNum = keyNum + 1
                 # If there were missing pairs, their row will be empty. Fill the pair number

@@ -89,8 +89,8 @@ class stratify(baseUIClass):
             self.resultsBmps = tb.StringVar()
             self.resultsCmps = tb.StringVar()
             self.statusText = tb.StringVar()
-            self.awardMPs = tb.BooleanVar()
-            self.awardMPs.set(True)
+            self.awardMasterpoints = tb.BooleanVar()
+            self.awardMasterpoints.set(True)
             self.BSliderVar = tb.DoubleVar()
             self.CSliderVar = tb.DoubleVar()
             self.indexB = None
@@ -570,20 +570,20 @@ class stratify(baseUIClass):
             self.retainedRankings2 = None
 
             # Set the pair rankings for each stratum
-            self.tournamentData.resultSet.setPositions(self.tournamentData.resultSet.overallRankings[1][0])
-            self.tournamentData.resultSet.setPositions(self.tournamentData.resultSet.overallRankings[1][1])
-            self.tournamentData.resultSet.setPositions(self.tournamentData.resultSet.overallRankings[2][0])
-            self.tournamentData.resultSet.setPositions(self.tournamentData.resultSet.overallRankings[2][1])
+            self.tournamentData.resultSet.setPositions(self.tournamentData.eventType, self.tournamentData.resultSet.overallRankings[1][0])
+            self.tournamentData.resultSet.setPositions(self.tournamentData.eventType, self.tournamentData.resultSet.overallRankings[1][1])
+            self.tournamentData.resultSet.setPositions(self.tournamentData.eventType, self.tournamentData.resultSet.overallRankings[2][0])
+            self.tournamentData.resultSet.setPositions(self.tournamentData.eventType, self.tournamentData.resultSet.overallRankings[2][1])
 
             stratOK = True
-            if isBatchMode or self.awardMPs.get():
+            if isBatchMode or self.awardMasterpoints.get():
                 # If no stratification was done, display an appropriate message
                 if not isBatchMode and len(self.tournamentData.resultSet.overallRankings[1][0]) == 0:
                     self.setResult("No stratification done. Original masterpoints stand.", True)
                     stratOK = False
                 else:
-                    # Calculate the MPs so we can tell if masterpoints were awarded in all strata
-                    self.tournamentData.masterpointsObject.calculateMPs(True)
+                    # Calculate the masterpoints so we can tell if masterpoints were awarded in all strata
+                    self.tournamentData.masterpointsObject.calculateMasterpoints(True)
                     # Make a pass over the pair data and if no awards have been made in any sub-stratum, revert
                     StratumFound = [ False, False ]
                     for pair in self.tournamentData.resultSet.pairData.values():
@@ -594,8 +594,8 @@ class stratify(baseUIClass):
                     Stratum2Good = self.indexC >= self.minRankIndex and StratumFound[1]
                     if not(Stratum1Good or Stratum2Good):
                         stratOK = False
-                        # No masterpoints awarded in at least one stratum. Recalculate the MPs without stratification
-                        self.tournamentData.masterpointsObject.calculateMPs(False)
+                        # No masterpoints awarded in at least one stratum. Recalculate the masterpoints without stratification
+                        self.tournamentData.masterpointsObject.calculateMasterpoints(False)
                         if not isBatchMode:
                             self.setResult("No masterpoints gained in secondary strata. Original masterpoints stand.", True)
             if stratOK and not isBatchMode:
@@ -619,7 +619,7 @@ class stratify(baseUIClass):
         try:
             self.tournamentData.resultSet.overallRankings[1] = [list(), list()]
             self.tournamentData.resultSet.overallRankings[2] = [list(), list()]
-            # Recalculate the MPs
-            self.tournamentData.masterpointsObject.calculateMPs(False)
+            # Recalculate the masterpoints
+            self.tournamentData.masterpointsObject.calculateMasterpoints(False)
         except:
             pass

@@ -48,12 +48,12 @@ class matrixLine:
             numBoards(int): Total number of boards in the tournament
     """
     def __init__(self, numBoards: int):
-        self.MPs = [None for _ in range(numBoards)]
+        self.score = [None for _ in range(numBoards)]
         self.total = 0
 
-    def addResult(self, board: int, MPs: int):
-        self.MPs[board - 1] = MPs
-        self.total = self.total + MPs
+    def addResult(self, board: int, score: int):
+        self.score[board - 1] = score
+        self.total = self.total + score
 
 class matrix:
     """ Board/Pair matrix. A collection of matrixLine instances
@@ -65,10 +65,10 @@ class matrix:
         self.numBoards = numBoards
         self.matrixLine = {}
 
-    def addResult(self, pair: int, board: int, MPs: int):
+    def addResult(self, pair: int, board: int, score: int):
         if pair not in self.matrixLine:
             self.matrixLine[pair] = matrixLine(self.numBoards)
-        self.matrixLine[pair].addResult(board, MPs)
+        self.matrixLine[pair].addResult(board, score)
     
     def getMatrixLine(self, pair: int) -> matrixLine:
         if pair not in self.matrixLine:
@@ -88,8 +88,8 @@ class travellers:
         self.tournament = tournamentData
         pass
 
-    def addTraveller(self, board: any, pairData: any, resultsMatrix: matrix):
-        newTraveller = self.tournament.readerClass.traveller(board, pairData, resultsMatrix)
+    def addTraveller(self, eventType, board: any, pairData: any, resultsMatrix: matrix):
+        newTraveller = self.tournament.readerClass.traveller(eventType, board, pairData, resultsMatrix)
         self.travellers[newTraveller.boardNum - 1] = newTraveller
         return newTraveller
 
@@ -105,7 +105,7 @@ class pairData:
         self.awardedStratum = None
         self.stratPosition = None
         self.boardsPlayed = 0
-        self.maxMPs = 0
+        self.maxScore = 0
         self.sslams = 0
         self.gslams = 0
         self.scorecard = {}
@@ -119,15 +119,16 @@ class pairData:
         def __init__(self):
             pass
         
-        def add(self, topMPs, isNS, newTravellerLine):
+        def add(self, eventType, topScore, isNS, newTravellerLine):
             self.isNS = isNS
             if isNS:
                 self.versus = newTravellerLine.EWPair
-                self.pts = newTravellerLine.NSMPs
+                self.pts = newTravellerLine.score if eventType == 2 else newTravellerLine.NSScore
             else:
                 self.versus = newTravellerLine.NSPair
-                self.pts = newTravellerLine.EWMPs
-            self.percent = self.pts / topMPs * 100.0
+                self.pts = newTravellerLine.score if eventType == 2 else newTravellerLine.EWScore
+            if eventType == 0:
+                self.percent = self.pts / topScore * 100.0
             self.contract = newTravellerLine.contract
             self.by = newTravellerLine.by
             self.lead = newTravellerLine.lead
@@ -143,11 +144,11 @@ class pairData:
                 self.plus = newTravellerLine.score
                 self.minus = ''
 
-    def add(self, boardNum, topMPs, isNS, newTravellerLine):
+    def add(self, eventType, boardNum, topScore, isNS, newTravellerLine):
         if not boardNum in self.scorecard:
             self.scorecard[boardNum] = self.scorecardLine()
-        self.scorecard[boardNum].add(topMPs, isNS, newTravellerLine)
-        self.maxMPs = self.maxMPs + topMPs
+        self.scorecard[boardNum].add(eventType, topScore, isNS, newTravellerLine)
+        self.maxScore = self.maxScore + topScore
 
 class results:
     """ The event results. Binds together the rankings, pair data, travellers, results matrix and stratification levels.
@@ -172,24 +173,29 @@ class results:
         if newResult.pairNumber not in self.pairData:
             self.pairData[newResult.pairNumber] = pairData(newResult, 0 if orientation == 1 else 1, getMasterpointRankIndex(self.tournament.tournamentContentInst.memberDict, newResult.player1SBUNum, newResult.player2SBUNum))
 
-    def addTraveller(self, board: any):
-        newTraveller = self.travellerSet.addTraveller(board, self.pairData, self.resultsMatrix)
+    def addTraveller(self, eventType, board: any):
+        newTraveller = self.travellerSet.addTraveller(self.tournament.eventType, board, self.pairData, self.resultsMatrix)
         for line in newTraveller.travellerLines:
-            topMPs = line.EWMPs + line.NSMPs
+            topScore = 0
+            if eventType != 2:
+                topScore = line.EWScore + line.NSScore
             if line.NSPair not in self.pairData:
                 self.pairData[line.NSPair] = pairData(0)
-            self.pairData[line.NSPair].add(newTraveller.boardNum, topMPs, True, line)
+            self.pairData[line.NSPair].add(eventType, newTraveller.boardNum, topScore, True, line)
             if line.EWPair not in self.pairData:
                 self.pairData[line.EWPair] = pairData(1)
-            self.pairData[line.EWPair].add(newTraveller.boardNum, topMPs, False, line)
+            self.pairData[line.EWPair].add(eventType, newTraveller.boardNum, topScore, False, line)
         return newTraveller
 
-    def setPositions(self, direction: list):
+    def setPositions(self, eventType, direction: list):
         position = 1
         numEquals = 0
         for i in range(len(direction)):
             direction[i].positionNum = position
-            if (i < (len(direction) - 1)) and (direction[i].percentscore == direction[i + 1].percentscore):
+            if (i < (len(direction) - 1)):
+                thisScore = direction[i].percentscore if eventType == 0 else direction[i].rawscore
+                nextScore = direction[i + 1].percentscore if eventType == 0 else direction[i + 1].rawscore
+            if (i < (len(direction) - 1)) and (thisScore == nextScore):
                 direction[i].position = str(position) + "="
                 numEquals = numEquals + 1
             else:
@@ -200,17 +206,17 @@ class results:
                 position = position + numEquals + 1
                 numEquals = 0
 
-    def processResults(self):
+    def processResults(self, eventType):
         for direction in self.overallRankings[0]:
             for pairResult in direction:
                 pairMatrixLine = self.resultsMatrix.getMatrixLine(pairResult.pairNumber)
                 if pairMatrixLine == None:
-                    pairResult.setScore(0, 1)
+                    pairResult.setScore(eventType, 0, 1)
                 else:
-                    pairResult.setScore(pairMatrixLine.total, self.pairData[pairResult.pairNumber].maxMPs)
-            direction.sort(reverse=True, key=lambda x : x.percentscore)
-            self.setPositions(direction)
-        self.tournament.masterpointsObject.calculateMPs(False)
+                    pairResult.setScore(eventType, pairMatrixLine.total, self.pairData[pairResult.pairNumber].maxScore)
+            direction.sort(reverse=True, key=lambda x : x.percentscore if eventType == 0 else x.rawscore)
+            self.setPositions(eventType, direction)
+        self.tournament.masterpointsObject.calculateMasterpoints(False)
 
 class tournament:
     """ The tournament data. Commonly passed by reference into other classes.
@@ -231,7 +237,7 @@ class tournament:
         self.numLoads = 0
     
     def reset(self, clubName: str, clubID: str, eventID: str,
-              description: str, date: str, eventRating: str,
+              eventType: str, description: str, date: str, eventRating: str,
               numPairs: int, numEWPairs: int, numBoards: int,
               numWinners: int, stratum1Label: str,
               stratum2Label: str):
@@ -243,6 +249,7 @@ class tournament:
         self.clubName = clubName
         self.clubID = clubID
         self.eventID = eventID
+        self.eventType = eventType
         self.tournamentName = description
         self.tournamentDate = date
         self.eventRating = eventRating
@@ -270,7 +277,7 @@ class tournament:
                     self.resultSet.stratumLabels[1] = 'None'
 
     def addTraveller(self, board: any):
-        newTraveller = self.resultSet.addTraveller(board)
+        newTraveller = self.resultSet.addTraveller(self.eventType, board)
         if (self.boardsPlayedUpdate == 0) or (self.boardsPlayedUpdate == 1 and (self.lastPair[0] == newTraveller.travellerLines[0].NSPair) and (self.lastPair[1] == newTraveller.travellerLines[0].EWPair)):
             self.boardsPlayedUpdate = 1
             self.boardsPerRound = self.boardsPerRound + 1
@@ -282,7 +289,7 @@ class tournament:
         self.resultSet.addResult(pair)
 
     def processResults(self):
-        self.resultSet.processResults()
+        self.resultSet.processResults(self.eventType)
         if self.tournamentContentInst is not None:
             self.tournamentContentInst.setDescription(self.clubName + ' - ' + self.tournamentName + ' - ' + self.tournamentDate)
 

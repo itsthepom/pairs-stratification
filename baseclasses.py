@@ -35,5 +35,5 @@ class resultsReader:
             pass
         
         @abstractmethod
-        def setScore(self, total, topMPs):
+        def setScore(self, total, topScore):
             pass
