@@ -153,7 +153,7 @@ def readPlayersDB(writeCacheFile: bool, optionsInstance) -> dict:
         else:
             raise Exception('Bad HTTP status')
     except:
-        # Can't get MPs CSV. Use the last cached one instead
+        # Can't get rankings CSV. Use the last cached one instead
         if not writeCacheFile or not os.path.exists(cachefile):
             messagebox.showerror("Error", "Unable to read member data from Internet and no cached copy.\n\nStratification will not be available.")
             return 1

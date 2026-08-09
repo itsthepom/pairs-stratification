@@ -46,8 +46,15 @@ class USEBIO(baseclasses.resultsReader):
 
         # Locate the event tag
         event = root.find('.//EVENT')                       # Mandatory element
-        if event.attrib['EVENT_TYPE'] != 'MP_PAIRS' and event.attrib['EVENT_TYPE'] != 'PAIRS':
-            raise Exception("Not an MP Pairs event")
+        eventType = None
+        if event.attrib['EVENT_TYPE'] == 'MP_PAIRS' or event.attrib['EVENT_TYPE'] == 'PAIRS':
+            eventType = 0
+        elif event.attrib['EVENT_TYPE'] == 'CROSS_IMP':
+            eventType = 1
+        elif event.attrib['EVENT_TYPE'] == 'AGGREGATE':
+            eventType = 2
+        else:
+            raise Exception("Not a supported event type")
         numWinners = 1
         numWinnersTag = event.find('.//WINNER_TYPE')        # Optional element
         if numWinnersTag != None:
@@ -60,6 +67,21 @@ class USEBIO(baseclasses.resultsReader):
             date = dt.strftime("%d/%m/%Y")
         except:
             pass
+
+        # We don't know if the USEBIO file EVENT_TYPE (revised in 1.2) is using old names or not.
+        # Example: 1.2 could use PAIRS and rely on BOARD_SCORING_METHOD to differentiate the scoring
+        # method, or EVENT_TYPE might be CROSS_IMP. So we need to check the BOARD_SCORING_METHOD tag
+        # to determine the actual scoring method, if it exists.
+        eventTypeTag = event.find('.//BOARD_SCORING_METHOD') # Optional element
+        if eventTypeTag != None:
+            if eventTypeTag.text == 'MATCH_POINTS':
+                eventType = 0
+            elif eventTypeTag.text == 'CROSS_IMPS':
+                eventType = 1
+            elif eventTypeTag.text == 'AGGREGATE':
+                eventType = 2
+            else:
+                raise Exception("Not a supported event type")
 
         description = ''
         descriptionTag = event.find('.//EVENT_DESCRIPTION') # Optional element
@@ -84,9 +106,9 @@ class USEBIO(baseclasses.resultsReader):
         if mpsAwardedTag != None:
             mpsAwarded = mpsAwardedTag.text
         if mpsAwarded != 'N':
-            eventRatingTag = event.find('.//EVENT_RATING')   # v1.3 Mandatory element if MPs awarded
+            eventRatingTag = event.find('.//EVENT_RATING')   # v1.3 Mandatory element if masterpoints awarded
             if eventRatingTag == None:
-                eventRatingTag = event.find('.//MASTER_POINT_SCALE')   # v1.2 Mandatory element if MPs awarded
+                eventRatingTag = event.find('.//MASTER_POINT_SCALE')   # v1.2 Mandatory element if masterpoints awarded
             if eventRatingTag != None:
                 eventRating = eventRatingTag.text
 
@@ -118,7 +140,7 @@ class USEBIO(baseclasses.resultsReader):
         numPairs = len(pairs)
         numBoards = len(boards)
 
-        self.tournamentData.reset(clubName, clubID, eventID, description, date, eventRating, numPairs, numEWPairs, numBoards, numWinners, stratumLabels[0], stratumLabels[1])
+        self.tournamentData.reset(clubName, clubID, eventID, eventType, description, date, eventRating, numPairs, numEWPairs, numBoards, numWinners, stratumLabels[0], stratumLabels[1])
 
         # Iterate over the pairs
         for pair in pairs:
@@ -274,8 +296,8 @@ class USEBIO(baseclasses.resultsReader):
                 createNode(travellerLine, 'LEAD', traveller.lead)
                 createNode(travellerLine, 'TRICKS', traveller.tricks)
                 createNode(travellerLine, 'SCORE', traveller.score)
-                createNode(travellerLine, 'NS_MATCH_POINTS', traveller.NSMPs)
-                createNode(travellerLine, 'EW_MATCH_POINTS', traveller.EWMPs)
+                createNode(travellerLine, 'NS_MATCH_POINTS', traveller.NSScore)
+                createNode(travellerLine, 'EW_MATCH_POINTS', traveller.EWScore)
 
        
         # Tidy up the XML, removing excess whitespace
@@ -306,7 +328,7 @@ class USEBIO(baseclasses.resultsReader):
                     pairData(dict): Dictionary of tournament.pairData
                     resultsMatrix(tournament.matrix): Matrix object populated by this code
             """
-            def __init__(self, line, boardNum, pairData, resultsMatrix):
+            def __init__(self, eventType, line, boardNum, pairData, resultsMatrix):
                 self.NSPair = int(line.find('.//NS_PAIR_NUMBER').text)      # Mandatory element
                 self.EWPair = int(line.find('.//EW_PAIR_NUMBER').text)      # Mandatory element
                 self.contract = ''
@@ -331,10 +353,18 @@ class USEBIO(baseclasses.resultsReader):
                     pass
                 else:
                     self.score = int(self.score)
-                self.NSMPs = float(line.find('.//NS_MATCH_POINTS').text)    # Mandatory element
-                self.EWMPs = float(line.find('.//EW_MATCH_POINTS').text)    # Mandatory element
-                resultsMatrix.addResult(self.NSPair, boardNum, self.NSMPs)
-                resultsMatrix.addResult(self.EWPair, boardNum, self.EWMPs)
+                if eventType == 0:
+                    self.NSScore = float(line.find('.//NS_MATCH_POINTS').text)    # Mandatory element
+                    self.EWScore = float(line.find('.//EW_MATCH_POINTS').text)    # Mandatory element
+                elif eventType == 1:
+                    self.NSScore = float(line.find('.//NS_CROSS_IMP_POINTS').text)    # Mandatory element
+                    self.EWScore = float(line.find('.//EW_CROSS_IMP_POINTS').text)    # Mandatory element
+                elif eventType == 2:
+                    pass
+
+                resultsMatrix.addResult(self.NSPair, boardNum, self.NSScore if eventType != 2 else self.score)
+                resultsMatrix.addResult(self.EWPair, boardNum, self.EWScore if eventType != 2 else (self.score * -1))
+
                 # Use an exception catcher, since the first character of the contract might not be numeric
                 try:
                     if int(self.contract[0]) >= 6:
@@ -354,12 +384,12 @@ class USEBIO(baseclasses.resultsReader):
                 except:
                     pass
 
-        def __init__(self, board: ET.Element, pairData: dict, resultsMatrix):
+        def __init__(self, tournamentData, board: ET.Element, pairData: dict, resultsMatrix: matrix):
             self.boardNum = int(board.find('.//BOARD_NUMBER').text)     # Mandatory element
             tLines = board.findall('.//TRAVELLER_LINE')                 # Mandatory element
             self.travellerLines = []
             for tLine in tLines:
-                self.travellerLines.append(self.travellerLine(tLine, self.boardNum, pairData, resultsMatrix))
+                self.travellerLines.append(self.travellerLine(tournamentData, tLine, self.boardNum, pairData, resultsMatrix))
                 playingPair = self.travellerLines[len(self.travellerLines) - 1].NSPair
                 pairData[playingPair].boardsPlayed = pairData[playingPair].boardsPlayed + 1
                 playingPair = self.travellerLines[len(self.travellerLines) - 1].EWPair
@@ -395,8 +425,9 @@ class USEBIO(baseclasses.resultsReader):
             self.maxscore = 0
             self.position = ''
         
-        def setScore(self, total, maxMPs):
+        def setScore(self, eventType, total, maxScore):
             self.rawscore = round(total, 1)
-            self.maxscore = maxMPs
-            self.percentscore = round(total * 100 / maxMPs, 2)
+            if eventType == 0:      # Match-pointed pairs
+                self.maxscore = maxScore
+                self.percentscore = round(total * 100 / maxScore, 2)
 

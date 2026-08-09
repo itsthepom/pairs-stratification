@@ -111,7 +111,7 @@ class masterpoints(baseUIClass):
         self.completeLabel.config(text="USEBIO file generation complete.")
         pass
 
-    def calculateMPs(self, StratificationGood: bool):
+    def calculateMasterpoints(self, StratificationGood: bool):
         """ Awards masterpoints to an event.
 
             Args:
@@ -120,7 +120,7 @@ class masterpoints(baseUIClass):
         """
 
         # Calculate the masterpoints for a particular stratum.
-        def awardMPs(stratumNumber: int, numStrata: int, multiplier: float):
+        def awardMasterpoints(stratumNumber: int, numStrata: int, multiplier: float):
             """ Helper to awards masterpoints to a stratum.
 
                 Args:
@@ -130,7 +130,7 @@ class masterpoints(baseUIClass):
             """
 
             # Helper used for both one and two winner events
-            def calcMPs(stratumRankings, maxAward, numAwards):
+            def calcMasterpoints(stratumRankings, maxAward, numAwards):
                 # Loop through the results and overwrite the masterpoints with the new values.
                 # Once we run out of awards, the masterpoints get set to zero for the remainder
                 award = maxAward
@@ -152,12 +152,12 @@ class masterpoints(baseUIClass):
                         thisAward = math.ceil(thisAward / numShared)
                     # thisAward is the award for this pair and any tied pairs
                     for j in range(numShared):
-                        maxMPs = self.tournamentData.resultSet.pairData[stratumRankings[i + j].pairNumber].masterpoints
-                        if thisAward > maxMPs:
+                        maxMasterpoints = self.tournamentData.resultSet.pairData[stratumRankings[i + j].pairNumber].masterpoints
+                        if thisAward > maxMasterpoints:
                             stratumRankings[i + j].masterpoints = thisAward * multiplier
                         else:
-                            stratumRankings[i + j].masterpoints = maxMPs
-                        if numStrata > 0 and thisAward > maxMPs:
+                            stratumRankings[i + j].masterpoints = maxMasterpoints
+                        if numStrata > 0 and thisAward > maxMasterpoints:
                             self.tournamentData.resultSet.pairData[stratumRankings[i + j].pairNumber].awardedStratum = stratumNumber + 1
                         self.tournamentData.resultSet.pairData[stratumRankings[i + j].pairNumber].masterpoints = stratumRankings[i + j].masterpoints
                         self.tournamentData.resultSet.pairData[stratumRankings[i + j].pairNumber].stratPosition = stratumRankings[i + j].positionNum
@@ -209,8 +209,8 @@ class masterpoints(baseUIClass):
                             awards1 = (awards1[0] - 5 * awards1[1], awards1[1])
                             awards2 = (awards2[0] - 5 * awards2[1], awards2[1])
                     # Calculate the masterpoints now
-                    calcMPs(stratumRankings[0], awards1[0], awards1[1])
-                    calcMPs(stratumRankings[1], awards2[0], awards2[1])
+                    calcMasterpoints(stratumRankings[0], awards1[0], awards1[1])
+                    calcMasterpoints(stratumRankings[1], awards2[0], awards2[1])
             else:
                 # Verify that we have at least 3 full tables
                 if len(stratumRankings[0]) > 5:
@@ -224,7 +224,7 @@ class masterpoints(baseUIClass):
                         else:
                             awards = (awards[0] - 3 * awards[1], awards[1])
                     # Calculate the masterpoints now
-                    calcMPs(stratumRankings[0], awards[0], awards[1])
+                    calcMasterpoints(stratumRankings[0], awards[0], awards[1])
             return
 
         # Clear out the current set of masterpoints
@@ -248,7 +248,7 @@ class masterpoints(baseUIClass):
                 masterpointsMultiplier = 4
         except:
             pass
-        awardMPs(0, numStrata, masterpointsMultiplier)
+        awardMasterpoints(0, numStrata, masterpointsMultiplier)
         if StratificationGood:
-            awardMPs(1, numStrata, masterpointsMultiplier)
-            awardMPs(2, numStrata, masterpointsMultiplier)
+            awardMasterpoints(1, numStrata, masterpointsMultiplier)
+            awardMasterpoints(2, numStrata, masterpointsMultiplier)

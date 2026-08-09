@@ -161,7 +161,7 @@ class options(baseUIClass):
         self.cb2.bind("<<ComboboxSelected>>", lambda e: self.setStratum1List())
 
         self.completeLabel = tb.Label(self.frame, text="", foreground=CompleteColor, font=("Arial", 10, "bold"), justify='left')
-        self.completeLabel.place(x=300, y=650)
+        self.completeLabel.place(x=300, y=670)
     
         self.saveButton = tb.Button(self.frame, text="Save", bootstyle="primary", width=10, command=self.SavePressed)
         self.cancelButton = tb.Button(self.frame, text="Reset", bootstyle="primary", width=10, command=self.ResetPressed)

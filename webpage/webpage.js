@@ -35,11 +35,20 @@ function buildRankingTable(extraHeader, rankingsTable) {
 	{
 		const thead = document.createElement('thead');
 		const headerRow = document.createElement('tr');
-		['Pos', 'Pair#', 'Strat', 'Pair', 'Score', 'Points', 'Slams', 'Slams'].forEach(headerText => {
-			const th = document.createElement('th');
-			th.textContent = headerText;
-			headerRow.appendChild(th);
-		});
+		if (eventInfo.scoremethod != 1) {
+			['Pos', 'Pair#', 'Strat', 'Pair', 'Score', 'Points', 'Slams', 'Slams'].forEach(headerText => {
+				const th = document.createElement('th');
+				th.textContent = headerText;
+				headerRow.appendChild(th);
+			});
+		}
+		else {
+			['Pos', 'Pair#', 'Strat', 'Pair', 'IMPs', 'Points', 'Slams', 'Slams'].forEach(headerText => {
+				const th = document.createElement('th');
+				th.textContent = headerText;
+				headerRow.appendChild(th);
+			});
+		}
 		thead.appendChild(headerRow);
 		table.appendChild(thead);
 	}
@@ -73,7 +82,12 @@ function buildRankingTable(extraHeader, rankingsTable) {
 		// Add the scores
 		{
 			const td = document.createElement('td');
-			td.textContent = item.score + '/' + item.max + ' = ' + item.percent + '%';
+			if (eventInfo.scoremethod == 0) {
+				td.textContent = item.score + '/' + item.max + ' = ' + item.percent + '%';
+			}
+			else {
+				td.textContent = item.score;
+			}
 			td.className = 'itemc';
 			row.appendChild(td);
 		}
@@ -134,7 +148,8 @@ function buildScorecardTable(pairnum) {
 		const thead = document.createElement('thead');
 		const headerRow = document.createElement('tr');
 		const th = document.createElement('th');
-		th.setAttribute("colspan", istwowinner ? "11" : "12");
+		colspan = istwowinner ? 11 : 12;
+		th.setAttribute("colspan", eventInfo.scoremethod == 0 ? String(colspan) : (eventInfo.scoremethod == 1 ? String(colspan - 1) : String(colspan - 2)));
 		if (pairname != null) {
 			th.textContent = 'Pair ' + pairnum + ' - ' + pairname;
 		}
@@ -164,11 +179,23 @@ function buildScorecardTable(pairnum) {
 			headerRow.appendChild(th);
 
 		}
-		['Ctrt', 'By', 'Lead', 'Tks', '+', '-', 'Pts', '%'].forEach(headerText => {
+		['Ctrt', 'By', 'Lead', 'Tks', '+', '-'].forEach(headerText => {
 			const th = document.createElement('th');
 			th.textContent = headerText;
 			headerRow.appendChild(th);
 		});
+		if (eventInfo.scoremethod == 0) {
+			['Pts', '%'].forEach(headerText => {
+				const th = document.createElement('th');
+				th.textContent = headerText;
+				headerRow.appendChild(th);
+			});
+		}
+		else if (eventInfo.scoremethod == 1) {
+			const th = document.createElement('th');
+			th.textContent = 'IMPs';
+			headerRow.appendChild(th);
+		}
 		thead.appendChild(headerRow);
 		table.appendChild(thead);
 	}
@@ -234,30 +261,60 @@ function buildScorecardTable(pairnum) {
 				row.appendChild(td);
 			}
 		}
-		[item.contract, item.by, item.lead, item.tricks, item.plus, item.minus, item.pts].forEach(scoreitem => {
+		[item.contract, item.by, item.lead, item.tricks, item.plus, item.minus].forEach(scoreitem => {
 			const td = document.createElement('td');
 			td.className = 'itemc';
 			td.appendChild(createLink(scoreitem, item.boardNum, pairnum));
 			row.appendChild(td);
 		});
-		{
+		points = item.pts;
+		if (eventInfo.scoremethod == 1) {
+			points = (points >= 0 ? '+' : '') + points.toFixed(2);
+		}
+		if (eventInfo.scoremethod == 0) {
 			const td = document.createElement('td');
-				if (item.percent < 20) {
-					td.className = 'colorlolo';
-				}
-				else if (item.percent < 40) {
-					td.className = 'colorlo';
-				}
-				else if (item.percent <= 60) {
-					td.className = 'colormed';
-				}
-				else if (item.percent < 80) {
-					td.className = 'colorhi';
-				}
-				else {
-					td.className = 'colorhihi'
-				}
-			td.appendChild(createLink(item.percent, item.boardNum, pairnum));
+			td.className = 'itemc';
+			td.appendChild(createLink(points, item.boardNum, pairnum));
+			row.appendChild(td);
+			{
+				const td = document.createElement('td');
+					if (item.percent < 20) {
+						td.className = 'colorlolo';
+					}
+					else if (item.percent < 40) {
+						td.className = 'colorlo';
+					}
+					else if (item.percent <= 60) {
+						td.className = 'colormed';
+					}
+					else if (item.percent < 80) {
+						td.className = 'colorhi';
+					}
+					else {
+						td.className = 'colorhihi'
+					}
+				td.appendChild(createLink(item.percent, item.boardNum, pairnum));
+				row.appendChild(td);
+			}
+		}
+		else if (eventInfo.scoremethod == 1) {
+			const td = document.createElement('td');
+			if (item.pts <= -5) {
+				td.className = 'colorlolo';
+			}
+			else if (item.pts < 0) {
+				td.className = 'colorlo';
+			}
+			else if (item.pts <= 2) {
+				td.className = 'colormed';
+			}
+			else if (item.pts < 5) {
+				td.className = 'colorhi';
+			}
+			else {
+				td.className = 'colorhihi'
+			}
+			td.appendChild(createLink(points, item.boardNum, pairnum));
 			row.appendChild(td);
 		}
 
@@ -463,7 +520,7 @@ function buildTraveller(boardNum, pairnum) {
 	{
 		const thead = document.createElement('thead');
 		const headerRow = document.createElement('tr');
-		headerRow.innerHTML = '<th>NS</th><th>EW</th><th>Ctrt</th><th>By</th><th>Lead</th><th>Tks</th><th>+</th><th>-</th><th colspan="2">MPs</th>';
+		headerRow.innerHTML = '<th>NS</th><th>EW</th><th>Ctrt</th><th>By</th><th>Lead</th><th>Tks</th><th>+</th><th>-</th><th colspan="2">Score</th>';
 		thead.appendChild(headerRow);
 		table.appendChild(thead);
 	}
@@ -482,11 +539,13 @@ function buildTraveller(boardNum, pairnum) {
 			td.className = 'scorecell'
 			row.appendChild(td);
 		});
-		[travellerLine.nsmps, travellerLine.ewmps].forEach(lineitem => {
-			const td = document.createElement('td');
-			td.textContent = lineitem;
-			row.appendChild(td);
-		});
+		if (eventInfo.scoremethod == 0) {
+			[travellerLine.nsmps, travellerLine.ewmps].forEach(lineitem => {
+				const td = document.createElement('td');
+				td.textContent = lineitem;
+				row.appendChild(td);
+			});
+		}
 		// Stripe the table on even rows using a class on the row element
 		rowNum++;
 		if (travellerLine.ns == pairnum || travellerLine.ew == pairnum) {

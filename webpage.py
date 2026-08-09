@@ -201,7 +201,8 @@ class webpage(baseUIClass):
                     response = messagebox.askyesno(title="Deal date does not match", message="Different deal date selected.\nAre you sure you wish to create the webpage?")
                     OKToCreate = response
             except:
-                OKToCreate = False
+                response = messagebox.askyesno(title="Deal date not stored in file", message="No deal date stored in hand records.\nAre you sure you wish to create the webpage?")
+                OKToCreate = response
         if OKToCreate:
             self.create()
         
@@ -219,13 +220,20 @@ class webpage(baseUIClass):
                     "pairnum": result.pairNumber,
                     "strat": "A" if pairData.strat == 0 else "B" if pairData.strat == 1 else "C",
                     "pair": result.player1Name + " & " + result.player2Name,
-                    "score": "{:.1f}".format(result.rawscore),
-                    "max": "{:.0f}".format(result.maxscore),
-                    "percent": "{:.2f}".format(result.percentscore),
                     "mps": str(masterpoints),
                     "ss": pairData.sslams,
                     "gs": pairData.gslams
                 }
+                if self.tournamentData.eventType == 0:
+                    ranking["max"] = "{:.0f}".format(result.maxscore)
+                    ranking["percent"] = "{:.2f}".format(result.percentscore),
+                if self.tournamentData.eventType == 0:
+                    ranking["score"] = "{:.1f}".format(result.rawscore)
+                elif self.tournamentData.eventType == 1:
+                    ranking["score"] = "{:>+7.2f}".format(result.rawscore)
+                else:
+                    ranking["score"] = "{:>+7.0f}".format(result.rawscore)
+
                 data.append(ranking)
             return data
         
@@ -247,7 +255,8 @@ class webpage(baseUIClass):
                     "eventname": self.tournamentData.tournamentName + ' - ' + dateObj.strftime("%A") + ' ' + dateObj.strftime("%d") + ' ' + dateObj.strftime("%b") + ' ' + dateObj.strftime("%Y"),
                     "istwowinner": isTwoWinner,
                     "boardsperround": self.tournamentData.boardsPerRound,
-                    "numboards": self.tournamentData.numBoards
+                    "numboards": self.tournamentData.numBoards,
+                    "scoremethod": self.tournamentData.eventType
                 }
                 JSONString = "\nlet eventInfo = " + json.dumps(data) + ";"
 
@@ -291,8 +300,9 @@ class webpage(baseUIClass):
                             "plus": board.plus,
                             "minus": board.minus * -1,
                             "pts": board.pts,
-                            "percent": "{:.0f}".format(board.percent)
                         }
+                        if self.tournamentData.eventType == 0:
+                           boardData["percent"] = "{:.0f}".format(board.percent)
                         data["board"].append(boardData)
                     scorecards.append(data)
                 JSONString = JSONString + json.dumps(scorecards) + ";"
@@ -316,9 +326,10 @@ class webpage(baseUIClass):
                             "tricks": line.tricks,
                             "plus": line.score,
                             "minus": '',
-                            "nsmps": line.NSMPs,
-                            "ewmps": line.EWMPs
                         }
+                        if self.tournamentData.eventType == 0:
+                            linedata["nsmps"] = line.NSScore,
+                            linedata["ewmps"] = line.EWScore
                         if isinstance(line.score, int):
                             if line.score < 0:
                                 linedata['plus'] = ''
