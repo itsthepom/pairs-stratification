@@ -114,8 +114,22 @@ class webpage(baseUIClass):
         label.grid(row=13, column=0, columnspan=2, sticky="nw", padx=420, pady=250)
         self.labels.append(label)
 
+        self.backButton = tb.Button(self.frame, text="< Back", bootstyle="primary", width=10, command=self.backPressed)
+        self.nextButton = tb.Button(self.frame, text="Next >", bootstyle="primary", width=10, state='disabled')
+        self.labels.append(self.backButton)
+        self.labels.append(self.nextButton)
+
+        self.backButton.place(x=630, y=650)
+        self.nextButton.place(x=730, y=650)
+        
         self.showDetail()
         
+    def backPressed(self):
+        if self.uiparts.mainMenu.mpfileEnabled:
+            self.uiparts.root.showPage('write')
+        else:
+            self.uiparts.root.showPage('print')
+
     def clearContent(self):
         """Safely destroys all webpage creation widgets, breaks lambda bindings, and resets references."""
         # Clear button command callbacks (breaks lambda closure references to self)

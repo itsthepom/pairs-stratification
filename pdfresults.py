@@ -86,8 +86,25 @@ class pdfresults(baseUIClass):
         label.grid(row=11, column=0, columnspan=2, sticky="nw", padx=420, pady=250)
         self.labels.append(label)
 
+        self.backButton = tb.Button(self.frame, text="< Back", bootstyle="primary", width=10, command=self.backPressed)
+        self.nextButton = tb.Button(self.frame, text="Next >", bootstyle="primary", width=10, command=self.nextPressed)
+        self.labels.append(self.backButton)
+        self.labels.append(self.nextButton)
+
+        self.backButton.place(x=630, y=650)
+        self.nextButton.place(x=730, y=650)
+        
         self.fileSelected('', '', '')
         
+    def backPressed(self):
+        self.uiparts.root.showPage('stratify')
+
+    def nextPressed(self):
+        if self.uiparts.mainMenu.mpfileEnabled:
+            self.uiparts.root.showPage('write')
+        else:
+            self.uiparts.root.showPage('webpage')
+
     def clearContent(self):
         """Safely destroys all PDF generator widgets, breaks lambda bindings, and resets references."""
         # Clear button command callbacks (breaks lambda closure references)

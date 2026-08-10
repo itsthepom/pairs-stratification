@@ -9,6 +9,7 @@ class UIParts:
     """ Holds a reference to each of the UI parts.
     """
     def __init__(self):
+        self.root = None
         self.mainMenu = None
         self.mainDisplay = None
         self.selectTournamentDisplay = None

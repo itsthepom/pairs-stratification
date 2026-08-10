@@ -235,7 +235,16 @@ class tournament:
         self.boardsPlayedUpdate = 0
         self.boardsPerRound = 0
         self.numLoads = 0
-    
+
+    def clearTournament(self):
+        if self.uiparts.mainMenu != None:
+            self.uiparts.mainMenu.enableMPFile(False)
+            self.uiparts.mainMenu.enableMenuItems(False)
+        self.clubName = self.clubID = self.eventID = self.eventType = None
+        self.tournamentName = self.tournamentDate = self.eventRating = self.numPairs = None
+        self.numEWPairs = self.numBoards = self.numWinners = None
+        self.tournamentContentInst.setDescription('')
+
     def reset(self, clubName: str, clubID: str, eventID: str,
               eventType: str, description: str, date: str, eventRating: str,
               numPairs: int, numEWPairs: int, numBoards: int,
