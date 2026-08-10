@@ -53,6 +53,14 @@ class ScalableApp(tb.Window):
     def __init__(self, uiparts: UIParts):
         super().__init__(themename="litera")
 
+        # Configure darker background and text for disabled TButton states
+        self.style.configure("primary.TButton")
+        self.style.map(
+            "primary.TButton",
+            background=[("disabled", "#d8d8d8")],  # Darker grey background (default is #e9ecef)
+            foreground=[("disabled", "#909090")]   # Darker text for readability
+        )
+
         global root
         root = self
         self.uiparts = uiparts
