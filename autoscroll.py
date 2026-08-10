@@ -30,6 +30,8 @@ class AutoScrollbar(tk.Canvas):
 
         self.lo = 0.0
         self.hi = 1.0
+        self._drag_offset = 0
+        self._is_dragging = False
         self._geo_manager = None
         self._geo_options = {}
 
@@ -44,6 +46,7 @@ class AutoScrollbar(tk.Canvas):
         # Mouse Interaction
         self.bind("<Button-1>", self._on_click)
         self.bind("<B1-Motion>", self._on_drag)
+        self.bind("<ButtonRelease-1>", self._on_release)
         self.bind("<Enter>", lambda e: self._set_thumb_color(self.thumb_hover))
         self.bind("<Leave>", lambda e: self._set_thumb_color(self.thumb_color))
 
@@ -54,9 +57,7 @@ class AutoScrollbar(tk.Canvas):
 
     def _draw_arrows(self):
         w = self.scrollbar_width
-        # Up Arrow (0px to 12px height zone)
         self.create_polygon(w / 2, 3, 3, 9, w - 3, 9, fill=self.arrow_color, tags="up_arrow")
-        # Down Arrow (repositioned on resize)
         self.bind("<Configure>", self._reposition_down_arrow)
 
     def _reposition_down_arrow(self, event):
@@ -67,20 +68,18 @@ class AutoScrollbar(tk.Canvas):
         )
         self._redraw_thumb()
 
-    def _redraw_thumb(self):
+    def _get_thumb_y_bounds(self):
         h = self.winfo_height()
         if h <= 24:
-            return
+            return 12, 12
 
         track_top = 12
         track_bottom = h - 12
         track_h = track_bottom - track_top
 
-        # Dynamic thumb range
         y1 = track_top + (self.lo * track_h)
         y2 = track_top + (self.hi * track_h)
 
-        # Enforce minimum thumb height
         min_thumb_h = 16
         if (y2 - y1) < min_thumb_h:
             y2 = y1 + min_thumb_h
@@ -88,17 +87,23 @@ class AutoScrollbar(tk.Canvas):
                 y2 = track_bottom
                 y1 = y2 - min_thumb_h
 
+        return y1, y2
+
+    def _redraw_thumb(self):
+        h = self.winfo_height()
+        if h <= 24:
+            return
+
+        y1, y2 = self._get_thumb_y_bounds()
         w = self.scrollbar_width
         r = (w - 2) / 2
 
-        # Draw rounded pill sections
         self.coords(self.top_cap, 1, y1, w - 1, y1 + 2 * r)
         self.coords(self.bottom_cap, 1, y2 - 2 * r, w - 1, y2)
         self.coords(self.thumb_body, 1, y1 + r, w - 1, y2 - r)
 
     def set(self, lo, hi):
         self.lo, self.hi = float(lo), float(hi)
-
         if self.winfo_exists():
             mgr = self.winfo_manager() or self._geo_manager
 
@@ -127,32 +132,85 @@ class AutoScrollbar(tk.Canvas):
         self._geo_options = kw
         super().grid(**kw)
 
-    def _on_click(self, event):
+    def _get_thumb_y_bounds(self):
         h = self.winfo_height()
-        y = event.y
+        if h <= 24:
+            return 12, 12
 
+        track_top = 12
+        track_bottom = h - 12
+        total_track_h = track_bottom - track_top
+
+        # Standard Tkinter scrollbar mapping: lo and hi span the full track
+        y1 = track_top + (self.lo * total_track_h)
+        y2 = track_top + (self.hi * total_track_h)
+
+        # Enforce minimum thumb height without distorting the tracking ratio
+        min_thumb_h = 16
+        raw_h = y2 - y1
+        if raw_h < min_thumb_h:
+            # Expand thumb centered around its raw midpoint
+            mid = (y1 + y2) / 2
+            y1 = mid - (min_thumb_h / 2)
+            y2 = mid + (min_thumb_h / 2)
+
+            # Clamp edges to track bounds
+            if y1 < track_top:
+                y1 = track_top
+                y2 = y1 + min_thumb_h
+            elif y2 > track_bottom:
+                y2 = track_bottom
+                y1 = y2 - min_thumb_h
+
+        return y1, y2
+    
+    def _on_click(self, event):
         if not self.command:
             return
 
-        # 1. Clicked Top Arrow
+        h = self.winfo_height()
+        y = event.y
+
+        # Top Arrow
         if y < 12:
             self.command("scroll", -1, "units")
-        # 2. Clicked Bottom Arrow
-        elif y > (h - 12):
+            return
+
+        # Bottom Arrow
+        if y > (h - 12):
             self.command("scroll", 1, "units")
-        # 3. Clicked Track or Dragged Thumb
+            return
+
+        thumb_y1, thumb_y2 = self._get_thumb_y_bounds()
+
+        # Clicked ON the thumb -> Record drag offset
+        if thumb_y1 <= y <= thumb_y2:
+            self._is_dragging = True
+            self._drag_offset = y - thumb_y1
+        # Clicked track above thumb -> page up
+        elif y < thumb_y1:
+            self.command("scroll", -1, "pages")
+        # Clicked track below thumb -> page down
         else:
-            self._scroll_to(y)
+            self.command("scroll", 1, "pages")
 
     def _on_drag(self, event):
-        # Prevent dragging outside the trough track
-        h = self.winfo_height()
-        if 12 <= event.y <= (h - 12):
-            self._scroll_to(event.y)
+        if not self._is_dragging or not self.command:
+            return
 
-    def _scroll_to(self, y):
         h = self.winfo_height()
-        track_h = max(1, h - 24)
-        fraction = (y - 12) / track_h
-        if self.command:
-            self.command("moveto", max(0.0, min(1.0, fraction)))
+        thumb_y1, thumb_y2 = self._get_thumb_y_bounds()
+        thumb_h = thumb_y2 - thumb_y1
+        
+        usable_track = max(1, (h - 24) - thumb_h)
+
+        # Calculate where the top edge of the thumb should be
+        target_thumb_top = event.y - self._drag_offset - 12
+
+        # Convert back to fraction 0.0 - 1.0
+        fraction = target_thumb_top / h
+
+        self.command("moveto", max(0.0, min(1.0, fraction)))
+
+    def _on_release(self, event):
+        self._is_dragging = False
