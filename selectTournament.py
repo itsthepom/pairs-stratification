@@ -72,7 +72,7 @@ class selectTournament(baseUIClass):
         label = tb.Label(self.frame, textvariable=self.dateVar, font=("Arial", 10), justify='left')
         label.grid(row=7, column=0, sticky="w", padx=175)
         self.labels.append(label)
-        
+
         self.awardsTypeVar = tb.StringVar()
         label = tb.Label(self.frame, text='Masterpoints Type:', font=("Arial", 10), justify='left')
         label.grid(row=8, column=0, sticky="w", padx=20)
@@ -139,10 +139,19 @@ class selectTournament(baseUIClass):
         self.showDetail()
 
     def entryChange(self, *args):
-        if len(self.inputFileVar.get()) > 0:
+        if len(self.inputFileVar.get()) > 0 and len(self.clubNameVar.get()) > 0:
             self.nextButton.config(state="normal")
         else:
             self.nextButton.config(state="disabled")
+            self.tournamentData.clearTournament()
+            self.clubNameVar.set('')
+            self.tournamentNameVar.set('')
+            self.dateVar.set('')
+            self.awardsTypeVar.set('')
+            self.scoreTypeVar.set('')
+            self.numPairsVar.set('')
+            self.numBoardsVar.set('')
+            self.numWinnersVar.set('')
 
     def nextPressed(self):
         self.uiparts.root.showPage('changeranks')
