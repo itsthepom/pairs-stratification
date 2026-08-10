@@ -139,7 +139,7 @@ class selectTournament(baseUIClass):
         self.showDetail()
 
     def entryChange(self, *args):
-        if len(self.inputFileVar.get()) > 0 and len(self.clubNameVar.get()) > 0:
+        if len(self.inputFileVar.get()) > 0 and self.tournamentData.clubName != None:
             self.nextButton.config(state="normal")
         else:
             self.nextButton.config(state="disabled")

@@ -100,7 +100,10 @@ class pdfresults(baseUIClass):
         self.uiparts.root.showPage('stratify')
 
     def nextPressed(self):
-        self.uiparts.root.showPage('write')
+        if self.uiparts.mainMenu.mpfileEnabled:
+            self.uiparts.root.showPage('write')
+        else:
+            self.uiparts.root.showPage('webpage')
 
     def clearContent(self):
         """Safely destroys all PDF generator widgets, breaks lambda bindings, and resets references."""

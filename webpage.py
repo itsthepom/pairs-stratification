@@ -125,7 +125,10 @@ class webpage(baseUIClass):
         self.showDetail()
         
     def backPressed(self):
-        self.uiparts.root.showPage('write')
+        if self.uiparts.mainMenu.mpfileEnabled:
+            self.uiparts.root.showPage('write')
+        else:
+            self.uiparts.root.showPage('print')
 
     def clearContent(self):
         """Safely destroys all webpage creation widgets, breaks lambda bindings, and resets references."""
