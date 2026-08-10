@@ -56,6 +56,7 @@ class ScalableApp(tb.Window):
         global root
         root = self
         self.uiparts = uiparts
+        self.uiparts.root = self
 
         # Track the last reported scaling to avoid infinite redraw loops
         self.current_dpi = None
@@ -90,13 +91,8 @@ class ScalableApp(tb.Window):
         uiparts.mainMenu = menu(menuFrame)
         uiparts.tournamentDisplay = tournament.tournamentContent(tournamentFrame, memberDict)
         uiparts.mainDisplay = mainContent(contentFrame)
-        uiparts.mainMenu.construct()
         uiparts.mainDisplay.construct(pagebgnd)
         uiparts.tournamentDisplay.construct(tourneybgnd)
-
-        # Remember the last used display
-        self.lastDisplay = uiparts.mainDisplay
-        self.uiparts.mainMenu.setSelected(self.lastDisplay.getName(), True)
 
         # Create an options instance. We need this to pass in to the other UI components
         options.options(contentFrame, baseDir, uiparts)
@@ -111,6 +107,13 @@ class ScalableApp(tb.Window):
         webpage.webpage(contentFrame, tournamentData, uiparts)
         pdfresults.pdfresults(contentFrame, tournamentData, uiparts)
         masterpoints.masterpoints(contentFrame, tournamentData, uiparts)
+
+        # Start up the menu
+        uiparts.mainMenu.construct()
+        self.uiparts.mainMenu.setSelected(uiparts.mainDisplay.getName(), True)
+
+        # Remember the last used display
+        self.uiparts.lastDisplay = uiparts.mainDisplay
 
         # Start the help server
         self.helpserver = helpserver.helpserver()
@@ -137,68 +140,64 @@ class ScalableApp(tb.Window):
     def highlightLink(self, event, widget, color):
         widget.config(fg=color)
 
-    # Set of action functions that clears the main content and switches to another
-    def showHome(self, event):
-        self.lastDisplay.clearContent()
-        self.uiparts.mainMenu.setSelected(self.lastDisplay.getName(), False)
-        self.uiparts.mainDisplay.construct(pagebgnd)
-        self.lastDisplay = self.uiparts.mainDisplay
-        self.uiparts.mainMenu.setSelected(self.lastDisplay.getName(), True)
+    # Called to switch a page
+    def showPage(self, menuItem: str):
+        if self.uiparts.lastDisplay != None:
+            if menuItem == 'home':
+                self.uiparts.lastDisplay.clearContent()
+                self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), False)
+                self.uiparts.mainDisplay.construct(pagebgnd)
+                self.uiparts.lastDisplay = self.uiparts.mainDisplay
+                self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), True)
+            elif menuItem == 'select':
+                self.uiparts.lastDisplay.clearContent()
+                self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), False)
+                self.uiparts.selectTournamentDisplay.construct(pagebgnd)
+                self.uiparts.lastDisplay = self.uiparts.selectTournamentDisplay
+                self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), True)
+            elif menuItem == 'changeranks':
+                if self.uiparts.mainMenu.linksEnabled:
+                    self.uiparts.lastDisplay.clearContent()
+                    self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), False)
+                    self.uiparts.changeRanksDisplay.construct(pagebgnd)
+                    self.uiparts.lastDisplay = self.uiparts.changeRanksDisplay
+                    self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), True)
+            elif menuItem == 'stratify':
+                if self.uiparts.mainMenu.linksEnabled:
+                    self.uiparts.lastDisplay.clearContent()
+                    self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), False)
+                    self.uiparts.stratifyDisplay.construct(pagebgnd)
+                    self.uiparts.lastDisplay = self.uiparts.stratifyDisplay
+                    self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), True)
+            elif menuItem == 'print':
+                if self.uiparts.mainMenu.linksEnabled:
+                    self.uiparts.lastDisplay.clearContent()
+                    self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), False)
+                    self.uiparts.pdfResultsDisplay.construct(pagebgnd)
+                    self.uiparts.lastDisplay = self.uiparts.pdfResultsDisplay
+                    self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), True)
+            elif menuItem == 'write':
+                if self.uiparts.mainMenu.mpfileEnabled:
+                    self.uiparts.lastDisplay.clearContent()
+                    self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), False)
+                    self.uiparts.masterpointsResultsDisplay.construct(pagebgnd)
+                    self.uiparts.lastDisplay = self.uiparts.masterpointsResultsDisplay
+                    self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), True)
+            elif menuItem == 'webpage':
+                if self.uiparts.mainMenu.linksEnabled:
+                    self.uiparts.lastDisplay.clearContent()
+                    self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), False)
+                    self.uiparts.webpageDisplay.construct(pagebgnd)
+                    self.uiparts.lastDisplay = self.uiparts.webpageDisplay
+                    self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), True)
+            elif menuItem == 'options':
+                self.uiparts.lastDisplay.clearContent()
+                self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), False)
+                self.uiparts.options.construct(pagebgnd)
+                self.uiparts.lastDisplay = self.uiparts.options
+                self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), True)
 
-    def showSelect(self, event):
-        self.lastDisplay.clearContent()
-        self.uiparts.mainMenu.setSelected(self.lastDisplay.getName(), False)
-        self.uiparts.selectTournamentDisplay.construct(pagebgnd)
-        self.lastDisplay = self.uiparts.selectTournamentDisplay
-        self.uiparts.mainMenu.setSelected(self.lastDisplay.getName(), True)
-
-    def showChangeRanks(self, event):
-        if self.uiparts.mainMenu.linksEnabled:
-            self.lastDisplay.clearContent()
-            self.uiparts.mainMenu.setSelected(self.lastDisplay.getName(), False)
-            self.uiparts.changeRanksDisplay.construct(pagebgnd)
-            self.lastDisplay = self.uiparts.changeRanksDisplay
-            self.uiparts.mainMenu.setSelected(self.lastDisplay.getName(), True)
-
-    def showStratify(self, event):
-        if self.uiparts.mainMenu.linksEnabled:
-            self.lastDisplay.clearContent()
-            self.uiparts.mainMenu.setSelected(self.lastDisplay.getName(), False)
-            self.uiparts.stratifyDisplay.construct(pagebgnd)
-            self.lastDisplay = self.uiparts.stratifyDisplay
-            self.uiparts.mainMenu.setSelected(self.lastDisplay.getName(), True)
-
-    def showPrint(self, event):
-        if self.uiparts.mainMenu.linksEnabled:
-            self.lastDisplay.clearContent()
-            self.uiparts.mainMenu.setSelected(self.lastDisplay.getName(), False)
-            self.uiparts.pdfResultsDisplay.construct(pagebgnd)
-            self.lastDisplay = self.uiparts.pdfResultsDisplay
-            self.uiparts.mainMenu.setSelected(self.lastDisplay.getName(), True)
-
-    def showMPFile(self, event):
-        if self.uiparts.mainMenu.mpfileEnabled:
-            self.lastDisplay.clearContent()
-            self.uiparts.mainMenu.setSelected(self.lastDisplay.getName(), False)
-            self.uiparts.masterpointsResultsDisplay.construct(pagebgnd)
-            self.lastDisplay = self.uiparts.masterpointsResultsDisplay
-            self.uiparts.mainMenu.setSelected(self.lastDisplay.getName(), True)
-
-    def showWebpage(self, event):
-        if self.uiparts.mainMenu.linksEnabled:
-            self.lastDisplay.clearContent()
-            self.uiparts.mainMenu.setSelected(self.lastDisplay.getName(), False)
-            self.uiparts.webpageDisplay.construct(pagebgnd)
-            self.lastDisplay = self.uiparts.webpageDisplay
-            self.uiparts.mainMenu.setSelected(self.lastDisplay.getName(), True)
-
-    def showOptions(self, event):
-        self.lastDisplay.clearContent()
-        self.uiparts.mainMenu.setSelected(self.lastDisplay.getName(), False)
-        self.uiparts.options.construct(pagebgnd)
-        self.lastDisplay = self.uiparts.options
-        self.uiparts.mainMenu.setSelected(self.lastDisplay.getName(), True)
-
+    # Display the help pages
     def showHelp(self, event):
         self.helpserver.serveHelp()
 
@@ -238,28 +237,28 @@ class menu:
         self.optionsLabel.grid(row=8, column=0, sticky=W, padx=15, pady=5)
         self.helpLabel = Label(self.frame, text="Help", font=("Arial", 10, "underline", "bold"), justify='left', fg=self.helpMenuColor, bg=menubgnd)
         self.helpLabel.grid(row=9, column=0, sticky=W, padx=15, pady=25)
-        self.homeLabel.bind("<Button-1>", root.showHome)
+        self.homeLabel.bind("<Button-1>", lambda e: root.showPage('home'))
         self.homeLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.homeLabel, menuhilite)})
         self.homeLabel.bind("<Leave>", lambda e: {root.highlightLink(e, self.homeLabel, self.homeMenuColor)})
-        self.selectLabel.bind("<Button-1>", root.showSelect)
+        self.selectLabel.bind("<Button-1>", lambda e: root.showPage('select'))
         self.selectLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.selectLabel, menuhilite)})
         self.selectLabel.bind("<Leave>", lambda e: {root.highlightLink(e, self.selectLabel, self.selectMenuColor)})
-        self.stratifyLabel.bind("<Button-1>", root.showStratify)
-        self.stratifyLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.stratifyLabel, self.linkHiliteColor)})
-        self.stratifyLabel.bind("<Leave>", lambda e: {root.highlightLink(e, self.stratifyLabel, self.stratifyMenuColor)})
-        self.changeRanksLabel.bind("<Button-1>", root.showChangeRanks)
+        self.changeRanksLabel.bind("<Button-1>", lambda e: root.showPage('changeranks'))
         self.changeRanksLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.changeRanksLabel, self.linkHiliteColor)})
         self.changeRanksLabel.bind("<Leave>", lambda e: {root.highlightLink(e, self.changeRanksLabel, self.changeRanksMenuColor)})
-        self.printLabel.bind("<Button-1>", root.showPrint)
+        self.stratifyLabel.bind("<Button-1>", lambda e: root.showPage('stratify'))
+        self.stratifyLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.stratifyLabel, self.linkHiliteColor)})
+        self.stratifyLabel.bind("<Leave>", lambda e: {root.highlightLink(e, self.stratifyLabel, self.stratifyMenuColor)})
+        self.printLabel.bind("<Button-1>", lambda e: root.showPage('print'))
         self.printLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.printLabel, self.linkHiliteColor)})
         self.printLabel.bind("<Leave>", lambda e: {root.highlightLink(e, self.printLabel, self.printMenuColor)})
-        self.mpfileLabel.bind("<Button-1>", root.showMPFile)
+        self.mpfileLabel.bind("<Button-1>", lambda e: root.showPage('write'))
         self.mpfileLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.mpfileLabel, self.writeFileHiliteColor)})
         self.mpfileLabel.bind("<Leave>", lambda e: {root.highlightLink(e, self.mpfileLabel, self.writeFileMenuColor)})
-        self.webpageLabel.bind("<Button-1>", root.showWebpage)
+        self.webpageLabel.bind("<Button-1>", lambda e: root.showPage('webpage'))
         self.webpageLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.webpageLabel, self.linkHiliteColor)})
         self.webpageLabel.bind("<Leave>", lambda e: {root.highlightLink(e, self.webpageLabel, self.webpageMenuColor)})
-        self.optionsLabel.bind("<Button-1>", root.showOptions)
+        self.optionsLabel.bind("<Button-1>", lambda e: root.showPage('options'))
         self.optionsLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.optionsLabel, menuhilite)})
         self.optionsLabel.bind("<Leave>", lambda e: {root.highlightLink(e, self.optionsLabel, self.optionsMenuColor)})
         self.helpLabel.bind("<Button-1>", root.showHelp)
@@ -296,12 +295,12 @@ class menu:
         elif menuItem == 'select':
             self.selectMenuColor = menuSelectedcolor if enabled else menucolor
             self.selectLabel.config(fg=self.selectMenuColor)
-        elif menuItem == 'stratify':
-            self.stratifyMenuColor = menuSelectedcolor if enabled else menucolor
-            self.stratifyLabel.config(fg=self.stratifyMenuColor)
         elif menuItem == 'changeranks':
             self.changeRanksMenuColor = menuSelectedcolor if enabled else menucolor
             self.changeRanksLabel.config(fg=self.changeRanksMenuColor)
+        elif menuItem == 'stratify':
+            self.stratifyMenuColor = menuSelectedcolor if enabled else menucolor
+            self.stratifyLabel.config(fg=self.stratifyMenuColor)
         elif menuItem == 'print':
             self.printMenuColor = menuSelectedcolor if enabled else menucolor
             self.printLabel.config(fg=self.printMenuColor)

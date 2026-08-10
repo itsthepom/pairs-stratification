@@ -125,8 +125,28 @@ class selectTournament(baseUIClass):
         label.grid(row=15, column=0, columnspan=2, sticky="nw", padx=420, pady=250)
         self.labels.append(label)
 
-        self.showDetail()
+        self.backButton = tb.Button(self.frame, text="< Back", bootstyle="primary", state="disabled", width=10)
+        self.nextButton = tb.Button(self.frame, text="Next >", bootstyle="primary", state="disabled", width=10, command=self.nextPressed)
+        self.labels.append(self.backButton)
+        self.labels.append(self.nextButton)
+
+        self.backButton.place(x=630, y=650)
+        self.nextButton.place(x=730, y=650)
+
+        self.inputFileVar.trace_add('write', self.entryChange)
+        self.entryChange()
         
+        self.showDetail()
+
+    def entryChange(self, *args):
+        if len(self.inputFileVar.get()) > 0:
+            self.nextButton.config(state="normal")
+        else:
+            self.nextButton.config(state="disabled")
+
+    def nextPressed(self):
+        self.uiparts.root.showPage('changeranks')
+
     def clearContent(self):
         """Safely destroys all file selection & metadata widgets, unbinds callbacks, and breaks references."""
         # Unbind command callbacks from any buttons inside self.labels
@@ -161,6 +181,7 @@ class selectTournament(baseUIClass):
                 self.tournamentData.readerClass.read(self.inputFileVar.get())
                 if self.tournamentData.preStratified:
                     self.preStratLabel.config(text="Event already stratified. Re-stratify if you wish.")
+                self.nextButton.config(state="normal")
             except:
                 self.errorLabel.config(text="Error - Not a pairs event.")
 

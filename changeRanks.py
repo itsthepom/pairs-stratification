@@ -161,6 +161,20 @@ class changeRanks(baseUIClass):
         label.grid(row=4, column=3, padx=25, sticky="w")
         self.labels.append(label)
 
+        self.backButton = tb.Button(self.frame, text="< Back", bootstyle="primary", width=10, command=self.backPressed)
+        self.nextButton = tb.Button(self.frame, text="Next >", bootstyle="primary", width=10, command=self.nextPressed)
+        self.labels.append(self.backButton)
+        self.labels.append(self.nextButton)
+
+        self.backButton.place(x=630, y=650)
+        self.nextButton.place(x=730, y=650)
+        
+    def backPressed(self):
+        self.uiparts.root.showPage('select')
+
+    def nextPressed(self):
+        self.uiparts.root.showPage('stratify')
+
     def clearContent(self):
         # Unbind global application events
         if hasattr(self, 'canvas') and self.canvas:
