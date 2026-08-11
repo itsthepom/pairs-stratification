@@ -15,6 +15,7 @@ listbox_bg = "#ffffff"
 text_color = "#212529"
 border_color = "#ced4da"
 arrow_color = "#495057"
+reset_color = "#4e5bd6"
 
 # Colours of the combobox when changed (highlighted)
 changed_light_bg = "#e6e9f4"
@@ -83,7 +84,7 @@ class ToolTip:
             foreground=ttforeground_color,
             relief="flat",
             borderwidth=0,
-            font=("Segoe UI", 8),
+            font=("Segoe UI", 10),
             padx=6,
             pady=3
         )
@@ -185,8 +186,8 @@ class ColoredCombo:
 
         # Flat icon button style for reset
         self.style.configure("Reset.TButton",
-            font=("Segoe UI", 11, "bold"),
-            foreground=text_color,
+            font=("Segoe UI", 18, "bold"),
+            foreground=reset_color,
             background=light_bg,
             borderwidth=0,
             focuscolor="none",

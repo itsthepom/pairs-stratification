@@ -24,11 +24,11 @@ class tournamentContent(baseUIClass):
             self.resultsDescVar = StringVar()
 
     def construct(self, tourneybgnd: str):
-        self.resultssInfoLabel1 = Label(self.frame, text="Selected Tournament:", font=("Arial", 10), justify='left', bg=tourneybgnd)
-        self.resultssInfoLabel1.grid(row=0, column=0, sticky=W)
-        self.resultsDescEntry = Entry(self.frame, textvariable=self.resultsDescVar, width=100, font=("Arial", 10), bg=tourneybgnd)
+        self.resultssInfoLabel1 = Label(self.frame, text="Selected Tournament:", font=("Segoe UI", 10), justify='left', bg=tourneybgnd)
+        self.resultssInfoLabel1.grid(row=0, column=0, sticky=W, padx=10)
+        self.resultsDescEntry = Entry(self.frame, textvariable=self.resultsDescVar, width=96, font=("Segoe UI", 10), bg=tourneybgnd)
         self.resultsDescEntry.config(state="readonly")
-        self.resultsDescEntry.grid(row=0, column=1, sticky=W, padx=5, pady=8)
+        self.resultsDescEntry.grid(row=0, column=1, sticky=W, pady=8)
 
     def clearContent(self):
         self.resultsDescEntry.destroy()

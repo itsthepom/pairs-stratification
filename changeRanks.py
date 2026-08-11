@@ -93,13 +93,13 @@ class changeRanks(baseUIClass):
         self.labels = []
 
         # Header
-        label = tk.Label(self.scrollable_frame, text="Pair #", font=("Arial", 10, "bold"), bg=self.pagebgnd)
+        label = tk.Label(self.scrollable_frame, text="#", font=("Segoe UI", 10, "bold"), bg=self.pagebgnd)
         label.grid(row=0, column=0, padx=15, pady=(20, 5), sticky="w")
         self.labels.append(label)
-        label = tk.Label(self.scrollable_frame, text="Pair", font=("Arial", 10, "bold"), bg=self.pagebgnd)
+        label = tk.Label(self.scrollable_frame, text="Pair", font=("Segoe UI", 10, "bold"), bg=self.pagebgnd)
         label.grid(row=0, column=1, padx=15, pady=(20, 5), sticky="w")
         self.labels.append(label)
-        label = tk.Label(self.scrollable_frame, text="Pair Rank", font=("Arial", 10, "bold"), bg=self.pagebgnd)
+        label = tk.Label(self.scrollable_frame, text="Pair Rank", font=("Segoe UI", 10, "bold"), bg=self.pagebgnd)
         label.grid(row=0, column=2, padx=5, pady=(20, 5), sticky="w")
         self.labels.append(label)
 
@@ -123,8 +123,8 @@ class changeRanks(baseUIClass):
             
             # Build standard labels for the first two columns
             for col, text in enumerate(labels_text):
-                lbl = tk.Label(self.scrollable_frame, text=text, anchor="w", bg=self.pagebgnd)
-                lbl.grid(row=row_number, column=col, padx=15, pady=4, sticky="w")
+                lbl = tk.Label(self.scrollable_frame, text=text, font=("Segoe UI", 10), anchor="w", bg=self.pagebgnd)
+                lbl.grid(row=row_number, column=col, padx=15, sticky="w")
                 self.labels.append(lbl)
 
             # Setup variable & selection tracker
@@ -144,20 +144,20 @@ class changeRanks(baseUIClass):
             self.traces.append((var, "write", trace_id))
 
         # Right hand column instructions
-        label = tk.Label(self.fixed_frame, text="Change Player Ranks", font=("Arial", 10, "bold"), anchor="w", bg=self.pagebgnd)
-        label.grid(row=0, column=3, padx=25, pady=(20, 5), sticky="w")
+        label = tk.Label(self.fixed_frame, text="Change Player Ranks", font=("Segoe UI", 11, "bold"), anchor="w", bg=self.pagebgnd)
+        label.grid(row=0, column=3, padx=25, pady=(15, 5), sticky="w")
         self.labels.append(label)
 
-        label = tk.Label(self.fixed_frame, wraplength=300, justify="left",text="The list on the left shows the current rank assigned to each pair for stratification.", anchor="w", bg=self.pagebgnd)
+        label = tk.Label(self.fixed_frame, wraplength=300, justify="left", font=("Segoe UI", 10), text="The list on the left shows the current rank assigned to each pair for stratification.", anchor="w", bg=self.pagebgnd)
         label.grid(row=1, column=3, padx=25, sticky="w")
         self.labels.append(label)
-        label = tk.Label(self.fixed_frame, wraplength=300, justify="left",text="You can override the ranks by selecting a different rank for any pair.", anchor="w", bg=self.pagebgnd)
+        label = tk.Label(self.fixed_frame, wraplength=300, justify="left", font=("Segoe UI", 10), text="You can override the ranks by selecting a different rank for any pair.", anchor="w", bg=self.pagebgnd)
         label.grid(row=2, column=3, padx=25, sticky="w")
         self.labels.append(label)
-        label = tk.Label(self.fixed_frame, wraplength=300, justify="left",text="Modified pair ranks are indicated with a different color.", anchor="w", bg=self.pagebgnd)
+        label = tk.Label(self.fixed_frame, wraplength=300, justify="left", font=("Segoe UI", 10), text="When you modify a pair's ranks the rank field changes to a different color.", anchor="w", bg=self.pagebgnd)
         label.grid(row=3, column=3, padx=25, sticky="w")
         self.labels.append(label)
-        label = tk.Label(self.fixed_frame, wraplength=300, justify="left",text="Use the ↺ button next to a changed rank to reset it.", anchor="w", bg=self.pagebgnd)
+        label = tk.Label(self.fixed_frame, wraplength=300, justify="left", font=("Segoe UI", 10), text="Use the ↺ icon next to a changed rank to reset it.", anchor="w", bg=self.pagebgnd)
         label.grid(row=4, column=3, padx=25, sticky="w")
         self.labels.append(label)
 

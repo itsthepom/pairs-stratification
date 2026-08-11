@@ -60,6 +60,10 @@ class ScalableApp(tb.Window):
             background=[("disabled", "#d8d8d8")],  # Darker grey background (default is #e9ecef)
             foreground=[("disabled", "#909090")]   # Darker text for readability
         )
+        # Configure canvas frames
+        self.style.configure("menu.TFrame", background=menubgnd)
+        self.style.configure("main.TFrame", background=pagebgnd)
+        self.style.configure("tourney.TFrame", background=tourneybgnd)
 
         global root
         root = self
@@ -78,21 +82,21 @@ class ScalableApp(tb.Window):
         panedWindow.pack(side=LEFT, fill=BOTH, expand=True)
 
         # Create a frame for the left-hand menu pane
-        menuFrame = Frame(panedWindow, bg=menubgnd)
+        menuFrame = tb.Frame(panedWindow, style="menu.TFrame")
         panedWindow.add(menuFrame)
 
-        rightContainer = Frame(panedWindow, bg=pagebgnd)
+        rightContainer = tb.Frame(panedWindow)
         panedWindow.add(rightContainer)
         rightContainer.rowconfigure(0, weight=0)
         rightContainer.rowconfigure(1, weight=1)
         rightContainer.columnconfigure(0, weight=1)
 
         # Create a frame for the selected tournament window
-        tournamentFrame = Frame(rightContainer, bg=tourneybgnd)
-        tournamentFrame.grid(row=0, column=1, sticky=NW)
+        tournamentFrame = tb.Frame(rightContainer, style="tourney.TFrame")
+        tournamentFrame.grid(row=0, column=1, sticky=NSEW)
 
         # Create a frame for the right-hand content window
-        contentFrame = Frame(rightContainer, bg=pagebgnd)
+        contentFrame = tb.Frame(rightContainer, style="main.TFrame")
         contentFrame.grid(row=1, column=1, sticky=NSEW)
 
         # Create the parts of the UI window and construct them
@@ -227,24 +231,24 @@ class menu:
         global root
         self.spacerLabel = Label(self.frame, text="", bg=menubgnd)
         self.spacerLabel.grid(row=0, column=0, sticky=N, pady=2)
-        self.homeLabel = Label(self.frame, text="Home", font=("Arial", 10, "underline", "bold"), justify='left', fg=self.homeMenuColor, bg=menubgnd)
-        self.homeLabel.grid(row=1, column=0, sticky=W, padx=15, pady=5)
-        self.selectLabel = Label(self.frame, text="Select Tournament", font=("Arial", 10, "underline", "bold"), justify='left', fg=self.selectMenuColor, bg=menubgnd)
-        self.selectLabel.grid(row=2, column=0, sticky=W, padx=15, pady=5)
-        self.changeRanksLabel = Label(self.frame, text="Change Player Ranks", font=("Arial", 10, "underline", "bold"), justify='left', fg=self.changeRanksMenuColor, bg=menubgnd)
-        self.changeRanksLabel.grid(row=3, column=0, sticky=W, padx=15, pady=5)
-        self.stratifyLabel = Label(self.frame, text="Stratify Tournament", font=("Arial", 10, "underline", "bold"), justify='left', fg=self.stratifyMenuColor, bg=menubgnd)
-        self.stratifyLabel.grid(row=4, column=0, sticky=W, padx=15, pady=5)
-        self.printLabel = Label(self.frame, text="Print Results", font=("Arial", 10, "underline", "bold"), justify='left', fg=self.printMenuColor, bg=menubgnd)
-        self.printLabel.grid(row=5, column=0, sticky=W, padx=15, pady=5)
-        self.mpfileLabel = Label(self.frame, text="Write Results File", font=("Arial", 10, "underline", "bold"), justify='left', fg=self.writeFileMenuColor, bg=menubgnd)
-        self.mpfileLabel.grid(row=6, column=0, sticky=W, padx=15, pady=5)
-        self.webpageLabel = Label(self.frame, text="Stand-alone Webpage", font=("Arial", 10, "underline", "bold"), justify='left', fg=self.webpageMenuColor, bg=menubgnd)
-        self.webpageLabel.grid(row=7, column=0, sticky=W, padx=15, pady=5)
-        self.optionsLabel = Label(self.frame, text="Options", font=("Arial", 10, "underline", "bold"), justify='left', fg=self.optionsMenuColor, bg=menubgnd)
-        self.optionsLabel.grid(row=8, column=0, sticky=W, padx=15, pady=5)
-        self.helpLabel = Label(self.frame, text="Help", font=("Arial", 10, "underline", "bold"), justify='left', fg=self.helpMenuColor, bg=menubgnd)
-        self.helpLabel.grid(row=9, column=0, sticky=W, padx=15, pady=25)
+        self.homeLabel = Label(self.frame, text="Home", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.homeMenuColor, bg=menubgnd)
+        self.homeLabel.grid(row=1, column=0, sticky=W, padx=(15, 22), pady=5)
+        self.selectLabel = Label(self.frame, text="Select Tournament", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.selectMenuColor, bg=menubgnd)
+        self.selectLabel.grid(row=2, column=0, sticky=W, padx=(15, 22), pady=5)
+        self.changeRanksLabel = Label(self.frame, text="Change Player Ranks", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.changeRanksMenuColor, bg=menubgnd)
+        self.changeRanksLabel.grid(row=3, column=0, sticky=W, padx=(15, 22), pady=5)
+        self.stratifyLabel = Label(self.frame, text="Stratify Tournament", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.stratifyMenuColor, bg=menubgnd)
+        self.stratifyLabel.grid(row=4, column=0, sticky=W, padx=(15, 22), pady=5)
+        self.printLabel = Label(self.frame, text="Print Results", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.printMenuColor, bg=menubgnd)
+        self.printLabel.grid(row=5, column=0, sticky=W, padx=(15, 22), pady=5)
+        self.mpfileLabel = Label(self.frame, text="Write Results File", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.writeFileMenuColor, bg=menubgnd)
+        self.mpfileLabel.grid(row=6, column=0, sticky=W, padx=(15, 22), pady=5)
+        self.webpageLabel = Label(self.frame, text="Stand-alone Webpage", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.webpageMenuColor, bg=menubgnd)
+        self.webpageLabel.grid(row=7, column=0, sticky=W, padx=(15, 22), pady=5)
+        self.optionsLabel = Label(self.frame, text="Options", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.optionsMenuColor, bg=menubgnd)
+        self.optionsLabel.grid(row=8, column=0, sticky=W, padx=(15, 22), pady=5)
+        self.helpLabel = Label(self.frame, text="Help", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.helpMenuColor, bg=menubgnd)
+        self.helpLabel.grid(row=9, column=0, sticky=W, padx=(15, 22), pady=25)
         self.homeLabel.bind("<Button-1>", lambda e: root.showPage('home'))
         self.homeLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.homeLabel, menuhilite)})
         self.homeLabel.bind("<Leave>", lambda e: {root.highlightLink(e, self.homeLabel, self.homeMenuColor)})
@@ -336,116 +340,80 @@ class mainContent(baseUIClass):
     
     def construct(self, pagebgnd):
         self.labels = []
-        label = Label(self.frame, text="Use Home to return to this page", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=1, column=0, sticky=W, padx=20, pady=(20, 5))
+        label = Label(self.frame, text="Use Home to return to this page", font=("Segoe UI", 11, "bold"), justify='left', bg=pagebgnd)
+        label.grid(row=1, column=0, sticky=W, padx=20, pady=(20, 0))
         self.labels.append(label)
 
-        label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=2, column=0, sticky=NW)
+        label = Label(self.frame, text="Use Select Tournament to pick an already-scored tournament", font=("Segoe UI", 11, "bold"), justify='left', bg=pagebgnd)
+        label.grid(row=2, column=0, sticky=W, padx=20, pady=(20, 0))
         self.labels.append(label)
 
-        label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=2, column=0, sticky=NW)
-        self.labels.append(label)
-
-        label = Label(self.frame, text="Use Select Tournament to pick an already-scored tournament", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
+        label = Label(self.frame, text="This program ONLY operates with PAIRS tournaments.", font=("Segoe UI", 10), justify='left', bg=pagebgnd)
         label.grid(row=3, column=0, sticky=W, padx=20)
         self.labels.append(label)
 
-        label = Label(self.frame, text="This program ONLY operates with PAIRS tournaments", font=("Arial", 10), justify='left', bg=pagebgnd)
+        label = Label(self.frame, text="It operates on a USEBIO file created by your scoring program.", font=("Segoe UI", 10), justify='left', bg=pagebgnd)
         label.grid(row=4, column=0, sticky=W, padx=20)
         self.labels.append(label)
 
-        label = Label(self.frame, text="It operates on a USEBIO file created by your scoring program", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=5, column=0, sticky=W, padx=20)
+        label = Label(self.frame, text="Use Change Player Ranks to modify the stratification rank of a pair", font=("Segoe UI", 11, "bold"), justify='left', bg=pagebgnd)
+        label.grid(row=5, column=0, sticky=SW, padx=20, pady=(20, 0))
         self.labels.append(label)
 
-        label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=6, column=0, sticky=NW)
+        label = Label(self.frame, text="This allows you to adjust the rankings of pairs within the stratification.", font=("Segoe UI", 10), justify='left', bg=pagebgnd)
+        label.grid(row=6, column=0, sticky=W, padx=20)
         self.labels.append(label)
 
-        label = Label(self.frame, text="Use Change Player Ranks to modify the stratification rank of a pair", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=7, column=0, sticky=SW, padx=20)
+        label = Label(self.frame, text="Use Stratify Tournament to stratify a tournament", font=("Segoe UI", 11, "bold"), justify='left', bg=pagebgnd)
+        label.grid(row=7, column=0, sticky=SW, padx=20, pady=(20, 0))
         self.labels.append(label)
 
-        label = Label(self.frame, text="This allows you to adjust the rankings of pairs within the stratification", font=("Arial", 10), justify='left', bg=pagebgnd)
+        label = Label(self.frame, text="This creates masterpoint awards for pairs below a certain ranking.", font=("Segoe UI", 10), justify='left', bg=pagebgnd)
         label.grid(row=8, column=0, sticky=W, padx=20)
         self.labels.append(label)
 
-        label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=9, column=0, sticky=NW)
+        label = Label(self.frame, text="Use Print Results to create a PDF of the results", font=("Segoe UI", 11, "bold"), justify='left', bg=pagebgnd)
+        label.grid(row=9, column=0, sticky=SW, padx=20, pady=(20, 0))
         self.labels.append(label)
 
-        label = Label(self.frame, text="Use Stratify Tournament to stratify a tournament", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
+        label = Label(self.frame, text="You can pin this on your club notice board or use it to see the stratification.", font=("Segoe UI", 10), justify='left', bg=pagebgnd)
         label.grid(row=10, column=0, sticky=SW, padx=20)
         self.labels.append(label)
 
-        label = Label(self.frame, text="This creates masterpoint awards for pairs below a certain ranking", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=11, column=0, sticky=W, padx=20)
+        label = Label(self.frame, text="Use Write Results File to create a new USEBIO file", font=("Segoe UI", 11, "bold"), justify='left', bg=pagebgnd)
+        label.grid(row=11, column=0, sticky=SW, padx=20, pady=(20, 0))
         self.labels.append(label)
 
-        label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=12, column=0, sticky=NW)
+        label = Label(self.frame, text="This contains the stratified results in an uploadable format.", font=("Segoe UI", 10), justify='left', bg=pagebgnd)
+        label.grid(row=12, column=0, sticky=SW, padx=20)
         self.labels.append(label)
 
-        label = Label(self.frame, text="Use Print Results to create a PDF of the results", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=13, column=0, sticky=SW, padx=20)
+        label = Label(self.frame, text="Use Stand-alone Webpage to create a results webpage", font=("Segoe UI", 11, "bold"), justify='left', bg=pagebgnd)
+        label.grid(row=13, column=0, sticky=W, padx=20, pady=(20, 0))
         self.labels.append(label)
 
-        label = Label(self.frame, text="You can pin this on your club notice board", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=14, column=0, sticky=SW, padx=20)
+        label = Label(self.frame, text="This is useful if you do not upload to Bridgewebs or similar and have your own website.", font=("Segoe UI", 10), justify='left', bg=pagebgnd)
+        label.grid(row=14, column=0, sticky=W, padx=20)
         self.labels.append(label)
 
-        label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=15, column=0, sticky=NW)
+        label = Label(self.frame, text="Use Options to configure the program", font=("Segoe UI", 11, "bold"), justify='left', bg=pagebgnd)
+        label.grid(row=15, column=0, sticky=W, padx=20, pady=(20, 0))
         self.labels.append(label)
 
-        label = Label(self.frame, text="Use Write Results File to create a new USEBIO file", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=16, column=0, sticky=SW, padx=20)
+        label = Label(self.frame, text="You can set the default directories and stratification levels here.", font=("Segoe UI", 10), justify='left', bg=pagebgnd)
+        label.grid(row=16, column=0, sticky=W, padx=20)
         self.labels.append(label)
 
-        label = Label(self.frame, text="This contains the stratified results in an uploadable format", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=17, column=0, sticky=SW, padx=20)
+        label = Label(self.frame, text="Use Help to access the program help", font=("Segoe UI", 11, "bold"), justify='left', bg=pagebgnd)
+        label.grid(row=17, column=0, sticky=W, padx=20, pady=(20, 0))
         self.labels.append(label)
 
-        label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=18, column=0, sticky=NW)
-        self.labels.append(label)
-
-        label = Label(self.frame, text="Use Stand-alone Webpage to create a results webpage", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=19, column=0, sticky=W, padx=20)
-        self.labels.append(label)
-
-        label = Label(self.frame, text="This is useful if you do not upload to Bridgewebs or similar.", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=20, column=0, sticky=W, padx=20)
-        self.labels.append(label)
-
-        label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=21, column=0, sticky=NW)
-        self.labels.append(label)
-
-        label = Label(self.frame, text="Use Options to configure the program", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=22, column=0, sticky=W, padx=20)
-        self.labels.append(label)
-
-        label = Label(self.frame, text="You can set the default directories and stratification levels here.", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=23, column=0, sticky=W, padx=20)
-        self.labels.append(label)
-
-        label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=24, column=0, sticky=NW)
-        self.labels.append(label)
-
-        label = Label(self.frame, text="Use Help to access the program help", font=("Arial", 10, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=25, column=0, sticky=W, padx=20)
-        self.labels.append(label)
-
-        label = Label(self.frame, text="We recommend you read the Home page of the help BEFORE starting.", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=26, column=0, sticky=W, padx=20)
+        label = Label(self.frame, text="We recommend you read the Home page of the help BEFORE starting.", font=("Segoe UI", 10), justify='left', bg=pagebgnd)
+        label.grid(row=18, column=0, sticky=W, padx=20)
         self.labels.append(label)
         
-        label = Label(self.frame, text="", font=("Arial", 10), justify='left', bg=pagebgnd)
-        label.grid(row=27, column=0, sticky=NW, padx=420, pady=200)
+        label = Label(self.frame, text="", font=("Segoe UI", 10), justify='left', bg=pagebgnd)
+        label.grid(row=19, column=0, sticky=NW, padx=420, pady=200)
         self.labels.append(label)
         
     def clearContent(self):

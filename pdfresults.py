@@ -54,37 +54,33 @@ class pdfresults(baseUIClass):
 
         self.labels = []
 
-        label = tb.Label(self.frame, text="Select the new PDF file to be created.", font=("Arial", 10, "bold"), justify='left')
-        label.grid(row=1, column=0, columnspan=2, sticky="w", padx=20, pady=(20, 5))
+        label = tb.Label(self.frame, text="Select the new PDF file to be created.", font=("Segoe UI", 11, "bold"), justify='left')
+        label.grid(row=1, column=0, columnspan=2, sticky="w", padx=20, pady=(20, 0))
         self.labels.append(label)
-        label = tb.Label(self.frame, text="The results PDF will be written to this file.", font=("Arial", 10), justify='left')
-        label.grid(row=2, column=0, columnspan=2, sticky="w", padx=20, pady=(0, 10))
+        label = tb.Label(self.frame, text="The results PDF will be written to this file.", font=("Segoe UI", 10), justify='left')
+        label.grid(row=2, column=0, columnspan=2, sticky="w", padx=20)
         self.labels.append(label)
         label = tb.Button(self.frame, text="Browse", bootstyle="Primary", command=lambda: self.pickInputFile())
         label.grid(row=3, column=0, pady=10, padx=20, sticky="w")
         self.labels.append(label)   
-        label = tb.Entry(self.frame, textvariable=self.outputFileVar, width=102, font=("Arial", 10))
+        label = tb.Entry(self.frame, textvariable=self.outputFileVar, width=102, font=("Segoe UI", 10))
         label.grid(row=3, column=0, sticky="w", padx=100)
         self.labels.append(label)   
 
-        label = tb.Label(self.frame, text="Check this box to include the matchpoints matrix.", font=("Arial", 10, "bold"), justify='left')
-        label.grid(row=4, column=0, columnspan=2, sticky="w", padx=20, pady=(20, 5))
+        label = tb.Label(self.frame, text="Check this box to include the matchpoints matrix.", font=("Segoe UI", 11, "bold"), justify='left')
+        label.grid(row=4, column=0, columnspan=2, sticky="w", padx=20, pady=(10, 0))
         self.labels.append(label)
         label = tb.Checkbutton(self.frame, text="Include Matrix", variable=self.outputMatrix, bootstyle="Primary")
-        label.grid(row=5, column=0, columnspan=2, sticky="w", padx=20, pady=10)
+        label.grid(row=5, column=0, columnspan=2, sticky="w", padx=20, pady=(10, 5))
         self.labels.append(label)
 
         self.createButton = tb.Button(self.frame, text="Create", bootstyle="Primary", state="disabled", command=lambda: self.createPDF())
         self.createButton.grid(row=6, column=0, sticky="w", padx=20, pady=(20, 10))
         self.labels.append(self.createButton)
 
-        self.completeLabel = tb.Label(self.frame, text="", font=("Arial", 10, "bold"), foreground=CompleteColor, justify='left')
+        self.completeLabel = tb.Label(self.frame, text="", font=("Segoe UI", 10, "bold"), foreground=CompleteColor, justify='left')
         self.completeLabel.grid(row=7, column=0, columnspan=2, sticky="w", padx=20, pady=10)
         self.labels.append(self.completeLabel)
-
-        label = tb.Label(self.frame, text="", font=("Arial", 10), justify='left')
-        label.grid(row=11, column=0, columnspan=2, sticky="nw", padx=420, pady=250)
-        self.labels.append(label)
 
         self.backButton = tb.Button(self.frame, text="< Back", bootstyle="primary", width=10, command=self.backPressed)
         self.nextButton = tb.Button(self.frame, text="Next >", bootstyle="primary", width=10, command=self.nextPressed)
