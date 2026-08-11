@@ -35,6 +35,7 @@ class options(baseUIClass):
         if not self.outputsdir is None:
             if not self.outputsdir.endswith('/') or not self.outputsdir.endswith('\\'):
                 self.outputsdir = self.outputsdir + '/'
+        self.changed = False
 
     def getName(self):
         return 'options'
@@ -72,6 +73,7 @@ class options(baseUIClass):
         self.labels.append(label)
         self.resultsPathVar = tb.StringVar()
         self.resultsPathVar.set(self._config['resultsdir'])
+        self.resultsPathVar.trace_add("write", self.onParmChange)
         label = tb.Entry(self.frame, textvariable=self.resultsPathVar, width=102, font=("Segoe UI", 10))
         label.grid(row=3, column=0, sticky="w", padx=100)
         self.labels.append(label)
@@ -87,6 +89,7 @@ class options(baseUIClass):
         self.labels.append(label)
         self.outputsPathVar = tb.StringVar()
         self.outputsPathVar.set(self._config['outputsdir'])
+        self.outputsPathVar.trace_add("write", self.onParmChange)
         label = tb.Entry(self.frame, textvariable=self.outputsPathVar, width=102, font=("Segoe UI", 10))
         label.grid(row=7, column=0, sticky="w", padx=100)
         self.labels.append(label)
@@ -102,6 +105,7 @@ class options(baseUIClass):
         self.labels.append(label)
         self.hrecPathVar = tb.StringVar()
         self.hrecPathVar.set(self._config['handrecordsdir'])
+        self.hrecPathVar.trace_add("write", self.onParmChange)
         label = tb.Entry(self.frame, textvariable=self.hrecPathVar, width=102, font=("Segoe UI", 10))
         label.grid(row=11, column=0, sticky="w", padx=100)
         self.labels.append(label)
@@ -117,6 +121,7 @@ class options(baseUIClass):
         self.labels.append(label)
         self.webpTmplVar = tb.StringVar()
         self.webpTmplVar.set(self._config['webfiletemplate'])
+        self.webpTmplVar.trace_add("write", self.onParmChange)
         label = tb.Entry(self.frame, textvariable=self.webpTmplVar, width=102, font=("Segoe UI", 10))
         label.grid(row=15, column=0, sticky="w", padx=100)
         self.labels.append(label)
@@ -142,6 +147,7 @@ class options(baseUIClass):
         self.labels.append(label)
         self.stratum1ThresholdVar = tb.StringVar()
         self.stratum1ThresholdVar.set(self._config['stratum1threshold'])
+        self.stratum1ThresholdVar.trace_add("write", self.onParmChange)
         self.cb1 = tb.Combobox(self.frame, state="readonly", width=25, justify='left', textvariable=self.stratum1ThresholdVar)
         self.cb1['values'] = UIMPLevels[::-1]
         self.cb1.grid(row=23, column=0, padx=200, sticky="w", pady=(10, 0))
@@ -152,6 +158,7 @@ class options(baseUIClass):
         self.labels.append(label)
         self.stratum2ThresholdVar = tb.StringVar()
         self.stratum2ThresholdVar.set(self._config['stratum2threshold'])
+        self.stratum2ThresholdVar.trace_add("write", self.onParmChange)
         self.cb2 = tb.Combobox(self.frame, state="readonly", width=25, justify='left', textvariable=self.stratum2ThresholdVar)
         self.cb2['values'] = UIMPLevels[::-1]
         self.cb2.grid(row=24, column=0, padx=200, sticky="w")
@@ -163,13 +170,13 @@ class options(baseUIClass):
         self.completeLabel = tb.Label(self.frame, text="", foreground=CompleteColor, font=("Segoe UI", 10, "bold"), justify='left')
         self.completeLabel.place(x=300, y=670)
     
-        self.saveButton = tb.Button(self.frame, text="Save", bootstyle="primary", width=10, command=self.SavePressed)
-        self.cancelButton = tb.Button(self.frame, text="Reset", bootstyle="primary", width=10, command=self.ResetPressed)
+        self.saveButton = tb.Button(self.frame, text="Save", bootstyle="primary", width=10, state="disabled", command=self.SavePressed)
+        self.resetButton = tb.Button(self.frame, text="Reset", bootstyle="primary", width=10, state="disabled", command=self.ResetPressed)
         self.labels.append(self.saveButton)
-        self.labels.append(self.cancelButton)
+        self.labels.append(self.resetButton)
 
         self.saveButton.place(x=630, y=650)
-        self.cancelButton.place(x=730, y=650)
+        self.resetButton.place(x=730, y=650)
 
         self.setStratum2List()
         self.setStratum1List()
@@ -196,9 +203,9 @@ class options(baseUIClass):
             except Exception:
                 pass
 
-        if hasattr(self, 'cancelButton') and self.cancelButton:
+        if hasattr(self, 'resetButton') and self.resetButton:
             try:
-                self.cancelButton.configure(command="")
+                self.resetButton.configure(command="")
             except Exception:
                 pass
 
@@ -215,23 +222,27 @@ class options(baseUIClass):
         self.cb2 = None
         self.completeLabel = None
         self.saveButton = None
-        self.cancelButton = None
+        self.resetButton = None
 
     def pickDefaultResultsDir(self):
         dirname = filehandling.findResultsFileDirectory()
-        self.resultsPathVar.set(dirname)
+        if len(dirname) > 0:
+            self.resultsPathVar.set(dirname)
 
     def pickOutputsDir(self):
         dirname = filehandling.findOutputsFileDirectory()
-        self.outputsPathVar.set(dirname)
+        if len(dirname) > 0:
+            self.outputsPathVar.set(dirname)
 
     def pickHandRecDir(self):
         dirname = filehandling.findHandRecordsFileDirectory()
-        self.hrecPathVar.set(dirname)
+        if len(dirname) > 0:
+            self.hrecPathVar.set(dirname)
 
     def pickTemplate(self):
         filename = filehandling.openWebfileTemplate(os.getcwd())
-        self.webpTmplVar.set(filename)
+        if len(filename) > 0:
+            self.webpTmplVar.set(filename)
 
     def setStratum2List(self):
         # Modify the array used for the stratum 2 combobox so that they can only pick a lower level.
@@ -256,7 +267,15 @@ class options(baseUIClass):
             if not os.path.exists(self.outputsdir + self.config['pdfsdir']):
                 os.makedirs(self.outputsdir + self.config['pdfsdir'])
 
+    def onParmChange(self, *args):
+        self.saveButton.configure(state="normal")
+        self.resetButton.configure(state="normal")
+
     def SavePressed(self):
+        # Disable the save/reset buttons
+        self.saveButton.configure(state="disabled")
+        self.resetButton.configure(state="disabled")
+
         # Populate our config from the form data
         self._config['resultsdir'] = self.resultsPathVar.get()
         self._config['outputsdir'] = self.outputsPathVar.get()
