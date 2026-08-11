@@ -5,6 +5,7 @@
 # Auto-hiding scrollbar
 ###############################################################################
 import tkinter as tk
+from appcolours import *
 
 class AutoScrollbar(tk.Canvas):
     """Custom flat scrollbar with rounded thumb, arrow stepping, dynamic sizing, and auto-hiding."""
@@ -13,10 +14,10 @@ class AutoScrollbar(tk.Canvas):
         self.command = command or kw.pop("command", None)
         self.orient = kw.pop("orient", kw.pop("orientation", "vertical"))
         
-        self.bg_color = kw.pop("bg", kw.pop("background", "#F1F1F1"))
-        self.thumb_color = kw.pop("thumb_color", "#C1C1C1")
-        self.thumb_hover = kw.pop("thumb_hover", "#A6A6A6")
-        self.arrow_color = kw.pop("arrow_color", "#555555")
+        self.bg_color = kw.pop("bg", kw.pop("background", asb_bg_color))
+        self.thumb_color = kw.pop("thumb_color", asb_thumb_color)
+        self.thumb_hover = kw.pop("thumb_hover", asb_thumb_hover)
+        self.arrow_color = kw.pop("arrow_color", asb_arrow_color)
         self.scrollbar_width = kw.pop("width", 12)
 
         super().__init__(

@@ -16,8 +16,7 @@ from pathlib import Path
 import pbnreader
 import filehandling
 from dateutil import parser
-
-CompleteColor = "#44880C"
+from appcolours import *
 
 class webpage(baseUIClass):
     """ Runs a UI to allow th user to produce a standalone webpage file containing the event results.
@@ -106,7 +105,7 @@ class webpage(baseUIClass):
         self.createButton.grid(row=11, column=0, sticky="w", padx=20, pady=(20, 10))
         self.labels.append(self.createButton)
 
-        self.messageLabel = tb.Label(self.frame, text="", font=("Segoe UI", 11, "bold"), justify='left', foreground=CompleteColor)
+        self.messageLabel = tb.Label(self.frame, text="", font=("Segoe UI", 11, "bold"), justify='left', foreground=msg_completeColor)
         self.messageLabel.grid(row=12, column=0, columnspan=2, sticky="w", padx=20, pady=(10, 0))
         self.labels.append(self.messageLabel)
 

@@ -7,26 +7,8 @@
 import tkinter as tk
 from tkinter import ttk
 import ttkbootstrap as tb
+from appcolours import *
 
-# Colours of the combobox when unchanged (default)
-light_bg = "#ffffff"
-dark_bg = "#e9ecef"
-listbox_bg = "#ffffff"
-text_color = "#212529"
-border_color = "#ced4da"
-arrow_color = "#495057"
-reset_color = "#4e5bd6"
-
-# Colours of the combobox when changed (highlighted)
-changed_light_bg = "#e6e9f4"
-changed_dark_bg = "#cecfeb"
-changed_text_color = "#1B239C"
-changed_border_color = "#3440a8"
-
-# Colors of the tooltip
-ttborder_color = "#ced4da"
-ttbackground_color = "#FFFFE8"
-ttforeground_color = "#3c5055"
 ttdelay = 500
 
 class ToolTip:
@@ -70,7 +52,7 @@ class ToolTip:
 
         # Border container
         tw.configure(
-            background=ttborder_color, 
+            background=ccb_ttborder_color, 
             padx=1, 
             pady=1
         )
@@ -80,8 +62,8 @@ class ToolTip:
             tw,
             text=self.text,
             justify="left",
-            background=ttbackground_color,
-            foreground=ttforeground_color,
+            background=ccb_ttbackground_color,
+            foreground=ccb_ttforeground_color,
             relief="flat",
             borderwidth=0,
             font=("Segoe UI", 10),
@@ -119,13 +101,13 @@ class ColoredCombo:
         # 1. DEFAULT COMBOBOX STYLE
         # -------------------------------------------------------------
         self.style.configure("Default.TCombobox",
-            fieldbackground=light_bg,
-            background=dark_bg,        # Arrow box bg
-            foreground=text_color,
-            selectbackground=light_bg,  # Keeps background clean when clicked
-            selectforeground=text_color,
-            arrowcolor=arrow_color,
-            bordercolor=border_color,
+            fieldbackground=ccb_light_bg,
+            background=ccb_dark_bg,        # Arrow box bg
+            foreground=ccb_text_color,
+            selectbackground=ccb_light_bg,  # Keeps background clean when clicked
+            selectforeground=ccb_text_color,
+            arrowcolor=ccb_arrow_color,
+            bordercolor=ccb_border_color,
             borderwidth=1,
             relief="flat"
         )
@@ -133,20 +115,20 @@ class ColoredCombo:
         # Map focus and readonly states explicitly to prevent blackouts
         self.style.map("Default.TCombobox",
             fieldbackground=[
-                ("readonly", light_bg),
-                ("focus", light_bg)
+                ("readonly", ccb_light_bg),
+                ("focus", ccb_light_bg)
             ],
             selectbackground=[
-                ("readonly", light_bg),
-                ("focus", light_bg)
+                ("readonly", ccb_light_bg),
+                ("focus", ccb_light_bg)
             ],
             selectforeground=[
-                ("readonly", text_color),
-                ("focus", text_color)
+                ("readonly", ccb_text_color),
+                ("focus", ccb_text_color)
             ],
             foreground=[
-                ("readonly", text_color),
-                ("focus", text_color)
+                ("readonly", ccb_text_color),
+                ("focus", ccb_text_color)
             ]
         )
 
@@ -154,56 +136,56 @@ class ColoredCombo:
         # 2. CHANGED (HIGHLIGHTED) COMBOBOX STYLE
         # -------------------------------------------------------------
         self.style.configure("Changed.TCombobox",
-            fieldbackground=changed_light_bg,   # Soft green background
-            background=changed_dark_bg,        # Arrow button bg
-            foreground=changed_text_color,        # Dark green text
-            selectbackground=changed_light_bg,
-            selectforeground=changed_text_color,
-            arrowcolor=changed_text_color,
-            bordercolor=changed_border_color,       # Green border
+            fieldbackground=ccb_changed_light_bg,   # Soft green background
+            background=ccb_changed_dark_bg,        # Arrow button bg
+            foreground=ccb_changed_text_color,        # Dark green text
+            selectbackground=ccb_changed_light_bg,
+            selectforeground=ccb_changed_text_color,
+            arrowcolor=ccb_changed_text_color,
+            bordercolor=ccb_changed_border_color,       # Green border
             borderwidth=1,
             relief="flat"
         )
 
         self.style.map("Changed.TCombobox",
             fieldbackground=[
-                ("readonly", changed_light_bg),
-                ("focus", changed_light_bg)
+                ("readonly", ccb_changed_light_bg),
+                ("focus", ccb_changed_light_bg)
             ],
             selectbackground=[
-                ("readonly", changed_light_bg),
-                ("focus", changed_light_bg)
+                ("readonly", ccb_changed_light_bg),
+                ("focus", ccb_changed_light_bg)
             ],
             selectforeground=[
-                ("readonly", changed_text_color),
-                ("focus", changed_text_color)
+                ("readonly", ccb_changed_text_color),
+                ("focus", ccb_changed_text_color)
             ],
             foreground=[
-                ("readonly", changed_text_color),
-                ("focus", changed_text_color)
+                ("readonly", ccb_changed_text_color),
+                ("focus", ccb_changed_text_color)
             ]
         )
 
         # Flat icon button style for reset
         self.style.configure("Reset.TButton",
             font=("Segoe UI", 18, "bold"),
-            foreground=reset_color,
-            background=light_bg,
+            foreground=ccb_reset_color,
+            background=ccb_light_bg,
             borderwidth=0,
             focuscolor="none",
             padding=0,
             relief="flat"
         )
         self.style.map("Reset.TButton",
-            foreground=[("disabled", light_bg)],
-            background=[("disabled", light_bg)]
+            foreground=[("disabled", ccb_light_bg)],
+            background=[("disabled", ccb_light_bg)]
         )
 
         # Dropdown options list styling (global option database)
-        self.frame.option_add("*TCombobox*Listbox.background", listbox_bg)
-        self.frame.option_add("*TCombobox*Listbox.foreground", text_color)
-        self.frame.option_add("*TCombobox*Listbox.selectBackground", changed_light_bg)
-        self.frame.option_add("*TCombobox*Listbox.selectForeground", changed_text_color)
+        self.frame.option_add("*TCombobox*Listbox.background", ccb_listbox_bg)
+        self.frame.option_add("*TCombobox*Listbox.foreground", ccb_text_color)
+        self.frame.option_add("*TCombobox*Listbox.selectBackground", ccb_changed_light_bg)
+        self.frame.option_add("*TCombobox*Listbox.selectForeground", ccb_changed_text_color)
 
     def _on_combobox_change(self, event):
         combobox = event.widget

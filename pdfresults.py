@@ -15,10 +15,10 @@ from reportlab.lib import colors
 from baseclasses import baseUIClass
 from uiparts import UIParts
 import filehandling
+from appcolours import *
 
 mainFont = "Helvetica"
 boldFont = "Helvetica-Bold"
-CompleteColor = "#44880C"
 
 class pdfresults(baseUIClass):
     """ Produces a PDF file containing the event results and runs the UI.
@@ -78,7 +78,7 @@ class pdfresults(baseUIClass):
         self.createButton.grid(row=6, column=0, sticky="w", padx=20, pady=(20, 10))
         self.labels.append(self.createButton)
 
-        self.completeLabel = tb.Label(self.frame, text="", font=("Segoe UI", 10, "bold"), foreground=CompleteColor, justify='left')
+        self.completeLabel = tb.Label(self.frame, text="", font=("Segoe UI", 10, "bold"), foreground=msg_completeColor, justify='left')
         self.completeLabel.grid(row=7, column=0, columnspan=2, sticky="w", padx=20, pady=10)
         self.labels.append(self.completeLabel)
 

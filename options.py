@@ -11,8 +11,7 @@ import filehandling
 from baseclasses import baseUIClass
 from uiparts import UIParts
 from stratify import UIMPLevels
-
-CompleteColor = "#44880C"
+from appcolours import *
 
 class options(baseUIClass):
     """ Runs the UI to allow configuration of options and loads/saves the options.
@@ -167,7 +166,7 @@ class options(baseUIClass):
         self.cb1.bind("<<ComboboxSelected>>", lambda e: self.setStratum2List())
         self.cb2.bind("<<ComboboxSelected>>", lambda e: self.setStratum1List())
 
-        self.completeLabel = tb.Label(self.frame, text="", foreground=CompleteColor, font=("Segoe UI", 10, "bold"), justify='left')
+        self.completeLabel = tb.Label(self.frame, text="", foreground=msg_completeColor, font=("Segoe UI", 10, "bold"), justify='left')
         self.completeLabel.place(x=300, y=670)
     
         self.saveButton = tb.Button(self.frame, text="Save", bootstyle="primary", width=10, state="disabled", command=self.SavePressed)

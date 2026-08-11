@@ -123,7 +123,7 @@ class changeRanks(baseUIClass):
             
             # Build standard labels for the first two columns
             for col, text in enumerate(labels_text):
-                lbl = tk.Label(self.scrollable_frame, text=text, font=("Segoe UI", 10), anchor="w", bg=self.pagebgnd)
+                lbl = tk.Label(self.scrollable_frame, wraplength=200, text=text, font=("Segoe UI", 10), anchor="w", justify="left", bg=self.pagebgnd)
                 lbl.grid(row=row_number, column=col, padx=15, sticky="w")
                 self.labels.append(lbl)
 

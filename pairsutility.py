@@ -25,6 +25,7 @@ import argparse
 from pathlib import Path
 import ctypes
 from filehandling import readPlayersDB
+from appcolours import *
 
 # 1. Enable Per-Monitor V2 DPI awareness in Windows before creating Tk
 if sys.platform == "win32":
@@ -38,15 +39,6 @@ if sys.platform == "win32":
         except AttributeError:
             ctypes.windll.user32.SetProcessDPIAware()
 
-# Colors
-menubgnd = "#dddddd"
-tourneybgnd = "#bccbf8"
-pagebgnd = "#fcfcfc"
-menucolor = "blue"
-menuhilite = "#ee942e"
-menuDisabledcolor = "#808080"
-menuSelectedcolor = "#6b1616"
-
 class ScalableApp(tb.Window):
     """ Runs the UI for interactive mode. Derived from tkinter.
     """
@@ -57,13 +49,13 @@ class ScalableApp(tb.Window):
         self.style.configure("primary.TButton")
         self.style.map(
             "primary.TButton",
-            background=[("disabled", "#d8d8d8")],  # Darker grey background (default is #e9ecef)
-            foreground=[("disabled", "#909090")]   # Darker text for readability
+            background=[("disabled", btn_disabled_bg_color)],
+            foreground=[("disabled", btn_disabled_fg_color)]
         )
         # Configure canvas frames
-        self.style.configure("menu.TFrame", background=menubgnd)
-        self.style.configure("main.TFrame", background=pagebgnd)
-        self.style.configure("tourney.TFrame", background=tourneybgnd)
+        self.style.configure("menu.TFrame", background=app_menubgnd)
+        self.style.configure("main.TFrame", background=app_pagebgnd)
+        self.style.configure("tourney.TFrame", background=app_tourneybgnd)
 
         global root
         root = self
@@ -78,7 +70,7 @@ class ScalableApp(tb.Window):
         self.resizable(False, False)
         
         # Split the window up into two horizontally arranged panes
-        panedWindow = PanedWindow(self, orient=HORIZONTAL, bg=menubgnd)
+        panedWindow = PanedWindow(self, orient=HORIZONTAL, bg=app_menubgnd)
         panedWindow.pack(side=LEFT, fill=BOTH, expand=True)
 
         # Create a frame for the left-hand menu pane
@@ -87,9 +79,10 @@ class ScalableApp(tb.Window):
 
         rightContainer = tb.Frame(panedWindow)
         panedWindow.add(rightContainer)
-        rightContainer.rowconfigure(0, weight=0)
-        rightContainer.rowconfigure(1, weight=1)
-        rightContainer.columnconfigure(0, weight=1)
+        rightContainer.grid_rowconfigure(0, weight=0)
+        rightContainer.grid_rowconfigure(1, weight=1)
+        rightContainer.grid_columnconfigure(0, weight=0)
+        rightContainer.grid_columnconfigure(1, weight=1)
 
         # Create a frame for the selected tournament window
         tournamentFrame = tb.Frame(rightContainer, style="tourney.TFrame")
@@ -103,8 +96,8 @@ class ScalableApp(tb.Window):
         uiparts.mainMenu = menu(menuFrame)
         uiparts.tournamentDisplay = tournament.tournamentContent(tournamentFrame, memberDict)
         uiparts.mainDisplay = mainContent(contentFrame)
-        uiparts.mainDisplay.construct(pagebgnd)
-        uiparts.tournamentDisplay.construct(tourneybgnd)
+        uiparts.mainDisplay.construct(app_pagebgnd)
+        uiparts.tournamentDisplay.construct(app_tourneybgnd)
 
         # Create an options instance. We need this to pass in to the other UI components
         options.options(contentFrame, baseDir, uiparts)
@@ -158,54 +151,54 @@ class ScalableApp(tb.Window):
             if menuItem == 'home':
                 self.uiparts.lastDisplay.clearContent()
                 self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), False)
-                self.uiparts.mainDisplay.construct(pagebgnd)
+                self.uiparts.mainDisplay.construct(app_pagebgnd)
                 self.uiparts.lastDisplay = self.uiparts.mainDisplay
                 self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), True)
             elif menuItem == 'select':
                 self.uiparts.lastDisplay.clearContent()
                 self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), False)
-                self.uiparts.selectTournamentDisplay.construct(pagebgnd)
+                self.uiparts.selectTournamentDisplay.construct(app_pagebgnd)
                 self.uiparts.lastDisplay = self.uiparts.selectTournamentDisplay
                 self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), True)
             elif menuItem == 'changeranks':
                 if self.uiparts.mainMenu.linksEnabled:
                     self.uiparts.lastDisplay.clearContent()
                     self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), False)
-                    self.uiparts.changeRanksDisplay.construct(pagebgnd)
+                    self.uiparts.changeRanksDisplay.construct(app_pagebgnd)
                     self.uiparts.lastDisplay = self.uiparts.changeRanksDisplay
                     self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), True)
             elif menuItem == 'stratify':
                 if self.uiparts.mainMenu.linksEnabled:
                     self.uiparts.lastDisplay.clearContent()
                     self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), False)
-                    self.uiparts.stratifyDisplay.construct(pagebgnd)
+                    self.uiparts.stratifyDisplay.construct(app_pagebgnd)
                     self.uiparts.lastDisplay = self.uiparts.stratifyDisplay
                     self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), True)
             elif menuItem == 'print':
                 if self.uiparts.mainMenu.linksEnabled:
                     self.uiparts.lastDisplay.clearContent()
                     self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), False)
-                    self.uiparts.pdfResultsDisplay.construct(pagebgnd)
+                    self.uiparts.pdfResultsDisplay.construct(app_pagebgnd)
                     self.uiparts.lastDisplay = self.uiparts.pdfResultsDisplay
                     self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), True)
             elif menuItem == 'write':
                 if self.uiparts.mainMenu.mpfileEnabled:
                     self.uiparts.lastDisplay.clearContent()
                     self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), False)
-                    self.uiparts.masterpointsResultsDisplay.construct(pagebgnd)
+                    self.uiparts.masterpointsResultsDisplay.construct(app_pagebgnd)
                     self.uiparts.lastDisplay = self.uiparts.masterpointsResultsDisplay
                     self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), True)
             elif menuItem == 'webpage':
                 if self.uiparts.mainMenu.linksEnabled:
                     self.uiparts.lastDisplay.clearContent()
                     self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), False)
-                    self.uiparts.webpageDisplay.construct(pagebgnd)
+                    self.uiparts.webpageDisplay.construct(app_pagebgnd)
                     self.uiparts.lastDisplay = self.uiparts.webpageDisplay
                     self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), True)
             elif menuItem == 'options':
                 self.uiparts.lastDisplay.clearContent()
                 self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), False)
-                self.uiparts.options.construct(pagebgnd)
+                self.uiparts.options.construct(app_pagebgnd)
                 self.uiparts.lastDisplay = self.uiparts.options
                 self.uiparts.mainMenu.setSelected(self.uiparts.lastDisplay.getName(), True)
 
@@ -221,39 +214,39 @@ class menu:
     """
     def __init__(self, frame: Frame):
         self.frame = frame
-        self.homeMenuColor = self.selectMenuColor = self.optionsMenuColor = self.helpMenuColor = menucolor
-        self.stratifyMenuColor = self.printMenuColor = self.writeFileMenuColor = self.webpageMenuColor = self.changeRanksMenuColor = menuDisabledcolor
-        self.linkHiliteColor = self.writeFileHiliteColor =  menuDisabledcolor
+        self.homeMenuColor = self.selectMenuColor = self.optionsMenuColor = self.helpMenuColor = app_menucolor
+        self.stratifyMenuColor = self.printMenuColor = self.writeFileMenuColor = self.webpageMenuColor = self.changeRanksMenuColor = app_menuDisabledcolor
+        self.linkHiliteColor = self.writeFileHiliteColor =  app_menuDisabledcolor
         self.mpfileEnabled = False
         self.linksEnabled = False
 
     def construct(self):
         global root
-        self.spacerLabel = Label(self.frame, text="", bg=menubgnd)
+        self.spacerLabel = Label(self.frame, text="", bg=app_menubgnd)
         self.spacerLabel.grid(row=0, column=0, sticky=N, pady=2)
-        self.homeLabel = Label(self.frame, text="Home", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.homeMenuColor, bg=menubgnd)
+        self.homeLabel = Label(self.frame, text="Home", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.homeMenuColor, bg=app_menubgnd)
         self.homeLabel.grid(row=1, column=0, sticky=W, padx=(15, 22), pady=5)
-        self.selectLabel = Label(self.frame, text="Select Tournament", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.selectMenuColor, bg=menubgnd)
+        self.selectLabel = Label(self.frame, text="Select Tournament", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.selectMenuColor, bg=app_menubgnd)
         self.selectLabel.grid(row=2, column=0, sticky=W, padx=(15, 22), pady=5)
-        self.changeRanksLabel = Label(self.frame, text="Change Player Ranks", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.changeRanksMenuColor, bg=menubgnd)
+        self.changeRanksLabel = Label(self.frame, text="Change Player Ranks", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.changeRanksMenuColor, bg=app_menubgnd)
         self.changeRanksLabel.grid(row=3, column=0, sticky=W, padx=(15, 22), pady=5)
-        self.stratifyLabel = Label(self.frame, text="Stratify Tournament", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.stratifyMenuColor, bg=menubgnd)
+        self.stratifyLabel = Label(self.frame, text="Stratify Tournament", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.stratifyMenuColor, bg=app_menubgnd)
         self.stratifyLabel.grid(row=4, column=0, sticky=W, padx=(15, 22), pady=5)
-        self.printLabel = Label(self.frame, text="Print Results", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.printMenuColor, bg=menubgnd)
+        self.printLabel = Label(self.frame, text="Print Results", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.printMenuColor, bg=app_menubgnd)
         self.printLabel.grid(row=5, column=0, sticky=W, padx=(15, 22), pady=5)
-        self.mpfileLabel = Label(self.frame, text="Write Results File", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.writeFileMenuColor, bg=menubgnd)
+        self.mpfileLabel = Label(self.frame, text="Write Results File", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.writeFileMenuColor, bg=app_menubgnd)
         self.mpfileLabel.grid(row=6, column=0, sticky=W, padx=(15, 22), pady=5)
-        self.webpageLabel = Label(self.frame, text="Stand-alone Webpage", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.webpageMenuColor, bg=menubgnd)
+        self.webpageLabel = Label(self.frame, text="Stand-alone Webpage", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.webpageMenuColor, bg=app_menubgnd)
         self.webpageLabel.grid(row=7, column=0, sticky=W, padx=(15, 22), pady=5)
-        self.optionsLabel = Label(self.frame, text="Options", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.optionsMenuColor, bg=menubgnd)
+        self.optionsLabel = Label(self.frame, text="Options", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.optionsMenuColor, bg=app_menubgnd)
         self.optionsLabel.grid(row=8, column=0, sticky=W, padx=(15, 22), pady=5)
-        self.helpLabel = Label(self.frame, text="Help", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.helpMenuColor, bg=menubgnd)
+        self.helpLabel = Label(self.frame, text="Help", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.helpMenuColor, bg=app_menubgnd)
         self.helpLabel.grid(row=9, column=0, sticky=W, padx=(15, 22), pady=25)
         self.homeLabel.bind("<Button-1>", lambda e: root.showPage('home'))
-        self.homeLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.homeLabel, menuhilite)})
+        self.homeLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.homeLabel, app_menuhilite)})
         self.homeLabel.bind("<Leave>", lambda e: {root.highlightLink(e, self.homeLabel, self.homeMenuColor)})
         self.selectLabel.bind("<Button-1>", lambda e: root.showPage('select'))
-        self.selectLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.selectLabel, menuhilite)})
+        self.selectLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.selectLabel, app_menuhilite)})
         self.selectLabel.bind("<Leave>", lambda e: {root.highlightLink(e, self.selectLabel, self.selectMenuColor)})
         self.changeRanksLabel.bind("<Button-1>", lambda e: root.showPage('changeranks'))
         self.changeRanksLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.changeRanksLabel, self.linkHiliteColor)})
@@ -271,30 +264,30 @@ class menu:
         self.webpageLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.webpageLabel, self.linkHiliteColor)})
         self.webpageLabel.bind("<Leave>", lambda e: {root.highlightLink(e, self.webpageLabel, self.webpageMenuColor)})
         self.optionsLabel.bind("<Button-1>", lambda e: root.showPage('options'))
-        self.optionsLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.optionsLabel, menuhilite)})
+        self.optionsLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.optionsLabel, app_menuhilite)})
         self.optionsLabel.bind("<Leave>", lambda e: {root.highlightLink(e, self.optionsLabel, self.optionsMenuColor)})
         self.helpLabel.bind("<Button-1>", root.showHelp)
-        self.helpLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.helpLabel, menuhilite)})
+        self.helpLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.helpLabel, app_menuhilite)})
         self.helpLabel.bind("<Leave>", lambda e: {root.highlightLink(e, self.helpLabel, self.helpMenuColor)})
 
     def enableMPFile(self, enable: bool):
         self.mpfileEnabled = enable
         if enable:
-            self.writeFileMenuColor = menucolor
-            self.writeFileHiliteColor = menuhilite
+            self.writeFileMenuColor = app_menucolor
+            self.writeFileHiliteColor = app_menuhilite
         else:
-            self.writeFileMenuColor = menuDisabledcolor
-            self.writeFileHiliteColor = menuDisabledcolor
+            self.writeFileMenuColor = app_menuDisabledcolor
+            self.writeFileHiliteColor = app_menuDisabledcolor
         self.mpfileLabel.config(fg=self.writeFileMenuColor)
 
     def enableMenuItems(self, enable: bool):
         self.linksEnabled = enable
         if enable:
-            self.stratifyMenuColor = self.printMenuColor = self.webpageMenuColor = self.changeRanksMenuColor = menucolor
-            self.linkHiliteColor = menuhilite
+            self.stratifyMenuColor = self.printMenuColor = self.webpageMenuColor = self.changeRanksMenuColor = app_menucolor
+            self.linkHiliteColor = app_menuhilite
         else:
-            self.changeRanksMenuColor = self.stratifyMenuColor = self.printMenuColor = self.webpageMenuColor = menuDisabledcolor
-            self.linkHiliteColor = menuDisabledcolor
+            self.changeRanksMenuColor = self.stratifyMenuColor = self.printMenuColor = self.webpageMenuColor = app_menuDisabledcolor
+            self.linkHiliteColor = app_menuDisabledcolor
         self.changeRanksLabel.config(fg=self.changeRanksMenuColor)
         self.stratifyLabel.config(fg=self.stratifyMenuColor)
         self.printLabel.config(fg=self.printMenuColor)
@@ -302,28 +295,28 @@ class menu:
 
     def setSelected(self, menuItem:str, enabled: bool):
         if menuItem == 'home':
-            self.homeMenuColor = menuSelectedcolor if enabled else menucolor
+            self.homeMenuColor = app_menuSelectedcolor if enabled else app_menucolor
             self.homeLabel.config(fg=self.homeMenuColor)
         elif menuItem == 'select':
-            self.selectMenuColor = menuSelectedcolor if enabled else menucolor
+            self.selectMenuColor = app_menuSelectedcolor if enabled else app_menucolor
             self.selectLabel.config(fg=self.selectMenuColor)
         elif menuItem == 'changeranks':
-            self.changeRanksMenuColor = menuSelectedcolor if enabled else menucolor
+            self.changeRanksMenuColor = app_menuSelectedcolor if enabled else app_menucolor
             self.changeRanksLabel.config(fg=self.changeRanksMenuColor)
         elif menuItem == 'stratify':
-            self.stratifyMenuColor = menuSelectedcolor if enabled else menucolor
+            self.stratifyMenuColor = app_menuSelectedcolor if enabled else app_menucolor
             self.stratifyLabel.config(fg=self.stratifyMenuColor)
         elif menuItem == 'print':
-            self.printMenuColor = menuSelectedcolor if enabled else menucolor
+            self.printMenuColor = app_menuSelectedcolor if enabled else app_menucolor
             self.printLabel.config(fg=self.printMenuColor)
         elif menuItem == 'write':
-            self.writeFileMenuColor = menuSelectedcolor if enabled else menucolor
+            self.writeFileMenuColor = app_menuSelectedcolor if enabled else app_menucolor
             self.mpfileLabel.config(fg=self.writeFileMenuColor)
         elif menuItem == 'webpage':
-            self.webpageMenuColor = menuSelectedcolor if enabled else menucolor
+            self.webpageMenuColor = app_menuSelectedcolor if enabled else app_menucolor
             self.webpageLabel.config(fg=self.webpageMenuColor)
         elif menuItem == 'options':
-            self.optionsMenuColor = menuSelectedcolor if enabled else menucolor
+            self.optionsMenuColor = app_menuSelectedcolor if enabled else app_menucolor
             self.optionsLabel.config(fg=self.optionsMenuColor)
 
 class mainContent(baseUIClass):

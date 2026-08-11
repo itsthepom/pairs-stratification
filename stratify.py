@@ -8,6 +8,7 @@ import ttkbootstrap as tb
 import copy
 from baseclasses import baseUIClass
 from uiparts import UIParts
+from appcolours import *
 
 # These are the text names for the UI of the various MP ranks
 UIMPLevels = ("None", "New Member", "Novice", "Club Master",
@@ -25,12 +26,6 @@ MPCode = (0, 5, 10, 20,
           110, 120, 130, 140,
           150, 160, 165, 170,
           180, 190, 200, 210)
-
-StratAColor = "#CC1000"
-StratBColor = "#379600"
-StratCColor = "#4B48E4"
-WarningColor = "#FF8800"
-CompleteColor = "#44880C"
 
 LEFT_TEXT_MARGIN = 110
 RIGHT_TEXT_MARGIN = 270
@@ -128,12 +123,12 @@ class stratify(baseUIClass):
             self.strat1EWString.set('Strat B E/W Pairs:')
             self.strat2NSString.set('Strat C N/S Pairs:')
             self.strat2EWString.set('Strat C E/W Pairs:')
-            self.overallNSStringLabel.configure(foreground=StratAColor)
-            self.overallEWStringLabel.configure(foreground=StratAColor)
-            self.strat1NSStringLabel.configure(foreground=StratBColor)
-            self.strat1EWStringLabel.configure(foreground=StratBColor)
-            self.strat2NSStringLabel.configure(foreground=StratCColor)
-            self.strat2EWStringLabel.configure(foreground=StratCColor)
+            self.overallNSStringLabel.configure(foreground=strat_AColor)
+            self.overallEWStringLabel.configure(foreground=strat_AColor)
+            self.strat1NSStringLabel.configure(foreground=strat_BColor)
+            self.strat1EWStringLabel.configure(foreground=strat_BColor)
+            self.strat2NSStringLabel.configure(foreground=strat_CColor)
+            self.strat2EWStringLabel.configure(foreground=strat_CColor)
         else:
             self.overallNSPairs.set(str(self.buckets[0]) + ' (' + str(self.buckets[0]+self.buckets[2]) + ' overall)')
             self.overallEWPairs.set(str(self.buckets[2]-self.buckets[4]) + ' (' + str(self.buckets[2]) + ' in stratum)')
@@ -147,9 +142,9 @@ class stratify(baseUIClass):
             self.strat1EWString.set('')
             self.strat2NSString.set('')
             self.strat2EWString.set('')
-            self.overallNSStringLabel.configure(foreground=StratAColor)
-            self.overallEWStringLabel.configure(foreground=StratBColor)
-            self.strat1NSStringLabel.configure(foreground=StratCColor)
+            self.overallNSStringLabel.configure(foreground=strat_AColor)
+            self.overallEWStringLabel.configure(foreground=strat_BColor)
+            self.strat1NSStringLabel.configure(foreground=strat_CColor)
 
     def coloriseLabels(self):
         for i, lbl in enumerate(self.label_widgets):
@@ -158,7 +153,7 @@ class stratify(baseUIClass):
             elif i > self.maxRankIndex:
                 lbl.config(foreground="grey")
             else:
-                lbl.config(foreground=StratAColor if i > self.indexB else StratCColor if i <= self.indexC and self.indexC != 0 else StratBColor)
+                lbl.config(foreground=strat_AColor if i > self.indexB else strat_CColor if i <= self.indexC and self.indexC != 0 else strat_BColor)
 
     def snap_and_clamp(self, val, sliderB=None):
         """Snaps value to step 'n' and clamps between MIN and MAX limits."""
@@ -274,13 +269,13 @@ class stratify(baseUIClass):
         label = tb.Label(self.frame, text="Select the strata levels", font=("Segoe UI", 11, "bold"), justify='left')
         label.grid(row=0, column=0, columnspan=3, pady=(20, 5))
         self.labels.append(label)
-        label = tb.Label(self.frame, text="A", font=("Segoe UI", 11, "bold"), justify='left', foreground=StratAColor)
+        label = tb.Label(self.frame, text="A", font=("Segoe UI", 11, "bold"), justify='left', foreground=strat_AColor)
         label.grid(row=1, column=0, sticky="w", padx=(25, 20))
         self.labels.append(label)
-        label = tb.Label(self.frame, text="B", font=("Segoe UI", 11, "bold"), justify='left', foreground=StratBColor)
+        label = tb.Label(self.frame, text="B", font=("Segoe UI", 11, "bold"), justify='left', foreground=strat_BColor)
         label.grid(row=1, column=1, sticky="w", padx=24)
         self.labels.append(label)
-        label = tb.Label(self.frame, text="C", font=("Segoe UI", 11, "bold"), justify='left', foreground=StratCColor)
+        label = tb.Label(self.frame, text="C", font=("Segoe UI", 11, "bold"), justify='left', foreground=strat_CColor)
         label.grid(row=1, column=2, sticky="w", padx=14)
         self.labels.append(label)
 
@@ -445,7 +440,7 @@ class stratify(baseUIClass):
 
     def setResult(self, message: str, warning: bool, mpsawarded: list=None):
         self.statusText.set(message)
-        self.statusLabel.config(foreground=WarningColor if warning else CompleteColor)
+        self.statusLabel.config(foreground=msg_warningColor if warning else msg_completeColor)
         if mpsawarded != None:
             self.resultsAmps.set(str(mpsawarded[0]))
             self.resultsBmps.set(str(mpsawarded[1]))

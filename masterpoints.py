@@ -9,6 +9,7 @@ from baseclasses import baseUIClass
 from uiparts import UIParts
 import filehandling
 import math
+from appcolours import *
 
 # From the SBU MP handbook. These are the lower limits of pairs for one and two winner events
 # and the top award for that number of pairs
@@ -16,8 +17,6 @@ OneWinnerPairsNumbers =     (  6,  9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42
 LocalOneWinnerPairsPoints = ( 12, 18, 24, 30, 36, 42, 48, 54, 60, 66, 72, 78, 84, 90, 96 )
 TwoWinnerTableNumbers =     (  3,  6,  9, 12, 15, 18, 21, 24, 27, 30 )
 LocalTwoWinnerTablePoints = ( 10, 20, 30, 40, 50, 60, 70, 80, 90, 100 )
-
-CompleteColor = "#44880C"
 
 class masterpoints(baseUIClass):
     """ Runs the UI for creating a new USEBIO and assigns masterpoints to pairs in an event
@@ -74,7 +73,7 @@ class masterpoints(baseUIClass):
         self.createButton.grid(row=4, column=0, sticky="w", padx=20, pady=(20, 10))
         self.labels.append(self.createButton)
 
-        self.completeLabel = tb.Label(self.frame, text="", font=("Segoe UI", 10, "bold"), foreground=CompleteColor, justify='left')
+        self.completeLabel = tb.Label(self.frame, text="", font=("Segoe UI", 10, "bold"), foreground=msg_completeColor, justify='left')
         self.completeLabel.grid(row=6, column=0, columnspan=2, sticky="w", padx=20, pady=10)
         self.labels.append(self.completeLabel)
 
