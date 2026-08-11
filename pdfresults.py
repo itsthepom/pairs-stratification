@@ -346,7 +346,7 @@ class pdfresults(baseUIClass):
                 if len(self.tournamentData.resultSet.overallRankings[2][0]) > 0:
                     block = []
                     heading = "Stratum C - " + self.tournamentData.resultSet.stratumLabels[1] + " and lower"
-                    printResults(self.tournamentData.resultSet.overallRankings[2], self.tournamentData.resultSet.pairData, heading, 3)
+                    printResults(self.tournamentData.eventType, self.tournamentData.resultSet.overallRankings[2], self.tournamentData.resultSet.pairData, heading, 3)
                     story.append(KeepTogether(block))
 
             # Add matrix, if requested. Not enabled in batch mode, but could be.
