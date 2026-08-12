@@ -161,7 +161,7 @@ After stratification, this shows the number of masterpoints awarded in to pairs 
 
 Warning messages will be displayed below the results, in orange, as you move the sliders and the selected ranks are unsuitable for stratifying. For example, if there are too few pairs in the lowest stratum to award masterpoints, a message to this effect will appear.
 
-When stratification is successful, a message will be displayed in green (like the example), to let you know.
+When stratification is successful, a message will be displayed in green to let you know.
 </div>
 </div>
 <div class="grid" markdown>
@@ -171,7 +171,7 @@ When stratification is successful, a message will be displayed in green (like th
 <div markdown>
 ![Strat Button](stratbutton.png){ align=right width="288" }
 </div>
-When the selection of stratification ranks are suitable for stratification, this button be enabled and allow you to stratify the event.
+When the selection of stratification ranks are suitable for stratification, this button will enable and allow you to stratify the event.
 
 Click the Stratify button to run the stratification process. You will be shown a message in the Stratification Results section in green when the process is complete (it's very quick).
 
@@ -190,7 +190,7 @@ This function will create a PDF file of your results, suitable for printing and 
 
 You can use the Browse button to select a different location and name for the PDF file.
 
-You can, optionally, include the match points matrix by checking the "Include Matrix" check-box.
+You can, optionally, include the score matrix by checking the "Include Matrix" check-box.
 
 This function is only enabled after selecting a tournament. If you don't stratify the tournament it will print unstratified results.
 </div>
