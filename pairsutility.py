@@ -338,7 +338,7 @@ class mainContent(baseUIClass):
         self.labels.append(label)
 
         label = Label(self.frame, text="Use Select Tournament to pick an already-scored tournament", font=("Segoe UI", 11, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=2, column=0, sticky=W, padx=20, pady=(20, 0))
+        label.grid(row=2, column=0, sticky=W, padx=20, pady=(15, 0))
         self.labels.append(label)
 
         label = Label(self.frame, text="This program ONLY operates with PAIRS tournaments.", font=("Segoe UI", 10), justify='left', bg=pagebgnd)
@@ -350,7 +350,7 @@ class mainContent(baseUIClass):
         self.labels.append(label)
 
         label = Label(self.frame, text="Use Change Player Ranks to modify the stratification rank of a pair", font=("Segoe UI", 11, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=5, column=0, sticky=SW, padx=20, pady=(20, 0))
+        label.grid(row=5, column=0, sticky=SW, padx=20, pady=(15, 0))
         self.labels.append(label)
 
         label = Label(self.frame, text="This allows you to adjust the rankings of pairs within the stratification.", font=("Segoe UI", 10), justify='left', bg=pagebgnd)
@@ -358,7 +358,7 @@ class mainContent(baseUIClass):
         self.labels.append(label)
 
         label = Label(self.frame, text="Use Stratify Tournament to stratify a tournament", font=("Segoe UI", 11, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=7, column=0, sticky=SW, padx=20, pady=(20, 0))
+        label.grid(row=7, column=0, sticky=SW, padx=20, pady=(15, 0))
         self.labels.append(label)
 
         label = Label(self.frame, text="This creates masterpoint awards for pairs below a certain ranking.", font=("Segoe UI", 10), justify='left', bg=pagebgnd)
@@ -366,7 +366,7 @@ class mainContent(baseUIClass):
         self.labels.append(label)
 
         label = Label(self.frame, text="Use Print Results to create a PDF of the results", font=("Segoe UI", 11, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=9, column=0, sticky=SW, padx=20, pady=(20, 0))
+        label.grid(row=9, column=0, sticky=SW, padx=20, pady=(15, 0))
         self.labels.append(label)
 
         label = Label(self.frame, text="You can pin this on your club notice board or use it to see the stratification.", font=("Segoe UI", 10), justify='left', bg=pagebgnd)
@@ -374,7 +374,7 @@ class mainContent(baseUIClass):
         self.labels.append(label)
 
         label = Label(self.frame, text="Use Write Results File to create a new USEBIO file", font=("Segoe UI", 11, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=11, column=0, sticky=SW, padx=20, pady=(20, 0))
+        label.grid(row=11, column=0, sticky=SW, padx=20, pady=(15, 0))
         self.labels.append(label)
 
         label = Label(self.frame, text="This contains the stratified results in an uploadable format.", font=("Segoe UI", 10), justify='left', bg=pagebgnd)
@@ -382,7 +382,7 @@ class mainContent(baseUIClass):
         self.labels.append(label)
 
         label = Label(self.frame, text="Use Stand-alone Webpage to create a results webpage", font=("Segoe UI", 11, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=13, column=0, sticky=W, padx=20, pady=(20, 0))
+        label.grid(row=13, column=0, sticky=W, padx=20, pady=(15, 0))
         self.labels.append(label)
 
         label = Label(self.frame, text="This is useful if you do not upload to Bridgewebs or similar and have your own website.", font=("Segoe UI", 10), justify='left', bg=pagebgnd)
@@ -390,7 +390,7 @@ class mainContent(baseUIClass):
         self.labels.append(label)
 
         label = Label(self.frame, text="Use Options to configure the program", font=("Segoe UI", 11, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=15, column=0, sticky=W, padx=20, pady=(20, 0))
+        label.grid(row=15, column=0, sticky=W, padx=20, pady=(15, 0))
         self.labels.append(label)
 
         label = Label(self.frame, text="You can set the default directories and stratification levels here.", font=("Segoe UI", 10), justify='left', bg=pagebgnd)
@@ -398,7 +398,7 @@ class mainContent(baseUIClass):
         self.labels.append(label)
 
         label = Label(self.frame, text="Use Help to access the program help", font=("Segoe UI", 11, "bold"), justify='left', bg=pagebgnd)
-        label.grid(row=17, column=0, sticky=W, padx=20, pady=(20, 0))
+        label.grid(row=17, column=0, sticky=W, padx=20, pady=(15, 0))
         self.labels.append(label)
 
         label = Label(self.frame, text="We recommend you read the Home page of the help BEFORE starting.", font=("Segoe UI", 10), justify='left', bg=pagebgnd)

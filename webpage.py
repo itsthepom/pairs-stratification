@@ -275,10 +275,7 @@ class webpage(baseUIClass):
                     JSONString = JSONString + '\nlet rankingsew = {"heading": "", "data": ' + json.dumps(createRanking(self.tournamentData.resultSet.overallRankings[0][1], 1)) + "};"
                 # Stratum 1
                 if len(self.tournamentData.resultSet.overallRankings[1][0]) > 0:
-                    if len(self.tournamentData.resultSet.overallRankings[2][0]) > 0:
-                        heading = "Stratum B - " + self.tournamentData.resultSet.stratumLabels[0] + " to above " + self.tournamentData.resultSet.stratumLabels[1]
-                    else:
-                        heading = "Stratum B - " + self.tournamentData.resultSet.stratumLabels[0] + " and lower"
+                    heading = "Stratum B - " + self.tournamentData.resultSet.stratumLabels[0] + " and lower"
                     JSONString = JSONString + '\nlet rankings1 = {"heading": "' + heading + '", "data": ' + json.dumps(createRanking(self.tournamentData.resultSet.overallRankings[1][0], 2)) + "};"
                     if len(self.tournamentData.resultSet.overallRankings[1][1]) > 0:
                         JSONString = JSONString + '\nlet rankingsew1 = {"heading": "", "data": ' + json.dumps(createRanking(self.tournamentData.resultSet.overallRankings[1][1], 2)) + "};"
@@ -357,7 +354,7 @@ class webpage(baseUIClass):
                 file.write(str(soup))
             
             self.messageLabel.config(text='Webpage file generation complete.')
-            self.messageLabel.config(foreground=CompleteColor)
+            self.messageLabel.config(foreground=msg_completeColor)
 
             # Display the Webpage
             os.startfile(self.outputFileVar.get().replace("/", "\\"))
