@@ -62,5 +62,5 @@ jobs:
       if: github.event_name == 'release'
       uses: softprops/action-gh-release@v1
       with:
-        name: Windows-Installer
-        path: installer_output/PairsStrat-Setup.exe
+        name: Windows Installer
+        files: installer_output/PairsStrat-Setup.exe
