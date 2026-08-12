@@ -1,3 +1,20 @@
+1.5 Release Notes
+=================
+
+Major changes:
+- A new page has been added to allow changing the stratification rank of each pair.
+- The program now supports scoring by matchpoints, cross-IMPs (new) and aggregate (new).
+- The stratification page rank colouring has changed to match that of BridgeWebs.
+- Support has been added to increase the masterpoints scales for National, District and Area events (previously just Club)
+- The output of the utility is primarily USEBIO 1.2. However, the stratification XML elements are
+  part of the 1.3 standard and not 1.2. So, technically, the output is not 1.2-compliant, but a hybrid.
+- Help file updates
+
+Minor changes:
+- Icons have been made prettier.
+- Spacing of controls on the screen are more uniform.
+- An error dialog has been created for a non-existant web template.
+
 1.4 Release Notes
 =================
 
