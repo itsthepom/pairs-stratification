@@ -63,11 +63,11 @@ As mentioned earlier, the scale of awards in a stratified tournament is reduced 
 
 This means that the total masterpoints awarded to a stratified event may be slightly larger or smaller than before stratification, but not significantly so.
 
-At the present time, the program only awards LOCAL points, according to the scales defined in the SBU Masterpoints and Licensing Handbook.
+The program awards masterpoints of the same type as the original (input) USEBIO file and works with Club, Area, District and National scales.
 
 ### Awards Scales
 
-When an event is stratified, the awards are modified as follows:
+As mentioned earlier, when an event is stratified the awards are slightly reduced. The tables below show the effect on Club scales:
 
 #### Single winner events
 <table>

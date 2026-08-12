@@ -8,7 +8,7 @@ The results from your scoring program must be in a USEBIO format file. USEBIO st
 This program reads the USEBIO file produced by your scoring program and can perform the following functions:
 
 * Allow you to stratify the pairs tournament. Stratification is explained later.
-* Produce a Portable Document Format (PDF) file of the results that can be printed for display on your club notice board.
+* Produce a Portable Document Format (PDF) file of the results that can be printed for display on your club notice board. This is also useful as an on-screen display of the results of stratification before uploading.
 * Produce a new USEBIO file that contains stratified awards for upload to MEMPAD or other websites.
 * Produce a stand-alone results webpage, intended for clubs that have their own website (as distinct from using a hosted system, like BridgeWebs).
 
