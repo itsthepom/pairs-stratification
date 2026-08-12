@@ -356,7 +356,9 @@ class pdfresults(baseUIClass):
                 matrixTableStyles = TableStyle([
                     ('BACKGROUND', (0,0), (-1,0), colors.toColor('rgb(238,238,238)')),  # header row
                     ('BACKGROUND', (0,0), (0,-1), colors.toColor('rgb(238,238,238)')),  # left column
-                    ('ALIGN', (0,0), (-1,-1), 'CENTER'),
+                    ('ALIGN', (0,0), (-1, 0), 'CENTER'),
+                    ('ALIGN', (0,0), (0,-1), 'CENTER'),
+                    ('ALIGN', (1,1), (-1, -1), 'RIGHT'),
                     ('FONTNAME', (0,1), (-1,-1), mainFont),     # All table cells
                     ('FONTNAME', (0,0), (-1,0), boldFont),      # Top row
                     ('FONTNAME', (0,0), (0,-1), boldFont),      # Left column
@@ -389,8 +391,14 @@ class pdfresults(baseUIClass):
                 for matrixLine in self.tournamentData.resultSet.resultsMatrix.matrixLine.values():
                     matrixTableRows[matrixKeys[keyNum]] = [str(matrixKeys[keyNum])]
                     for i in range(len(matrixLine.score)):
-                        matrixTableRows[matrixKeys[keyNum]].append(((str(int(matrixLine.score[i])) if matrixLine.score[i] != None else "")))
-                    matrixTableRows[matrixKeys[keyNum]].append(str(int(matrixLine.total)))
+                        scorestr = ""
+                        score = matrixLine.score[i]
+                        if score != None:
+                            scorestr = str(int(score)) if self.tournamentData.eventType != 1 else f"{score:.2f}"
+                        matrixTableRows[matrixKeys[keyNum]].append(scorestr)
+                    score = matrixLine.total
+                    scorestr = str(int(score)) if self.tournamentData.eventType != 1 else f"{score:.2f}"
+                    matrixTableRows[matrixKeys[keyNum]].append(scorestr)
                     keyNum = keyNum + 1
                 # If there were missing pairs, their row will be empty. Fill the pair number
                 for matrixLine in range(1, len(matrixTableRows)):
