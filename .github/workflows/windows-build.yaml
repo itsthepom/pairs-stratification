@@ -67,3 +67,5 @@ jobs:
       with:
         name: Windows Installer
         files: installer_output/PairsStrat-Setup.exe
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
