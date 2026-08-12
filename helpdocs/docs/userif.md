@@ -33,7 +33,9 @@ When you select a function from the menu, the information pane will change to sh
 
 The Select Tournament function is the one you want to start with.
 
-This is where you select the USEBIO file (output from your scoring program) that you wish to use. You can use the Browse button to interactively choose the file, or just type the file name into the field next to the button.
+This is where you select the USEBIO file (output from your scoring program) that you wish to use.
+
+You can use the Browse button to interactively choose the file, or just type the file name into the field next to the button.
 
 </div>
 </div>
@@ -49,9 +51,42 @@ Once a file has been chosen, the tournament name will be displayed at the top an
 
 Note that the tournament name is displayed at the top of the information pane and will remain there as you navigate to other functions.
 
+Once a file has been selected, the Next button at the lower right is enabled.
+
+**The Next and Back buttons provide you with a way to navigate through the stages of stratification instead of cicking the menu, although you
+can do that if you choose**.
 </div>
 </div>
 
+<div class="grid" markdown>
+<div markdown>
+
+### Change Player Ranks
+<div markdown>
+![Change Player Ranks](chgranks.png){ align=right width="400" }
+</div>
+Use the Change Player Ranks function to modify the assigned ranks to each pair.
+
+Each pair has the rank that will be used for stratification assigned to them automatically. Partners of differing ranks will be assigned
+the highest rank in the partnership.
+
+Each pair is listed with both their pair number and names, next to the rank they have been assigned. Click on the rank next to the pair
+to open up a list of the ranks and choose a different one.
+</div>
+</div>
+<div class="grid" markdown>
+<div markdown>
+
+### Changed Ranks
+<div markdown>
+![Changed Rank List](chgrankslists.png){ align=right width="94" }
+</div>
+When you change a pair's ranking, the ranking is displayed in a different colour and an icon appears to the right of the rank to allow
+you to reset it to the automatically determined value, should you change your mind.
+
+The rankings you set up here are those used for stratification.
+</div>
+</div>
 <div class="grid" markdown>
 <div markdown>
 
@@ -78,9 +113,9 @@ This presents you with two "sliders", allowing you to select the levels at which
 At the left are the masterpoint rank text labels. These are color coded as follows:
 
 * Grey - Masterpoint ranks below the lowest pair rank and above the highest pair rank that played in the tournament are grey. You cannot move the sliders to these ranks.
-* Black - These ranks are only included in the overall results (stratum A) and represent all ranks above those placed in stratum B or C. If you set the stratification levels to the minimum, all the labels would be black and there would be no stratification to be done.
-* Red - Stratum B.
-* Green - Stratum C
+* Red - These ranks are only included in the overall results (stratum A) and represent all ranks above those placed in stratum B or C. If you set the stratification levels to the minimum, all the labels would be black and there would be no stratification to be done.
+* Green - Stratum B.
+* Blue - Stratum C
 
 As you move the strtaum B and C sliders, the labels change colour to indicate which rankes are in which stratum.
 
@@ -104,7 +139,7 @@ This section displays the ranks of the highest and lowest ranked pair competing 
 
 ### Stratification Split
 <div markdown>
-![Strat Split](stratsplit.png){ align=right width="262" }
+![Strat Split](stratsplit.png){ align=right width="292" }
 </div>
 This shows the number of pairs in each stratum. As you move the sliders, the numbers here will change. Two-winner events have entries for both N/S and E/W.
 
@@ -120,9 +155,9 @@ The lower strata are always included in higher strata, so the pairs in Stratum C
 
 ### Stratification Results
 <div markdown>
-![Strat Results](stratresults.png){ align=right width="186" }
+![Strat Results](stratresults.png){ align=right width="234" }
 </div>
-After stratification, this shows the number of masterpoints awarded in to pairs of each stratum rank. So, in this case, 105 masterpoints were awarded to pairs that are stratum A pairs (i.e., do not appear in the lower strata), no masterpoints were awarded to stratum B pairs and 18 masterpoints awarded to stratum C pairs.
+After stratification, this shows the number of masterpoints awarded in to pairs of each stratum rank. So, in this case, 105 masterpoints were awarded to pairs that are stratum A pairs (i.e., do not appear in the lower strata), 12 masterpoints were awarded to stratum B pairs and no masterpoints awarded to stratum C pairs.
 
 Warning messages will be displayed below the results, in orange, as you move the sliders and the selected ranks are unsuitable for stratifying. For example, if there are too few pairs in the lowest stratum to award masterpoints, a message to this effect will appear.
 
