@@ -1,3 +1,14 @@
+1.6 Release Notes
+=================
+
+Major changes:
+- Fixed issue where XML output not being generated for X-IMPs and Aggregate events.
+- Fixed issue where masterpoints for Area events could be fractional
+- Fixed issue where X-IMPs and Aggregate scores were output from internally generated sums, rather than the input file values.
+
+Minor changes:
+- Fixed lack of error if the PDF print file was not writable.
+
 1.5 Release Notes
 =================
 
