@@ -239,9 +239,9 @@ class webpage(baseUIClass):
                 if self.tournamentData.eventType == 0:
                     ranking["score"] = "{:.1f}".format(result.rawscore)
                 elif self.tournamentData.eventType == 1:
-                    ranking["score"] = "{:>+7.2f}".format(result.rawscore)
+                    ranking["score"] = "{:>+7.2f}".format(result.score)
                 else:
-                    ranking["score"] = "{:>+7.0f}".format(result.rawscore)
+                    ranking["score"] = "{:>+7.0f}".format(result.score)
 
                 data.append(ranking)
             return data

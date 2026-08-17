@@ -193,8 +193,8 @@ class results:
         for i in range(len(direction)):
             direction[i].positionNum = position
             if (i < (len(direction) - 1)):
-                thisScore = direction[i].percentscore if eventType == 0 else direction[i].rawscore
-                nextScore = direction[i + 1].percentscore if eventType == 0 else direction[i + 1].rawscore
+                thisScore = direction[i].percentscore if eventType == 0 else direction[i].score
+                nextScore = direction[i + 1].percentscore if eventType == 0 else direction[i + 1].score
             if (i < (len(direction) - 1)) and (thisScore == nextScore):
                 direction[i].position = str(position) + "="
                 numEquals = numEquals + 1
@@ -214,7 +214,7 @@ class results:
                     pairResult.setScore(eventType, 0, 1)
                 else:
                     pairResult.setScore(eventType, pairMatrixLine.total, self.pairData[pairResult.pairNumber].maxScore)
-            direction.sort(reverse=True, key=lambda x : x.percentscore if eventType == 0 else x.rawscore)
+            direction.sort(reverse=True, key=lambda x : x.percentscore if eventType == 0 else x.score)
             self.setPositions(eventType, direction)
         self.tournament.masterpointsObject.calculateMasterpoints(False)
 

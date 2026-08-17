@@ -313,9 +313,9 @@ class pdfresults(baseUIClass):
                         if eventType == 0:
                             resultRowData[4] = "{:.1f}".format(result.rawscore) + "/" + "{:.0f}".format(result.maxscore) + "  =  " + "{:.2f}".format(result.percentscore) + "%"
                         elif eventType == 1:
-                            resultRowData[4] = "{:>+7.2f}".format(result.rawscore)
+                            resultRowData[4] = "{:>+7.2f}".format(result.score)
                         else:
-                            resultRowData[4] = "{:>+7.0f}".format(result.rawscore)
+                            resultRowData[4] = "{:>+7.0f}".format(result.score)
                         tableRows.append(resultRowData)
                     resultRowTable = Table(tableRows, colWidths=tableColWidths)
                     resultRowTable.setStyle(tableStyles)
