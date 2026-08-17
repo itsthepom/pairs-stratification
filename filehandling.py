@@ -10,6 +10,7 @@ import requests
 import csv
 import io
 import os
+import logging
 
 def openResultsFile(startingDir: str, forWriting: bool):
     """ Displays a file chooser dialog for input and output USEBIO results files.
@@ -133,6 +134,10 @@ def readPlayersDB(writeCacheFile: bool, optionsInstance) -> dict:
         Returns:
             Players CSV DB as an io.StringIO
     """
+    # Configure basic logging to see errors in console/file
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__)
+
     # Get the name of the cache file for the players DB from mempad
     if writeCacheFile:
         cachedir = optionsInstance.getDirectory('outputsdir') + 'cache/'
@@ -152,8 +157,31 @@ def readPlayersDB(writeCacheFile: bool, optionsInstance) -> dict:
                     file.write(data.read())
         else:
             raise Exception('Bad HTTP status')
-    except:
-        # Can't get rankings CSV. Use the last cached one instead
+    except requests.exceptions.HTTPError as errh:
+        # Captures 4xx/5xx HTTP errors, including response status and body
+        logger.error(
+            f"HTTP Error: {errh} | Status Code: {response.status_code} | Response Text: {response.text[:200]}"
+        )
+
+    except requests.exceptions.ConnectionError as errc:
+        # Captures DNS failures, refused connections, or network drops
+        logger.error(f"Error Connecting to server: {errc}")
+
+    except requests.exceptions.Timeout as errt:
+        # Captures request timeouts
+        logger.error(f"Timeout Error: {errt}")
+
+    except requests.exceptions.RequestException as err:
+        # Catch-all for any other requests-related issue
+        logger.error(f"Requests Exception: {err}")
+
+    except OSError as io_err:
+        # Captures permission errors, missing directory path errors, or disk full errors
+        logger.error(f"File I/O Error writing cache file to '{cachefile}': {io_err}")
+
+    except Exception as e:
+        # Log unexpected Python exceptions along with the full stack trace
+        logger.exception(f"An unexpected error occurred: {e}")        # Can't get rankings CSV. Use the last cached one instead
         if not writeCacheFile or not os.path.exists(cachefile):
             messagebox.showerror("Error", "Unable to read member data from Internet and no cached copy.\n\nStratification will not be available.")
             return 1
