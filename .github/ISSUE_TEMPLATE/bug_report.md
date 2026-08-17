@@ -1,9 +1,10 @@
 ---
 name: Bug report
 about: Create a report to help us improve
-title: '[BUG]: '
-labels: 'bug'
+title: "[BUG]: "
+labels: bug, enhancement
 assignees: ''
+
 ---
 
 ## Description
@@ -17,7 +18,3 @@ A clear and concise description of what the bug is.
 
 ## Expected Behavior
 A clear description of what you expected to happen.
-
-## Environment Details
-- OS: [e.g. iOS, Windows]
-- Browser: [e.g. Chrome, Safari]
