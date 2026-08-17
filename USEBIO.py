@@ -152,7 +152,7 @@ class USEBIO(baseclasses.resultsReader):
 
         self.tournamentData.processResults()
 
-    def write(self, filename: str=None, outputdir: str=None, usebiov13: bool=False):
+    def write(self, eventType, filename: str=None, outputdir: str=None, usebiov13: bool=False):
         """ Writes a USEBIO file in v1.2 or 1.3 format (https://usebio.org/documentation/usebio-1.3.pdf)
 
             Args:
@@ -272,8 +272,13 @@ class USEBIO(baseclasses.resultsReader):
                     createNode(masterPointsOuter, 'MASTER_POINT_TYPE', 'black')
                 createNode(pair, 'STRAT_PLACE', str(self.tournamentData.resultSet.pairData[pairResult.pairNumber].stratPosition))
                 createNode(pair, 'STRAT_NUMBER', str(self.tournamentData.resultSet.pairData[pairResult.pairNumber].strat + 1))
-            
-                createNode(pair, 'PERCENTAGE', "{:.2f}".format(pairResult.percentscore))
+
+                if eventType == 0:
+                    createNode(pair, 'PERCENTAGE', "{:.2f}".format(pairResult.percentscore))
+                elif eventType == 1:
+                    createNode(pair, 'TOTAL_SCORE', "{:+.2f}".format(pairResult.rawscore))
+                else:
+                    createNode(pair, 'TOTAL_SCORE', "{:+.0f}".format(pairResult.rawscore))
 
                 playerOuter = createNode(pair, 'PLAYER')
                 createNode(playerOuter, 'PLAYER_NAME', pairResult.player1Name)
@@ -296,10 +301,13 @@ class USEBIO(baseclasses.resultsReader):
                 createNode(travellerLine, 'LEAD', traveller.lead)
                 createNode(travellerLine, 'TRICKS', traveller.tricks)
                 createNode(travellerLine, 'SCORE', traveller.score)
-                createNode(travellerLine, 'NS_MATCH_POINTS', traveller.NSScore)
-                createNode(travellerLine, 'EW_MATCH_POINTS', traveller.EWScore)
-
-       
+                if eventType == 0:
+                    createNode(travellerLine, 'NS_MATCH_POINTS', str(int(traveller.NSScore)))
+                    createNode(travellerLine, 'EW_MATCH_POINTS', str(int(traveller.EWScore)))
+                elif eventType == 1:
+                    createNode(travellerLine, 'NS_CROSS_IMP_POINTS', traveller.NSScore)
+                    createNode(travellerLine, 'EW_CROSS_IMP_POINTS', traveller.NSScore)
+        
         # Tidy up the XML, removing excess whitespace
         if usebiov13:
             xml_str = b'<!DOCTYPE USEBIO SYSTEM "usebio_v1_3.dtd">\n' + ET.tostring(root, encoding='utf-8')
@@ -308,7 +316,7 @@ class USEBIO(baseclasses.resultsReader):
         parsed = minidom.parseString(xml_str)
         remove_whitespace_nodes(parsed)
 
-        # Pretty-print it and write to the output file. Note - do NOT indent - messes up some poorly written validators
+        # Pretty-print it and write to the output file.
         pretty_xml = parsed.toprettyxml(indent='  ', encoding='utf-8').decode('utf-8')
         if filename != None:
             with open(filename, 'w', encoding='utf-8') as f:
