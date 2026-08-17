@@ -274,11 +274,11 @@ class USEBIO(baseclasses.resultsReader):
                 createNode(pair, 'STRAT_NUMBER', str(self.tournamentData.resultSet.pairData[pairResult.pairNumber].strat + 1))
 
                 if eventType == 0:
-                    createNode(pair, 'PERCENTAGE', "{:.2f}".format(pairResult.percentscore))
+                    createNode(pair, 'PERCENTAGE', "{:.2f}".format(pairResult.score))
                 elif eventType == 1:
-                    createNode(pair, 'TOTAL_SCORE', "{:+.2f}".format(pairResult.rawscore))
+                    createNode(pair, 'TOTAL_SCORE', "{:+.2f}".format(pairResult.score))
                 else:
-                    createNode(pair, 'TOTAL_SCORE', "{:+.0f}".format(pairResult.rawscore))
+                    createNode(pair, 'TOTAL_SCORE', "{:+.0f}".format(pairResult.score))
 
                 playerOuter = createNode(pair, 'PLAYER')
                 createNode(playerOuter, 'PLAYER_NAME', pairResult.player1Name)
@@ -427,6 +427,10 @@ class USEBIO(baseclasses.resultsReader):
             natIDTag = players[1].find('.//NATIONAL_ID_NUMBER')             # Optional element
             if natIDTag != None:
                 self.player2SBUNum = natIDTag.text
+            scoreTag = pair.find('.//TOTAL_SCORE')                    # One of these is mandatory
+            if scoreTag == None:
+                scoreTag = pair.find('.//PERCENTAGE')
+            self.score = float(scoreTag.text)
             self.gslams = 0
             self.sslams = 0
             self.rawscore = 0
@@ -434,8 +438,7 @@ class USEBIO(baseclasses.resultsReader):
             self.position = ''
         
         def setScore(self, eventType, total, maxScore):
-            self.rawscore = round(total, 1)
+            self.rawscore = round(total, 2)
             if eventType == 0:      # Match-pointed pairs
                 self.maxscore = maxScore
-                self.percentscore = round(total * 100 / maxScore, 2)
 
