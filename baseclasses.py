@@ -7,7 +7,7 @@
 from abc import ABC, abstractmethod
 
 AppName="Pairs Stratification Program"
-AppVersion="1.05"
+AppVersion="1.06"
 
 class baseUIClass(ABC):
     @abstractmethod

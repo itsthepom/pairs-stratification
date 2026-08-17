@@ -8,7 +8,6 @@ import os
 from pathlib import Path
 from datetime import datetime
 import ttkbootstrap as tb
-from tkinter import messagebox
 from reportlab.platypus import BaseDocTemplate, Paragraph, KeepTogether, Table, TableStyle, Frame, PageTemplate, NextPageTemplate, PageBreak, Spacer
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.pagesizes import A4, landscape
