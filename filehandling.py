@@ -169,9 +169,8 @@ def readPlayersDB(writeCacheFile: bool, optionsInstance) -> dict:
             raise Exception('Bad HTTP status')
     except requests.exceptions.HTTPError as errh:
         # Captures 4xx/5xx HTTP errors, including response status and body
-        logger.error(
-            f"HTTP Error: {errh} | Status Code: {response.status_code} | Response Text: {response.text[:200]}"
-        )
+        messagebox.showerror("Error", f"HTTP Error: {errh} | Status Code: {response.status_code} | Response Text: {response.text[:200]}")
+        logger.error(f"HTTP Error: {errh} | Status Code: {response.status_code} | Response Text: {response.text[:200]}")
 
     except requests.exceptions.ConnectionError as errc:
         # Captures DNS failures, refused connections, or network drops
@@ -200,14 +199,18 @@ def readPlayersDB(writeCacheFile: bool, optionsInstance) -> dict:
             messagebox.showerror("Error", "Unable to read member data from Internet and no cached copy.\n\nStratification will not be available.")
             return 1
         else:
+            messagebox.showwarning("Warning", "Unable to read member data from Internet - using cached copy.\n\nMember ranks may be out of date.")
             with open(cachefile, 'r') as file:
                 data = io.StringIO(file.read(-1))
-            messagebox.showwarning("Warning", "Unable to read member data from Internet - using cached copy.\n\nMember ranks may be out of date.")
-    # Read the CSV into a dictionary, keyed by masterpoint number, with rank as value
-    data.seek(0)
-    reader = csv.DictReader(data)
+
     memberDict = {}
-    for row in reader:
-        memberDict[row['Master Point Number']] = row['Postcode and Rank'].split(" - ",1)[-1]
+    try:
+        # Read the CSV into a dictionary, keyed by masterpoint number, with rank as value
+        data.seek(0)
+        reader = csv.DictReader(data)
+        for row in reader:
+            memberDict[row['Master Point Number']] = row['Postcode and Rank'].split(" - ",1)[-1]
+    except:
+        pass    
     return memberDict
 
