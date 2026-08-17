@@ -163,7 +163,7 @@ class masterpoints(baseUIClass):
                     for j in range(numShared):
                         maxMasterpoints = self.tournamentData.resultSet.pairData[stratumRankings[i + j].pairNumber].masterpoints
                         if thisAward > maxMasterpoints:
-                            stratumRankings[i + j].masterpoints = thisAward * multiplier
+                            stratumRankings[i + j].masterpoints = int(math.ceil(thisAward * multiplier))
                         else:
                             stratumRankings[i + j].masterpoints = maxMasterpoints
                         if numStrata > 0 and thisAward > maxMasterpoints:
