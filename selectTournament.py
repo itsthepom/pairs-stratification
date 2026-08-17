@@ -9,6 +9,7 @@ from baseclasses import baseUIClass
 from uiparts import UIParts
 import filehandling
 import USEBIO
+from appcolours import *
 
 class selectTournament(baseUIClass):
     """ Runs the UI to choose an event to work with.
@@ -113,11 +114,11 @@ class selectTournament(baseUIClass):
         label.grid(row=12, column=0, sticky="w", padx=175)
         self.labels.append(label)
 
-        self.errorLabel = tb.Label(self.frame, text="", font=("Segoe UI", 10, "bold"), justify='left', bootstyle="Danger", background=self.pagebgnd)
+        self.errorLabel = tb.Label(self.frame, text="", font=("Segoe UI", 10, "bold"), justify='left', foreground=msg_errorColor, background=self.pagebgnd)
         self.errorLabel.grid(row=13, column=0, columnspan=2, sticky="w", padx=20, pady=(20, 5))
         self.labels.append(self.errorLabel)
 
-        self.preStratLabel = tb.Label(self.frame, text="", font=("Segoe UI", 10, "bold"), justify='left', bootstyle="Warning", background=self.pagebgnd)
+        self.preStratLabel = tb.Label(self.frame, text="", font=("Segoe UI", 10, "bold"), justify='left', foreground=msg_warningColor, background=self.pagebgnd)
         self.preStratLabel.grid(row=14, column=0, columnspan=2, sticky="w", padx=20)
         self.labels.append(self.preStratLabel)
 

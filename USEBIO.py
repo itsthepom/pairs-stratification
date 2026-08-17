@@ -336,7 +336,7 @@ class USEBIO(baseclasses.resultsReader):
                     pairData(dict): Dictionary of tournament.pairData
                     resultsMatrix(tournament.matrix): Matrix object populated by this code
             """
-            def __init__(self, eventType, line, boardNum, pairData, resultsMatrix):
+            def __init__(self, tournamentData, line, boardNum, pairData, resultsMatrix):
                 self.NSPair = int(line.find('.//NS_PAIR_NUMBER').text)      # Mandatory element
                 self.EWPair = int(line.find('.//EW_PAIR_NUMBER').text)      # Mandatory element
                 self.contract = ''
@@ -361,17 +361,17 @@ class USEBIO(baseclasses.resultsReader):
                     pass
                 else:
                     self.score = int(self.score)
-                if eventType == 0:
+                if tournamentData.eventType == 0:
                     self.NSScore = float(line.find('.//NS_MATCH_POINTS').text)    # Mandatory element
                     self.EWScore = float(line.find('.//EW_MATCH_POINTS').text)    # Mandatory element
-                elif eventType == 1:
+                elif tournamentData.eventType == 1:
                     self.NSScore = float(line.find('.//NS_CROSS_IMP_POINTS').text)    # Mandatory element
                     self.EWScore = float(line.find('.//EW_CROSS_IMP_POINTS').text)    # Mandatory element
-                elif eventType == 2:
+                elif tournamentData.eventType == 2:
                     pass
 
-                resultsMatrix.addResult(self.NSPair, boardNum, self.NSScore if eventType != 2 else self.score)
-                resultsMatrix.addResult(self.EWPair, boardNum, self.EWScore if eventType != 2 else (self.score * -1))
+                resultsMatrix.addResult(self.NSPair, boardNum, self.NSScore if tournamentData.eventType != 2 else self.score)
+                resultsMatrix.addResult(self.EWPair, boardNum, self.EWScore if tournamentData.eventType != 2 else (self.score * -1))
 
                 # Use an exception catcher, since the first character of the contract might not be numeric
                 try:
@@ -392,7 +392,7 @@ class USEBIO(baseclasses.resultsReader):
                 except:
                     pass
 
-        def __init__(self, tournamentData, board: ET.Element, pairData: dict, resultsMatrix: matrix):
+        def __init__(self, tournamentData, board: ET.Element, pairData: dict, resultsMatrix):
             self.boardNum = int(board.find('.//BOARD_NUMBER').text)     # Mandatory element
             tLines = board.findall('.//TRAVELLER_LINE')                 # Mandatory element
             self.travellerLines = []

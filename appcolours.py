@@ -47,6 +47,7 @@ btn_disabled_bg_color = "#d8d8d8"
 # Message colors
 msg_completeColor = "#44880C"
 msg_warningColor = "#FF8800"
+msg_errorColor = "#FF0000"
 
 # Stratum colors
 strat_AColor = "#CC1000"

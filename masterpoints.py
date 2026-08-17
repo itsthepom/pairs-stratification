@@ -37,6 +37,7 @@ class masterpoints(baseUIClass):
             self.outputFileVar = tb.StringVar()
             self.outputFileVar.trace_add("write", self.fileSelected)
             self.outputMatrix = tb.BooleanVar()
+        self.completeLabel = None
 
     def getName(self):
         return 'write'
@@ -99,6 +100,9 @@ class masterpoints(baseUIClass):
             for widget in self.frame.winfo_children():
                 widget.destroy()
         self.labels = []
+        self.completeLabel = None
+        self.backButton = None
+        self.nextButton = None
 
     def pickInputFile(self):
         filename = filehandling.openResultsFile(self.uiparts.options.getDirectory("outputsdir") + self.uiparts.options.config["masterpointsdir"], True)
@@ -106,14 +110,12 @@ class masterpoints(baseUIClass):
             self.outputFileVar.set(filename)
 
     def fileSelected(self, name, index, mode):
-        try:
+        if isinstance(self.completeLabel, tb.Label):
             self.completeLabel.config(text="")
             if len(self.outputFileVar.get()) > 0:
                 self.createButton.config(state="normal")
             else:
                 self.createButton.config(state="disabled")
-        except:
-            pass
    
     def writeMasterpointsFile(self):
         self.tournamentData.writeMPFile()
