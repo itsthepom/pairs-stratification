@@ -147,7 +147,7 @@ def readPlayersDB(writeCacheFile: bool, optionsInstance) -> dict:
     )
 
     logger = logging.getLogger(__name__)
-    
+
     # Get the name of the cache file for the players DB from mempad
     if writeCacheFile:
         cachedir = optionsInstance.getDirectory('outputsdir') + 'cache/'
@@ -175,18 +175,22 @@ def readPlayersDB(writeCacheFile: bool, optionsInstance) -> dict:
 
     except requests.exceptions.ConnectionError as errc:
         # Captures DNS failures, refused connections, or network drops
+        messagebox.showerror("Error", f"Error Connecting to server: {errc}")
         logger.error(f"Error Connecting to server: {errc}")
 
     except requests.exceptions.Timeout as errt:
         # Captures request timeouts
+        messagebox.showerror("Error", f"Timeout Error: {errt}")
         logger.error(f"Timeout Error: {errt}")
 
     except requests.exceptions.RequestException as err:
         # Catch-all for any other requests-related issue
+        messagebox.showerror("Error", f"Requests Exception: {err}")
         logger.error(f"Requests Exception: {err}")
 
     except OSError as io_err:
         # Captures permission errors, missing directory path errors, or disk full errors
+        messagebox.showerror("Error", f"File I/O Error writing cache file to '{cachefile}': {io_err}")
         logger.error(f"File I/O Error writing cache file to '{cachefile}': {io_err}")
 
     except Exception as e:
