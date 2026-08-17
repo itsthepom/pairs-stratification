@@ -134,10 +134,20 @@ def readPlayersDB(writeCacheFile: bool, optionsInstance) -> dict:
         Returns:
             Players CSV DB as an io.StringIO
     """
-    # Configure basic logging to see errors in console/file
-    logging.basicConfig(level=logging.INFO)
-    logger = logging.getLogger(__name__)
+    # Define a specific path for the log file
+    log_dir = os.path.expanduser("~/logs")
+    os.makedirs(log_dir, exist_ok=True)
+    log_file = os.path.join(log_dir, "app.log")
 
+    logging.basicConfig(
+        filename=log_file,
+        level=logging.INFO,
+        format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+    )
+
+    logger = logging.getLogger(__name__)
+    
     # Get the name of the cache file for the players DB from mempad
     if writeCacheFile:
         cachedir = optionsInstance.getDirectory('outputsdir') + 'cache/'
