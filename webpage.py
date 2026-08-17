@@ -43,6 +43,7 @@ class webpage(baseUIClass):
         self.outputFileVar.trace_add("write", self.fileSelected)
         self.inputFileVar = tb.StringVar()
         self.inputFileVar.trace_add("write", self.inputFileSelected)
+        self.messageLabel = None
 
     def getName(self):
         return 'webpage'
@@ -173,14 +174,12 @@ class webpage(baseUIClass):
             self.outputFileVar.set(filename)
 
     def fileSelected(self, name, index, mode):
-        try:
+        if isinstance(self.messageLabel, tb.Label):
             self.messageLabel.config(text='')
             if len(self.outputFileVar.get()) > 0:
                 self.createButton.config(state="normal")
             else:
                 self.createButton.config(state="disabled")
-        except:
-            pass
    
     def showDetail(self):
         self.messageLabel.config(text='')

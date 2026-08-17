@@ -89,7 +89,7 @@ class travellers:
         pass
 
     def addTraveller(self, eventType, board: any, pairData: any, resultsMatrix: matrix):
-        newTraveller = self.tournament.readerClass.traveller(eventType, board, pairData, resultsMatrix)
+        newTraveller = self.tournament.readerClass.traveller(self.tournament, board, pairData, resultsMatrix)
         self.travellers[newTraveller.boardNum - 1] = newTraveller
         return newTraveller
 
@@ -123,7 +123,10 @@ class pairData:
             self.isNS = isNS
             if isNS:
                 self.versus = newTravellerLine.EWPair
-                self.pts = newTravellerLine.score if eventType == 2 else newTravellerLine.NSScore
+                if eventType != 0:
+                    self.pts = newTravellerLine.score
+                else:
+                    self.pts = newTravellerLine.NSScore
             else:
                 self.versus = newTravellerLine.NSPair
                 self.pts = newTravellerLine.score if eventType == 2 else newTravellerLine.EWScore
@@ -177,7 +180,7 @@ class results:
         newTraveller = self.travellerSet.addTraveller(self.tournament.eventType, board, self.pairData, self.resultsMatrix)
         for line in newTraveller.travellerLines:
             topScore = 0
-            if eventType != 2:
+            if eventType == 0:
                 topScore = line.EWScore + line.NSScore
             if line.NSPair not in self.pairData:
                 self.pairData[line.NSPair] = pairData(0)
