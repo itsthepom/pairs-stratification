@@ -159,6 +159,7 @@ def readPlayersDB(writeCacheFile: bool, optionsInstance) -> dict:
         response = requests.get(url)
         if response.status_code == 200:
             # Got the response OK. Get the data and cache it
+            logger.info(f"HTTP Success: Status Code: {response.status_code}")
             data = io.StringIO(response.text)
             if writeCacheFile:
                 if not os.path.exists(cachedir):
