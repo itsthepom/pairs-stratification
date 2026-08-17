@@ -303,7 +303,7 @@ class tournament:
             self.tournamentContentInst.setDescription(self.clubName + ' - ' + self.tournamentName + ' - ' + self.tournamentDate)
 
     def writeMPFile(self):
-        self.readerClass.write(self.masterpointsObject.outputFileVar.get())
+        self.readerClass.write(self.eventType, self.masterpointsObject.outputFileVar.get())
 
     def getOutputFilename(self):
         if self.clubName != None:

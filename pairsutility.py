@@ -499,7 +499,7 @@ if has_console():
                     if strat1Level != 'None':
                         stratInstance.stratifyResults(True, strat1Level, strat2Level)
                     if outputDirectory is not None:
-                        tournamentData.readerClass.write(outputDirectory + '\\' + tournamentData.getOutputFilename() + '.xml')
+                        tournamentData.readerClass.write(tournamentData.eventType, outputDirectory + '\\' + tournamentData.getOutputFilename() + '.xml')
                     if pdfDirectory is not None:
                         pdfresults.pdfresults(None, tournamentData, uiparts).createPDF(pdfDirectory + '\\' + tournamentData.getOutputFilename() + '.pdf')
                 except:
