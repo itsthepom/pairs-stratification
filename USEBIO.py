@@ -274,7 +274,7 @@ class USEBIO(baseclasses.resultsReader):
                 createNode(pair, 'STRAT_NUMBER', str(self.tournamentData.resultSet.pairData[pairResult.pairNumber].strat + 1))
 
                 if eventType == 0:
-                    createNode(pair, 'PERCENTAGE', "{:.2f}".format(pairResult.percentscore))
+                    createNode(pair, 'PERCENTAGE', "{:.2f}".format(pairResult.score))
                 elif eventType == 1:
                     createNode(pair, 'TOTAL_SCORE', "{:+.2f}".format(pairResult.score))
                 else:
@@ -441,5 +441,4 @@ class USEBIO(baseclasses.resultsReader):
             self.rawscore = round(total, 2)
             if eventType == 0:      # Match-pointed pairs
                 self.maxscore = maxScore
-                self.percentscore = round(total * 100 / maxScore, 2)
 

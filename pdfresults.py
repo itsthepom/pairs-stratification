@@ -311,7 +311,7 @@ class pdfresults(baseUIClass):
                                          str(pair.sslams) if pair.sslams != 0 else "",
                                          str(pair.gslams) if pair.gslams != 0 else ""]
                         if eventType == 0:
-                            resultRowData[4] = "{:.1f}".format(result.rawscore) + "/" + "{:.0f}".format(result.maxscore) + "  =  " + "{:.2f}".format(result.percentscore) + "%"
+                            resultRowData[4] = "{:.1f}".format(result.rawscore) + "/" + "{:.0f}".format(result.maxscore) + "  =  " + "{:.2f}".format(result.score) + "%"
                         elif eventType == 1:
                             resultRowData[4] = "{:>+7.2f}".format(result.score)
                         else:

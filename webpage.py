@@ -235,7 +235,7 @@ class webpage(baseUIClass):
                 }
                 if self.tournamentData.eventType == 0:
                     ranking["max"] = "{:.0f}".format(result.maxscore)
-                    ranking["percent"] = "{:.2f}".format(result.percentscore),
+                    ranking["percent"] = "{:.2f}".format(result.score),
                 if self.tournamentData.eventType == 0:
                     ranking["score"] = "{:.1f}".format(result.rawscore)
                 elif self.tournamentData.eventType == 1:
