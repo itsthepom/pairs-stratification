@@ -2,7 +2,7 @@
 ; PairsStrat.iss
 [Setup]
 AppName=Pairs Stratification
-AppVersion=1.06
+AppVersion=1.07
 AppPublisher="Steve Pomeroy"
 DefaultDirName={sd}\PairsStrat
 DefaultGroupName=PairsStratification
@@ -20,9 +20,9 @@ UninstallDisplayIcon={app}\PairsStrat.exe
 VersionInfoCompany=Steve Pomeroy
 VersionInfoDescription=Paits Stratification Installer
 VersionInfoCopyright=Copyright © 2026 Steve Pomeroy
-VersionInfoVersion=1.06
+VersionInfoVersion=1.07
 VersionInfoProductName=Pairs Stratification
-VersionInfoProductVersion=1.06
+VersionInfoProductVersion=1.07
 
 [Files]
 Source:"dist\PairsStrat.exe"; DestDir:"{app}"; Flags: ignoreversion
@@ -35,6 +35,7 @@ Source:"readme.txt"; DestDir:"{app}"; Flags: ignoreversion
 Source:"dist\PairsStrat\_internal\*"; DestDir:"{app}\_internal"; Flags: ignoreversion recursesubdirs
 Source: "resources\PairsStratificationAppIco.ico"; DestDir: "{app}\resources"
 Source: "resources\PairsStratificationIco.ico"; DestDir: "{app}\resources"
+Source: "resources\PairsStratificationAbout.png"; DestDir: "{app}\resources"
 Source: "resources\PairsStratification.bmp"; Flags: dontcopy
 
 [Icons]

@@ -1,3 +1,14 @@
+1.7 Release Notes
+=================
+
+Major changes:
+- Added logging to a file to help diagnose issues
+- Added an About box to provide a link for error reporting
+- Added retries of member data fetch from the Internet to avoid transient issues
+
+Minor changes:
+- Forced default response charset to UTF-8
+
 1.6 Release Notes
 =================
 

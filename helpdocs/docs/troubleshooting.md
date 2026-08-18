@@ -33,4 +33,4 @@ Information messages are in GREEN. They just tell you when an operation has comp
 | Different deal date selected.<br/>Are you sure you wish to create the webpage? | The deal file (.PBN file) you selected does not have the same date as the event. You can still use the deal file if you wish - the program may have got it wrong. This is intended to reduce a common error of picking the wrong deal file. |
 
 ## Contact
-Please report any issues, bugs or improvement suggestions to <pairsutil@thepom.me.uk>
+Please report any issues, bugs or improvement suggestions through the Github repository (the link is on the About box).

@@ -34,7 +34,7 @@ No. It only works with pairs events. If you try and load up the results from a T
 You may also get this error displayed if there is a fault in the input USEBIO file.
 
 ## Does the program work with increased masterpoints scales, e.g. for district events?
-No. Although this is something we may add if there is suffficient interest. Presently it uses the CLUB scales of masterpoints only.
+Yes. It will work with Club, Area, District and National masterpoints scales. The input USEBIO file determines which scale is used.
 
 ## Why are output files named the way they are?
 We named output files this way so that it's easy to sort the directory of files by ascending/descending date. You can rename any output file to suit your own needs.
