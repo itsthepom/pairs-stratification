@@ -7,6 +7,8 @@
 from tkinter import filedialog as fd
 from tkinter import messagebox
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 import csv
 import io
 import os
@@ -134,6 +136,25 @@ def readPlayersDB(writeCacheFile: bool, optionsInstance) -> dict:
         Returns:
             Players CSV DB as an io.StringIO
     """
+    def create_retrying_session():
+        session = requests.Session()
+        
+        # Define retry configuration
+        retries = Retry(
+            total=3,                                    # Total number of retries before raising MaxRetryError
+            backoff_factor=1,                           # Wait times: 1s, 2s, 4s, 8s, 16s...
+            status_forcelist=[429, 500, 502, 503, 504], # HTTP status codes to retry on
+            raise_on_status=False,                      # Allow response object to be returned after retries exhaust
+            allowed_methods=["GET", "POST"]             # HTTP methods to retry (default is mostly idempotent ones)
+        )
+        
+        # Mount the configured adapter to both HTTP and HTTPS protocols
+        adapter = HTTPAdapter(max_retries=retries)
+        session.mount("http://", adapter)
+        session.mount("https://", adapter)
+        
+        return session
+
     # Get the name of the cache file for the players DB from mempad
     if writeCacheFile:
         cachedir = optionsInstance.getDirectory('outputsdir') + 'cache/'
@@ -142,35 +163,36 @@ def readPlayersDB(writeCacheFile: bool, optionsInstance) -> dict:
     # Read the players DB so we can look up player ranks
     exceptionOccurred = False
     url = "https://www.mempad.co.uk/sites/default/files/~integration/members.csv"
+    session = create_retrying_session()
     try:
         applogger.applog.info("Fetching member data")
-        response = requests.get(url)
-        if response.status_code == 200:
-            # Got the response OK. Get the data and cache it
-            applogger.applog.info(f"HTTP Success: Status Code: {response.status_code}")
-            # Set the encoding explicitly (usually 'utf-8') to avoid chardet getting it wrong
-            response.encoding = 'utf-8'
-            data = io.StringIO(response.text)
-            if writeCacheFile:
-                if not os.path.exists(cachedir):
-                    os.makedirs(cachedir)
-                with open(cachefile, 'w') as file:
-                    file.write(data.read())
-        else:
-            raise Exception('Bad HTTP status')
+        response = session.get(url, timeout=(3.05, 10))
+        response.raise_for_status()
+
+        # Got the response OK. Get the data and cache it
+        applogger.applog.info(f"HTTP Success: Status Code: {response.status_code}")
+        # Set the encoding explicitly (usually 'utf-8') to avoid chardet getting it wrong
+        response.encoding = 'utf-8'
+        data = io.StringIO(response.text)
+        if writeCacheFile:
+            if not os.path.exists(cachedir):
+                os.makedirs(cachedir)
+            with open(cachefile, 'w') as file:
+                file.write(data.read())
+
     except requests.exceptions.HTTPError as errh:
         # Captures 4xx/5xx HTTP errors, including response status and body
         applogger.applog.error(f"HTTP Error: {errh} | Status Code: {response.status_code} | Response Text: {response.text[:200]}")
         exceptionOccurred = True
 
+    except requests.exceptions.RetryError:
+        # Ran out of retries
+        applogger.applog.error("Retry limit reached")
+        exceptionOccurred = True
+
     except requests.exceptions.ConnectionError as errc:
         # Captures DNS failures, refused connections, or network drops
         applogger.applog.error(f"Error Connecting to server: {errc}")
-        exceptionOccurred = True
-
-    except requests.exceptions.Timeout as errt:
-        # Captures request timeouts
-        applogger.applog.error(f"Timeout Error: {errt}")
         exceptionOccurred = True
 
     except requests.exceptions.RequestException as err:
