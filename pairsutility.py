@@ -26,6 +26,7 @@ from pathlib import Path
 import ctypes
 from filehandling import readPlayersDB
 from appcolours import *
+import applogger
 
 # 1. Enable Per-Monitor V2 DPI awareness in Windows before creating Tk
 if sys.platform == "win32":
@@ -38,6 +39,10 @@ if sys.platform == "win32":
             ctypes.windll.shcore.SetProcessDpiAwareness(2) # PROCESS_PER_MONITOR_DPI_AWARE
         except AttributeError:
             ctypes.windll.user32.SetProcessDPIAware()
+
+# Initialze the global logger
+applogger.applogger()
+applogger.applog.info("Application starting")
 
 class ScalableApp(tb.Window):
     """ Runs the UI for interactive mode. Derived from tkinter.
