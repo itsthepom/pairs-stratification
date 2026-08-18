@@ -27,6 +27,7 @@ import ctypes
 from filehandling import readPlayersDB
 from appcolours import *
 import applogger
+import about
 
 # 1. Enable Per-Monitor V2 DPI awareness in Windows before creating Tk
 if sys.platform == "win32":
@@ -117,6 +118,7 @@ class ScalableApp(tb.Window):
         webpage.webpage(contentFrame, tournamentData, uiparts)
         pdfresults.pdfresults(contentFrame, tournamentData, uiparts)
         masterpoints.masterpoints(contentFrame, tournamentData, uiparts)
+        about.about(uiparts)
 
         # Start up the menu
         uiparts.mainMenu.construct()
@@ -211,6 +213,10 @@ class ScalableApp(tb.Window):
     def showHelp(self, event):
         self.helpserver.serveHelp()
 
+    # Show about box
+    def showAbout(self, event):
+        self.uiparts.about.show()
+
 class menu:
     """ Runs the menu UI.
 
@@ -219,7 +225,7 @@ class menu:
     """
     def __init__(self, frame: Frame):
         self.frame = frame
-        self.homeMenuColor = self.selectMenuColor = self.optionsMenuColor = self.helpMenuColor = app_menucolor
+        self.homeMenuColor = self.selectMenuColor = self.optionsMenuColor = self.helpMenuColor = self.aboutMenuColor = app_menucolor
         self.stratifyMenuColor = self.printMenuColor = self.writeFileMenuColor = self.webpageMenuColor = self.changeRanksMenuColor = app_menuDisabledcolor
         self.linkHiliteColor = self.writeFileHiliteColor =  app_menuDisabledcolor
         self.mpfileEnabled = False
@@ -246,7 +252,10 @@ class menu:
         self.optionsLabel = Label(self.frame, text="Options", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.optionsMenuColor, bg=app_menubgnd)
         self.optionsLabel.grid(row=8, column=0, sticky=W, padx=(15, 22), pady=5)
         self.helpLabel = Label(self.frame, text="Help", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.helpMenuColor, bg=app_menubgnd)
-        self.helpLabel.grid(row=9, column=0, sticky=W, padx=(15, 22), pady=25)
+        self.helpLabel.grid(row=9, column=0, sticky=W, padx=(15, 22), pady=(350, 5))
+        self.aboutLabel = Label(self.frame, text="About", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.helpMenuColor, bg=app_menubgnd)
+        self.aboutLabel.grid(row=10, column=0, sticky=W, padx=(15, 22), pady=5)
+
         self.homeLabel.bind("<Button-1>", lambda e: root.showPage('home'))
         self.homeLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.homeLabel, app_menuhilite)})
         self.homeLabel.bind("<Leave>", lambda e: {root.highlightLink(e, self.homeLabel, self.homeMenuColor)})
@@ -274,6 +283,9 @@ class menu:
         self.helpLabel.bind("<Button-1>", root.showHelp)
         self.helpLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.helpLabel, app_menuhilite)})
         self.helpLabel.bind("<Leave>", lambda e: {root.highlightLink(e, self.helpLabel, self.helpMenuColor)})
+        self.aboutLabel.bind("<Button-1>", root.showAbout)
+        self.aboutLabel.bind("<Enter>", lambda e: {root.highlightLink(e, self.aboutLabel, app_menuhilite)})
+        self.aboutLabel.bind("<Leave>", lambda e: {root.highlightLink(e, self.aboutLabel, self.aboutMenuColor)})
 
     def enableMPFile(self, enable: bool):
         self.mpfileEnabled = enable

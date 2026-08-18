@@ -21,5 +21,6 @@ class UIParts:
         self.masterpointsResultsDisplay = None
         self.webpageDisplay = None
         self.options = None
+        self.about = None
         pass
 
