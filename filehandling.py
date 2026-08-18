@@ -166,7 +166,8 @@ def readPlayersDB(writeCacheFile: bool, optionsInstance) -> dict:
     session = create_retrying_session()
     try:
         applogger.applog.info("Fetching member data")
-        response = session.get(url, timeout=(3.05, 10))
+        headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+        response = session.get(url, headers=headers, timeout=(3.05, 10))
         response.raise_for_status()
 
         # Got the response OK. Get the data and cache it

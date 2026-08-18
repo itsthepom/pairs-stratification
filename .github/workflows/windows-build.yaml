@@ -54,8 +54,8 @@ jobs:
       if: github.event_name == 'release'
       run: echo "Run your signing command or action here"
 
-    - name: Upload Installer Artifact (Push only)
-      if: github.event_name == 'push'
+    - name: Upload Installer Artifact (Non-release only)
+      if: github.event_name != 'release'
       uses: actions/upload-artifact@v4
       with:
         name: Windows-Installer
