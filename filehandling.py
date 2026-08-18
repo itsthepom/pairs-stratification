@@ -10,7 +10,7 @@ import requests
 import csv
 import io
 import os
-import logging
+import applogger
 
 def openResultsFile(startingDir: str, forWriting: bool):
     """ Displays a file chooser dialog for input and output USEBIO results files.
@@ -134,32 +134,22 @@ def readPlayersDB(writeCacheFile: bool, optionsInstance) -> dict:
         Returns:
             Players CSV DB as an io.StringIO
     """
-    # Define a specific path for the log file
-    log_dir = os.path.expanduser("~/logs")
-    os.makedirs(log_dir, exist_ok=True)
-    log_file = os.path.join(log_dir, "app.log")
-
-    logging.basicConfig(
-        filename=log_file,
-        level=logging.INFO,
-        format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
-    )
-
-    logger = logging.getLogger(__name__)
-
     # Get the name of the cache file for the players DB from mempad
     if writeCacheFile:
         cachedir = optionsInstance.getDirectory('outputsdir') + 'cache/'
         cachefile = cachedir + 'MPData.csv'
 
     # Read the players DB so we can look up player ranks
+    exceptionOccurred = False
     url = "https://www.mempad.co.uk/sites/default/files/~integration/members.csv"
     try:
+        applogger.applog.info("Fetching member data")
         response = requests.get(url)
         if response.status_code == 200:
             # Got the response OK. Get the data and cache it
-            logger.info(f"HTTP Success: Status Code: {response.status_code}")
+            applogger.applog.info(f"HTTP Success: Status Code: {response.status_code}")
+            # Set the encoding explicitly (usually 'utf-8') to avoid chardet getting it wrong
+            response.encoding = 'utf-8'
             data = io.StringIO(response.text)
             if writeCacheFile:
                 if not os.path.exists(cachedir):
@@ -170,32 +160,36 @@ def readPlayersDB(writeCacheFile: bool, optionsInstance) -> dict:
             raise Exception('Bad HTTP status')
     except requests.exceptions.HTTPError as errh:
         # Captures 4xx/5xx HTTP errors, including response status and body
-        messagebox.showerror("Error", f"HTTP Error: {errh} | Status Code: {response.status_code} | Response Text: {response.text[:200]}")
-        logger.error(f"HTTP Error: {errh} | Status Code: {response.status_code} | Response Text: {response.text[:200]}")
+        applogger.applog.error(f"HTTP Error: {errh} | Status Code: {response.status_code} | Response Text: {response.text[:200]}")
+        exceptionOccurred = True
 
     except requests.exceptions.ConnectionError as errc:
         # Captures DNS failures, refused connections, or network drops
-        messagebox.showerror("Error", f"Error Connecting to server: {errc}")
-        logger.error(f"Error Connecting to server: {errc}")
+        applogger.applog.error(f"Error Connecting to server: {errc}")
+        exceptionOccurred = True
 
     except requests.exceptions.Timeout as errt:
         # Captures request timeouts
-        messagebox.showerror("Error", f"Timeout Error: {errt}")
-        logger.error(f"Timeout Error: {errt}")
+        applogger.applog.error(f"Timeout Error: {errt}")
+        exceptionOccurred = True
 
     except requests.exceptions.RequestException as err:
         # Catch-all for any other requests-related issue
-        messagebox.showerror("Error", f"Requests Exception: {err}")
-        logger.error(f"Requests Exception: {err}")
+        applogger.applog.error(f"Requests Exception: {err}")
+        exceptionOccurred = True
 
     except OSError as io_err:
         # Captures permission errors, missing directory path errors, or disk full errors
-        messagebox.showerror("Error", f"File I/O Error writing cache file to '{cachefile}': {io_err}")
-        logger.error(f"File I/O Error writing cache file to '{cachefile}': {io_err}")
+        applogger.applog.error(f"File I/O Error writing cache file to '{cachefile}': {io_err}")
+        exceptionOccurred = True
 
     except Exception as e:
         # Log unexpected Python exceptions along with the full stack trace
-        logger.exception(f"An unexpected error occurred: {e}")        # Can't get rankings CSV. Use the last cached one instead
+        applogger.applog.exception(f"Exception fetching member data: {e}")
+        exceptionOccurred = True
+
+    if exceptionOccurred:
+        # Can't get rankings CSV. Use the last cached one instead
         if not writeCacheFile or not os.path.exists(cachefile):
             messagebox.showerror("Error", "Unable to read member data from Internet and no cached copy.\n\nStratification will not be available.")
             return 1
@@ -211,7 +205,9 @@ def readPlayersDB(writeCacheFile: bool, optionsInstance) -> dict:
         reader = csv.DictReader(data)
         for row in reader:
             memberDict[row['Master Point Number']] = row['Postcode and Rank'].split(" - ",1)[-1]
-    except:
-        pass    
+    except Exception as e:
+        applogger.applog.exception(f"Exception reading member data from file: {e}")
+        pass
+    
     return memberDict
 
