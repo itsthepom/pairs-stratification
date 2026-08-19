@@ -10,9 +10,9 @@ VSVersionInfo(
         [
           StringStruct('CompanyName', 'Steve Pomeroy'),
           StringStruct('FileDescription', 'Pairs stratification'),
-          StringStruct('FileVersion', '1.07'),
+          StringStruct('FileVersion', '1.07.01'),
           StringStruct('ProductName', 'PairsStrat'),
-          StringStruct('ProductVersion', '1.07')
+          StringStruct('ProductVersion', '1.07.01')
         ]
       )
     ])
