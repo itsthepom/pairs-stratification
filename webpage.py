@@ -203,8 +203,8 @@ class webpage(baseUIClass):
         else:
             # Try and parse the date from the deal file
             try:
-                dealDate = parser.parse(self.dealInfo.date).date()
-                eventDate = parser.parse(self.tournamentData.tournamentDate).date()
+                dealDate = parser.parse(self.dealInfo.date, dayfirst=True).date()
+                eventDate = parser.parse(self.tournamentData.tournamentDate, dayfirst=True).date()
                 if dealDate != eventDate:
                     response = messagebox.askyesno(title="Deal date does not match", message="Different deal date selected.\nAre you sure you wish to create the webpage?")
                     OKToCreate = response
