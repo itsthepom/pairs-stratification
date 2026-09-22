@@ -20,4 +20,6 @@ so that the output USEBIO files from Scorebridge are the inputs to the scoring p
 
 Doing this means that all files uploaded to MEMPAD are in the same directory, regardless of whether they are stratified or not, and files not uploaded to MEMPAD are in a separate directory underneath the MasterPointFiles directory.
 
-The image in the [options](userif.md#options) configuration section of this help illustrates this for the "Phantom Bridge Club". 
+The image in the [options](userif.md#options) configuration section of this help illustrates this for the "Phantom Bridge Club".
+
+Finally Scorebridge has another quirk - when it writes a USEBIO file to SBU MP Files, it deletes every other file in that directory. If you run multiple events in one evening, you therefore need to generate the USEBIO file using Scorebridge and then run the Pairs Stratification program before generating the USEBIO file for another tournament.
