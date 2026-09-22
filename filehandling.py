@@ -181,8 +181,6 @@ def readPlayersDB(writeCacheFile: bool) -> dict:
         # Running as a normal Python script (.py)
         exe_path = Path(__file__).resolve().parent
 
-    print(f"Executable directory: {exe_path}")
-
     if writeCacheFile:
         cachedir = f"{exe_path}/cache/"
         cachefile = cachedir + 'MPData.csv'

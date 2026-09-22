@@ -477,11 +477,11 @@ if sys.stderr is None:
 # Initialize argument parser
 parser = argparse.ArgumentParser(description='Pairs Stratification Program')
 parser.add_argument('--dir', type=str, required=False,
-                    help='Directory containing input USEBIO files for batch processing')
+                    help='Directory containing input USEBIO file(s)')
 parser.add_argument('--out', type=str, required=False,
-                    help='Directory to write output USEBIO files to when batch processing')
+                    help='Directory to write output USEBIO file(s)')
 parser.add_argument('--pdf', type=str, required = False,
-                    help='Directory to write PDF print file to when batch processing')
+                    help='Directory to write PDF print file(s)')
 parser.add_argument('--strat1', type=str, required=False,
                     help='Masterpoints rank name for stratum 1')
 parser.add_argument('--strat2', type=str, required=False,
@@ -536,7 +536,7 @@ if has_console():
         for file in usebioIn.iterdir():
             if file.is_file():
                 print(f'Processing {file}')
-                tournamentData = tournament.tournament(tournament.tournamentContent(None, memberDict), uiparts)
+                tournamentData = tournament.tournament(tournament.tournamentContent(None, memberDict, uiparts), uiparts)
                 masterpoints.masterpoints(None, tournamentData, uiparts)
                 stratInstance = stratify.stratify(None, tournamentData, uiparts)
                 tournamentData.readerClass = USEBIO.USEBIO(tournamentData, None)
