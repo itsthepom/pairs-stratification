@@ -51,6 +51,11 @@ class ScalableApp(tb.Window):
     def __init__(self, uiparts: UIParts):
         super().__init__(themename="litera")
 
+        # Match Tk's font and widget scaling to the monitor before constructing
+        # any controls.  Geometry and padding below use the same DPI value.
+        self.current_dpi = self.get_system_dpi()
+        self.tk.call('tk', 'scaling', self.current_dpi / 72.0)
+
         # Configure darker background and text for disabled TButton states
         self.style.configure("primary.TButton")
         self.style.map(
@@ -67,9 +72,6 @@ class ScalableApp(tb.Window):
         root = self
         self.uiparts = uiparts
         self.uiparts.root = self
-
-        # Track the last reported scaling to avoid infinite redraw loops
-        self.current_dpi = self.get_system_dpi()
 
         # Setup scaling factors to keep UI parts consistent
         uiparts.scale_factor = self.current_dpi / 96.0
@@ -88,9 +90,20 @@ class ScalableApp(tb.Window):
         self.title(AppName + " " + AppVersion)
         scaled_w = int(1030 * uiparts.scale_factor)
         scaled_h = int(750 * uiparts.scale_factor)
-        
-        self.geometry(f"{scaled_w}x{scaled_h}")
-        self.resizable(False, False)
+
+        # Do not allow the initial DPI-scaled size to extend beyond the usable
+        # desktop.  The window remains freely resizable so it also works on
+        # high-DPI displays whose effective desktop is smaller than the design
+        # size, and can take advantage of additional space on larger displays.
+        available_w, available_h = self.get_available_screen_size()
+        initial_w = min(scaled_w, available_w)
+        initial_h = min(scaled_h, available_h)
+        self.geometry(f"{initial_w}x{initial_h}")
+        self.minsize(
+            min(int(760 * uiparts.scale_factor), available_w),
+            min(int(540 * uiparts.scale_factor), available_h)
+        )
+        self.resizable(True, True)
         
         # Split the window up into two horizontally arranged panes
         panedWindow = PanedWindow(self, orient=HORIZONTAL, bg=app_menubgnd)
@@ -99,6 +112,7 @@ class ScalableApp(tb.Window):
         # Create a frame for the left-hand menu pane
         menuFrame = tb.Frame(panedWindow, style="menu.TFrame")
         panedWindow.add(menuFrame)
+        menuFrame.grid_rowconfigure(9, weight=1)
 
         rightContainer = tb.Frame(panedWindow)
         panedWindow.add(rightContainer)
@@ -162,6 +176,28 @@ class ScalableApp(tb.Window):
             return float(ctypes.windll.user32.GetDpiForWindow(self.winfo_id()))
         except AttributeError:
             return float(ctypes.windll.user32.GetDpiForSystem())
+
+    def get_available_screen_size(self):
+        """Return the usable desktop size, excluding the Windows taskbar."""
+        if sys.platform == "win32":
+            class RECT(ctypes.Structure):
+                _fields_ = [
+                    ("left", ctypes.c_long),
+                    ("top", ctypes.c_long),
+                    ("right", ctypes.c_long),
+                    ("bottom", ctypes.c_long),
+                ]
+
+            work_area = RECT()
+            if ctypes.windll.user32.SystemParametersInfoW(
+                0x0030, 0, ctypes.byref(work_area), 0
+            ):
+                return (
+                    work_area.right - work_area.left,
+                    work_area.bottom - work_area.top,
+                )
+
+        return self.winfo_screenwidth(), self.winfo_screenheight()
 
 
     def on_window_change(self, event):
@@ -282,7 +318,7 @@ class menu:
         self.optionsLabel = Label(self.frame, text="Options", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.optionsMenuColor, bg=app_menubgnd)
         self.optionsLabel.grid(row=8, column=0, sticky=W, padx=(self.uiparts.scaling["15"], self.uiparts.scaling["20"]), pady=self.uiparts.scaling["5"])
         self.helpLabel = Label(self.frame, text="Help", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.helpMenuColor, bg=app_menubgnd)
-        self.helpLabel.grid(row=9, column=0, sticky=W, padx=(self.uiparts.scaling["15"], self.uiparts.scaling["20"]), pady=(self.uiparts.scale_factor * 350, self.uiparts.scaling["5"]))
+        self.helpLabel.grid(row=9, column=0, sticky=SW, padx=(self.uiparts.scaling["15"], self.uiparts.scaling["20"]), pady=self.uiparts.scaling["5"])
         self.aboutLabel = Label(self.frame, text="About", font=("Segoe UI", 10, "underline", "bold"), justify='left', fg=self.helpMenuColor, bg=app_menubgnd)
         self.aboutLabel.grid(row=10, column=0, sticky=W, padx=(self.uiparts.scaling["15"], self.uiparts.scaling["20"]), pady=self.uiparts.scaling["5"])
 
