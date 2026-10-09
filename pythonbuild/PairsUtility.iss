@@ -2,7 +2,7 @@
 ; PairsStrat.iss
 [Setup]
 AppName=Pairs Stratification
-AppVersion=1.07.03
+AppVersion=1.07.04
 AppPublisher="Steve Pomeroy"
 DefaultDirName={localappdata}\PairsStrat
 DefaultGroupName=PairsStratification
@@ -20,9 +20,9 @@ UninstallDisplayIcon={app}\PairsStrat.exe
 VersionInfoCompany=Steve Pomeroy
 VersionInfoDescription=Paits Stratification Installer
 VersionInfoCopyright=Copyright © 2026 Steve Pomeroy
-VersionInfoVersion=1.07.03
+VersionInfoVersion=1.07.04
 VersionInfoProductName=Pairs Stratification
-VersionInfoProductVersion=1.07.03
+VersionInfoProductVersion=1.07.04
 
 [Files]
 Source:"dist\PairsStrat.exe"; DestDir:"{app}"; Flags: ignoreversion
